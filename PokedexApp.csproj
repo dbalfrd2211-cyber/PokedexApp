@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ataques.cs" />
+    <Compile Include="Cartas.cs" />
     <Compile Include="ColeccionUsuario.cs" />
     <Compile Include="Efectos.cs" />
     <Compile Include="EstadisticasPokemon.cs" />
