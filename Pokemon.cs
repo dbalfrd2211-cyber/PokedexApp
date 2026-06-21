@@ -1,36 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PokedexApp
 {
     internal class Pokemon
 
-    {  
-        //Nombre, Hp, Tipo, Puntos de ataque, Puntos de defensa, Numero de carta, Descripción. 
+    {
+        public int IdPokemon { get; }
+        public string  Nombre { get; }
+        public string Tipo1 { get; }
+        public string Tipo2 { get; }
+        public int IdRegion { get; }
 
-        
-        public string Nombre { get; }
-        public int Hp { get; }
-        public string Tipo { get; }
-        public int PuntosDeAtaque { get; }
-        public int PuntosDeDefensa { get; }
-        public int NumeroDeCarta { get; }
-        public string Descripción { get; }
-        public Pokemon(string nombre, int hp, string tipo, int puntosDeAtaque, int puntosDeDefensa, int numeroDeCarta, string descripción)
+        public Pokemon(int idPokemon, string nombre, string tipo1, string tipo2, int idRegion)
         {
-            
-            Nombre = nombre;
-            Hp = hp;
-            Tipo = tipo;
-            PuntosDeAtaque = puntosDeAtaque;
-            PuntosDeDefensa = puntosDeDefensa;
-            NumeroDeCarta = numeroDeCarta;
-            Descripción = descripción;
+            IdPokemon = idPokemon;
+            this.Nombre = nombre;
+            Tipo1 = tipo1;
+            this.Tipo2 = tipo2;
+            IdRegion = idRegion;
         }
-
 
 
     }
