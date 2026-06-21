@@ -11,7 +11,7 @@ namespace PokedexApp
     {  
         //Nombre, Hp, Tipo, Puntos de ataque, Puntos de defensa, Numero de carta, Descripción. 
 
-        public int Id { get; }
+        
         public string Nombre { get; }
         public int Hp { get; }
         public string Tipo { get; }
@@ -19,9 +19,9 @@ namespace PokedexApp
         public int PuntosDeDefensa { get; }
         public int NumeroDeCarta { get; }
         public string Descripción { get; }
-        public Pokemon(int id, string nombre, int hp, string tipo, int puntosDeAtaque, int puntosDeDefensa, int numeroDeCarta, string descripción)
+        public Pokemon(string nombre, int hp, string tipo, int puntosDeAtaque, int puntosDeDefensa, int numeroDeCarta, string descripción)
         {
-            Id = id;
+            
             Nombre = nombre;
             Hp = hp;
             Tipo = tipo;
