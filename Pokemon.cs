@@ -11,18 +11,22 @@ namespace PokedexApp
     internal class Pokemon
 
     {
-        public int IdPokemon { get; }
-        public string  Nombre { get; }
-        public string Tipo1 { get; }
-        public string Tipo2 { get; }
-        public int IdRegion { get; }
+       
+        public int IdPokemon { get; set; }
+        public int Pokedex { get; set; }
+        public string  Nombre { get; set; }
+        public string Tipo1 { get; set; }
+        public string Tipo2 { get; set; }
+        public int IdRegion { get; set; }
 
-        public Pokemon(int idPokemon, string nombre, string tipo1, string tipo2, int idRegion)
+
+        public Pokemon(int idPokemon, int pokedex, string nombre, string tipo1, string tipo2, int idRegion)
         {
             IdPokemon = idPokemon;
-            this.Nombre = nombre;
+            Pokedex = pokedex;
+            Nombre = nombre;
             Tipo1 = tipo1;
-            this.Tipo2 = tipo2;
+            Tipo2 = tipo2;
             IdRegion = idRegion;
         }
 
