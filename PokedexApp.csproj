@@ -68,6 +68,7 @@
     <Compile Include="Partida.cs" />
     <Compile Include="Pokemon.cs" />
     <Compile Include="PokemonAtaque.cs" />
+    <Compile Include="PokedexManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regiones.cs" />
