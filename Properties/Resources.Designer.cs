@@ -63,6 +63,26 @@ namespace PokedexApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Coleccion {
+            get {
+                object obj = ResourceManager.GetObject("Coleccion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Multijugador {
+            get {
+                object obj = ResourceManager.GetObject("Multijugador", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ProyectoPokedex {
             get {
                 object obj = ResourceManager.GetObject("ProyectoPokedex", resourceCulture);
@@ -76,6 +96,16 @@ namespace PokedexApp.Properties {
         internal static System.Drawing.Bitmap TituloProyectoPokedex {
             get {
                 object obj = ResourceManager.GetObject("TituloProyectoPokedex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Usuario {
+            get {
+                object obj = ResourceManager.GetObject("Usuario", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
