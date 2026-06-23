@@ -64,6 +64,12 @@
     <Compile Include="FrmMenu.Designer.cs">
       <DependentUpon>FrmMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSesion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSesion.Designer.cs">
+      <DependentUpon>FrmSesion.cs</DependentUpon>
+    </Compile>
     <Compile Include="InfoUsuario.cs" />
     <Compile Include="Partida.cs" />
     <Compile Include="Pokemon.cs" />
@@ -79,6 +85,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMenu.resx">
       <DependentUpon>FrmMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSesion.resx">
+      <DependentUpon>FrmSesion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -123,6 +132,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Boton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Boton2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Boton3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Boton4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
