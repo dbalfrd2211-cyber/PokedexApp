@@ -118,5 +118,11 @@
   <ItemGroup>
     <None Include="Resources\Multijugador.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FondoParaPokedex.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Boton.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

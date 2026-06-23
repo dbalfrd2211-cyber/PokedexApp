@@ -63,9 +63,29 @@ namespace PokedexApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Boton {
+            get {
+                object obj = ResourceManager.GetObject("Boton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Coleccion {
             get {
                 object obj = ResourceManager.GetObject("Coleccion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FondoParaPokedex {
+            get {
+                object obj = ResourceManager.GetObject("FondoParaPokedex", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

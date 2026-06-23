@@ -33,8 +33,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnReg = new System.Windows.Forms.Button();
+            this.btnInSes = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -43,6 +43,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
@@ -88,8 +89,8 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.button2, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnReg, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnInSes, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(83, 281);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -99,45 +100,61 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(634, 166);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
-            // button1
+            // btnReg
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.button1.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(311, 90);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "INICIAR SESION";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnReg.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnReg.AutoSize = true;
+            this.btnReg.BackColor = System.Drawing.Color.Transparent;
+            this.btnReg.BackgroundImage = global::PokedexApp.Properties.Resources.Boton;
+            this.btnReg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnReg.FlatAppearance.BorderSize = 0;
+            this.btnReg.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnReg.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnReg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReg.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReg.Location = new System.Drawing.Point(320, 38);
+            this.btnReg.Name = "btnReg";
+            this.btnReg.Size = new System.Drawing.Size(311, 90);
+            this.btnReg.TabIndex = 1;
+            this.btnReg.Text = "REGISTRARSE";
+            this.btnReg.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnInSes
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.button2.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(320, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(311, 90);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "REGISTRARSE";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnInSes.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnInSes.AutoSize = true;
+            this.btnInSes.BackColor = System.Drawing.Color.Transparent;
+            this.btnInSes.BackgroundImage = global::PokedexApp.Properties.Resources.Boton;
+            this.btnInSes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnInSes.FlatAppearance.BorderSize = 0;
+            this.btnInSes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnInSes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnInSes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInSes.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInSes.Location = new System.Drawing.Point(3, 38);
+            this.btnInSes.Name = "btnInSes";
+            this.btnInSes.Size = new System.Drawing.Size(311, 90);
+            this.btnInSes.TabIndex = 0;
+            this.btnInSes.Text = "INICIAR SESION";
+            this.btnInSes.UseVisualStyleBackColor = false;
             // 
             // FrmInicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::PokedexApp.Properties.Resources.FondoParaPokedex;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmInicio";
             this.Text = "Pokédex";
+            this.Load += new System.EventHandler(this.FrmInicio_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -148,8 +165,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnReg;
+        private System.Windows.Forms.Button btnInSes;
     }
 }
 
