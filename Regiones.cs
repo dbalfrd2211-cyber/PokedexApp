@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokedexApp
 {
-    internal class Regiones
+    public class Regiones
     {
        
         public int IdRegion { get; }

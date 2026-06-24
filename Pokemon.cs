@@ -8,7 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace PokedexApp
 {
-    internal class Pokemon
+    public class Pokemon
 
     {
        

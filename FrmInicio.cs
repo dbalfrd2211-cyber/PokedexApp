@@ -22,5 +22,17 @@ namespace PokedexApp
         {
 
         }
+
+        private void btnIniciarSesion_Click(object sender, EventArgs e)
+        {
+            FormLogin login=new FormLogin();
+            login.ShowDialog();    
+        }
+
+        private void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            FormRegistro registro = new FormRegistro();
+            registro.ShowDialog();
+        }
     }
 }

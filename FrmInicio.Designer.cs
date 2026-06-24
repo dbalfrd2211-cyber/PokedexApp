@@ -33,8 +33,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnReg = new System.Windows.Forms.Button();
-            this.btnInSes = new System.Windows.Forms.Button();
+            this.btnRegistrarse = new System.Windows.Forms.Button();
+            this.btnIniciarSesion = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -89,8 +89,8 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.btnReg, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnInSes, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnRegistrarse, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnIniciarSesion, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(83, 281);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -100,42 +100,33 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(634, 166);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
-            // btnReg
+            // btnRegistrarse
             // 
-            this.btnReg.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnReg.BackColor = System.Drawing.Color.Transparent;
-            this.btnReg.BackgroundImage = global::PokedexApp.Properties.Resources.Boton;
-            this.btnReg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnReg.FlatAppearance.BorderSize = 0;
-            this.btnReg.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnReg.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnReg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReg.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReg.Location = new System.Drawing.Point(320, 3);
-            this.btnReg.Name = "btnReg";
-            this.btnReg.Size = new System.Drawing.Size(311, 90);
-            this.btnReg.TabIndex = 1;
-            this.btnReg.Text = "REGISTRARSE";
-            this.btnReg.UseVisualStyleBackColor = false;
+            this.btnRegistrarse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRegistrarse.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnRegistrarse.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegistrarse.Location = new System.Drawing.Point(320, 3);
+            this.btnRegistrarse.Name = "btnRegistrarse";
+            this.btnRegistrarse.Size = new System.Drawing.Size(311, 90);
+            this.btnRegistrarse.TabIndex = 1;
+            this.btnRegistrarse.Text = "REGISTRARSE";
+            this.btnRegistrarse.UseVisualStyleBackColor = false;
+            this.btnRegistrarse.Click += new System.EventHandler(this.btnRegistrarse_Click);
             // 
-            // btnInSes
+            // btnIniciarSesion
             // 
-            this.btnInSes.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnInSes.BackColor = System.Drawing.Color.Transparent;
-            this.btnInSes.BackgroundImage = global::PokedexApp.Properties.Resources.Boton;
-            this.btnInSes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnInSes.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnInSes.FlatAppearance.BorderSize = 0;
-            this.btnInSes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnInSes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnInSes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInSes.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInSes.Location = new System.Drawing.Point(3, 3);
-            this.btnInSes.Name = "btnInSes";
-            this.btnInSes.Size = new System.Drawing.Size(311, 90);
-            this.btnInSes.TabIndex = 0;
-            this.btnInSes.Text = "INICIAR SESION";
-            this.btnInSes.UseVisualStyleBackColor = false;
+            this.btnIniciarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnIniciarSesion.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btnIniciarSesion.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIniciarSesion.Location = new System.Drawing.Point(3, 3);
+            this.btnIniciarSesion.Name = "btnIniciarSesion";
+            this.btnIniciarSesion.Size = new System.Drawing.Size(311, 90);
+            this.btnIniciarSesion.TabIndex = 0;
+            this.btnIniciarSesion.Text = "INICIAR SESION";
+            this.btnIniciarSesion.UseVisualStyleBackColor = false;
+            this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
             // 
             // FrmInicio
             // 
@@ -163,8 +154,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button btnReg;
-        private System.Windows.Forms.Button btnInSes;
+        private System.Windows.Forms.Button btnRegistrarse;
+        private System.Windows.Forms.Button btnIniciarSesion;
     }
 }
 

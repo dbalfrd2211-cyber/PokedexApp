@@ -4,14 +4,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Console; 
+using static System.Console;
+using System.Data.SQLite;
+
 
 namespace PokedexApp
 {
-    internal class PokedexManager
+    public class PokedexManager
     {
         private List<Pokemon> pokemones;
-        private string connectionString = "Data Source=pokedex.db;Version=3"; //aqui va mi base de datos, pero aun no se como subirla
+        private string connectionString = "Data Source=PokemonTCG.db;Version=3"; //aqui va mi base de datos, pero aun no se como subirla
 
         public PokedexManager()
         {
@@ -19,38 +21,24 @@ namespace PokedexApp
            // CargarPokemonesDesdeDB();
 
         }
-        //añadir base de datos, pero aun  no se como
-        /*
-        private void CargarPokemonesDesdeDB()
+
+        public bool ValidarCredenciales(string usuario, string contraseña)
         {
+
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT*FROM Pokemon";
-                using (var cmd = new SQLiteComand(query, conn))
-                using (var reader = cmd.ExecuteReader())
+                string query = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @usuario AND Contraseña = @contraseña";
+                using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    while (reader.Read())
-                    {
-                        pokemones.Add(new Pokemon(
-                            Convert.ToInt32(reader["IdPokemon"]),
-                            Convert.ToInt32(reader["Pokedex"]),
-                            reader["Nombre"].ToString(),
-                            reader["Tipo1"].ToString(),
-                            reader["Tipo2"].ToString(),
-                            Convert.ToInt32(reader["IdRegion"]),
-                             Convert.ToInt32(reader["IdRegion"])
-                          ));
-
-
-
-
-                    }
+                    cmd.Parameters.AddWithValue("@usuario", usuario);
+                    cmd.Parameters.AddWithValue("@contraseña", contraseña);
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    return count > 0; //retorna true si se encontró un usuario con las credenciales proporcionadas, de lo contrario false
                 }
-
             }
         }
-        */
+
         public Pokemon BuscarPokemon(string texto)
             => pokemones.FirstOrDefault(p =>
             p.Nombre.IndexOf(texto, StringComparison.OrdinalIgnoreCase) >= 0);
