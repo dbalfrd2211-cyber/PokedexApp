@@ -19,7 +19,7 @@ namespace PokedexApp
         {
             InitializeComponent();
            
-            txtContraseña.PasswordChar = '*'; // Oculta la contraseña con asteriscos
+            txtContraseña.PasswordChar = '*'; // Oculta la contraseña c
         }
 
 
@@ -33,8 +33,7 @@ namespace PokedexApp
                 FrmMenu menu = new FrmMenu();
                   //aqui ocultamos el loging y la de inicio para que no se superponga al menu
                 menu.ShowDialog();
-                this.Close();
-                
+                this.Close();            
 
             }
             else
@@ -43,7 +42,6 @@ namespace PokedexApp
             }
 
         }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
