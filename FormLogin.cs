@@ -29,8 +29,9 @@ namespace PokedexApp
             if (manager.ValidarCredenciales(txtUsuario.Text, txtContraseña.Text))
             {
                 MessageBox.Show("Inicio de sesión exitoso, BIENVENIDO A LA POKEDEX");
+                this.Hide();
                 FrmMenu menu = new FrmMenu();
-                this.Hide();    //aqui ocultamos el loging y la de inicio para que no se superponga al menu
+                  //aqui ocultamos el loging y la de inicio para que no se superponga al menu
                 menu.ShowDialog();
                 this.Close();
                 

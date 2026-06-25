@@ -31,8 +31,8 @@ namespace PokedexApp
                 {
                     cmd.Parameters.AddWithValue("@usuario", usuario);
                     cmd.Parameters.AddWithValue("@contrasena", contraseña);
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0; //retorna si se encontró un usuario 
+                    return Convert.ToInt32(cmd.ExecuteScalar())>0;
+                     
                 }
             }
         }
@@ -59,6 +59,26 @@ namespace PokedexApp
 
 
             }
+        }
+
+        public bool RegistrarUsuario(string usuario, string contraseña)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "INSERT INTO Usuarios (NombreUsuario, Contrasena)VALUES(@usuario, @contrasena)";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@usuario", usuario);
+                    cmd.Parameters.AddWithValue("@contrasena",contraseña);
+                    return cmd.ExecuteNonQuery() > 0;
+
+                }
+            }
+
+
+
         }
     }
 

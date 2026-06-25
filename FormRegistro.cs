@@ -12,9 +12,67 @@ namespace PokedexApp
 {
     public partial class FormRegistro : Form
     {
+        private PokedexManager pokedexManager = new PokedexManager();
+
         public FormRegistro()
         {
             InitializeComponent();
+            btnRegistrar.Enabled = true;
+        }
+
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            if (txtContraseña.Text == txtConfirmar.Text)
+            {
+                              
+
+                if (pokedexManager.RegistrarUsuario(txtUsuario.Text, txtContraseña.Text))
+                {
+                    MessageBox.Show("Usuario registrado correctamnete");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error al registrar usuario. El nombre puede estar en uso");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Las contraseñas no coinciden");
+            }
+
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
+
+
+        private void txtUsuario_TextChanged(object sender, EventArgs e)
+        {
+            btnRegistrar.Enabled = !string.IsNullOrWhiteSpace(txtUsuario.Text) &&
+                                   !string.IsNullOrWhiteSpace(txtContraseña.Text) &&
+                                   !string.IsNullOrWhiteSpace(txtConfirmar.Text);
+
+
+
+
+        }
+
+        private void txtContraseña_TextChanged(object sender, EventArgs e)
+        {btnRegistrar.Enabled = !string.IsNullOrWhiteSpace(txtUsuario.Text) &&
+                                  !string.IsNullOrWhiteSpace(txtContraseña.Text)&&
+                                   !string.IsNullOrWhiteSpace(txtConfirmar.Text);
+        }
+
+        private void txtConfirmar_TextChanged(object sender, EventArgs e)
+        {
+            btnRegistrar.Enabled = !string.IsNullOrWhiteSpace(txtUsuario.Text) &&
+                                  !string.IsNullOrWhiteSpace(txtContraseña.Text) &&
+                                   !string.IsNullOrWhiteSpace(txtConfirmar.Text);
         }
     }
 }
