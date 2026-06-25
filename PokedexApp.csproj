@@ -55,6 +55,12 @@
     <Compile Include="Ataques.cs" />
     <Compile Include="BatallasDetalle.cs" />
     <Compile Include="Cartas.cs" />
+    <Compile Include="ColeccionCartas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColeccionCartas.Designer.cs">
+      <DependentUpon>ColeccionCartas.cs</DependentUpon>
+    </Compile>
     <Compile Include="ColeccionUsuario.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Efectos.cs" />
@@ -89,6 +95,10 @@
     <Compile Include="FrmMenu.Designer.cs">
       <DependentUpon>FrmMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSesion.cs" />
+    <Compile Include="FrmSesion.Designer.cs">
+      <DependentUpon>FrmSesion.cs</DependentUpon>
+    </Compile>
     <Compile Include="InfoUsuario.cs" />
     <Compile Include="Partida.cs" />
     <Compile Include="Pokemon.cs" />
@@ -99,6 +109,9 @@
     <Compile Include="Regiones.cs" />
     <Compile Include="TransaccionDeCartas.cs" />
     <Compile Include="Usuario.cs" />
+    <EmbeddedResource Include="ColeccionCartas.resx">
+      <DependentUpon>ColeccionCartas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormInformacionDeUsuario.resx">
       <DependentUpon>FormInformacionDeUsuario.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMenu.resx">
       <DependentUpon>FrmMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSesion.resx">
+      <DependentUpon>FrmSesion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
