@@ -13,28 +13,26 @@ namespace PokedexApp
     public class PokedexManager
     {
         private List<Pokemon> pokemones;
-        private string connectionString = "Data Source=PokemonTCG.db;Version=3"; //aqui va mi base de datos, pero aun no se como subirla
+        private Database db = new Database(); // Usas tu clase Database aquí
 
         public PokedexManager()
         {
             pokemones = new List<Pokemon>();
-           // CargarPokemonesDesdeDB();
-
         }
 
         public bool ValidarCredenciales(string usuario, string contraseña)
         {
 
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @usuario AND Contraseña = @contraseña";
+                string query = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @usuario AND Contrasena = @contrasena";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@usuario", usuario);
-                    cmd.Parameters.AddWithValue("@contraseña", contraseña);
+                    cmd.Parameters.AddWithValue("@contrasena", contraseña);
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0; //retorna true si se encontró un usuario con las credenciales proporcionadas, de lo contrario false
+                    return count > 0; //retorna si se encontró un usuario 
                 }
             }
         }

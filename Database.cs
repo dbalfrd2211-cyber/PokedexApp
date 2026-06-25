@@ -7,8 +7,8 @@ using System.Data.SQLite;
 
 namespace PokedexApp
 {
-    internal class Database
+    public class Database
     {
-        private string cadenaConexion = "Data Source=PokemonTCG.db;Version=3;";
+        public string cadenaConexion = "Data Source=PokemonTCG.db;Version=3;";
     }
 }
