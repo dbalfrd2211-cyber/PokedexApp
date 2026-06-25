@@ -59,6 +59,12 @@
     <Compile Include="Database.cs" />
     <Compile Include="Efectos.cs" />
     <Compile Include="EstadisticasPokemon.cs" />
+    <Compile Include="FormInformacionDeUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormInformacionDeUsuario.Designer.cs">
+      <DependentUpon>FormInformacionDeUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,9 @@
     <Compile Include="Regiones.cs" />
     <Compile Include="TransaccionDeCartas.cs" />
     <Compile Include="Usuario.cs" />
+    <EmbeddedResource Include="FormInformacionDeUsuario.resx">
+      <DependentUpon>FormInformacionDeUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
