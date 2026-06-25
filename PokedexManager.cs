@@ -64,6 +64,7 @@ namespace PokedexApp
 
         public bool RegistrarUsuario(string usuario, string contraseña, string confirmar)
         {
+
             if (contraseña != confirmar)
             {
                 MessageBox.Show("Las contrase;as no son iguales");
@@ -74,6 +75,7 @@ namespace PokedexApp
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
+
                 string query = "INSERT INTO Usuarios (NombreUsuario, Contrasena)VALUES(@usuario, @contrasena)";
 
                 using (var cmd = new SQLiteCommand(query, conn))
@@ -87,6 +89,28 @@ namespace PokedexApp
 
 
 
+        }
+
+        internal bool ExisteUsuario(string usuario)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+
+                string queryValidar = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @usuario";
+                using (var cmdValidar = new SQLiteCommand(queryValidar, conn))
+                {
+                    cmdValidar.Parameters.AddWithValue("@usuario", usuario);
+                    int conteo = Convert.ToInt32(cmdValidar.ExecuteScalar());
+
+                    if (conteo > 0)
+                    {
+                        return true; // Detiene el método de inmediato porque el usuario ya está ocupado
+                    }
+                }
+            }
+
+            return false;
         }
     }
 
