@@ -31,7 +31,7 @@ namespace PokedexApp
                     MessageBox.Show("Usuario registrado correctamnete");
 
                     this.Hide();
-                    using (FrmInicio inicio = new FormInicio())
+                    using (FrmInicio inicio = new FrmInicio())
                     {
                         inicio.ShowDialog();
                     }
