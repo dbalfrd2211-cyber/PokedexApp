@@ -95,6 +95,8 @@
             this.btnRegistrarse.BackColor = System.Drawing.Color.Transparent;
             this.btnRegistrarse.BackgroundImage = global::PokedexApp.Properties.Resources.Boton;
             this.btnRegistrarse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRegistrarse.FlatAppearance.BorderSize = 0;
+            this.btnRegistrarse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnRegistrarse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegistrarse.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegistrarse.Location = new System.Drawing.Point(320, 3);
@@ -112,6 +114,8 @@
             this.btnIniciarSesion.BackColor = System.Drawing.Color.Transparent;
             this.btnIniciarSesion.BackgroundImage = global::PokedexApp.Properties.Resources.Boton;
             this.btnIniciarSesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnIniciarSesion.FlatAppearance.BorderSize = 0;
+            this.btnIniciarSesion.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnIniciarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIniciarSesion.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIniciarSesion.Location = new System.Drawing.Point(3, 3);
