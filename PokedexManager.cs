@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Console;
-using System.Data.SQLite;
 
 
 namespace PokedexApp
@@ -61,8 +62,15 @@ namespace PokedexApp
             }
         }
 
-        public bool RegistrarUsuario(string usuario, string contraseña)
+        public bool RegistrarUsuario(string usuario, string contraseña, string confirmar)
         {
+            if (contraseña != confirmar)
+            {
+                MessageBox.Show("Las contrase;as no son iguales");
+
+                return false;
+            }
+            
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();

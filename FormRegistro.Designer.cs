@@ -78,6 +78,7 @@
             // txtContraseña
             // 
             this.txtContraseña.Location = new System.Drawing.Point(216, 98);
+            this.txtContraseña.MaxLength = 6;
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(299, 22);
             this.txtContraseña.TabIndex = 4;
@@ -85,6 +86,7 @@
             // txtConfirmar
             // 
             this.txtConfirmar.Location = new System.Drawing.Point(216, 151);
+            this.txtConfirmar.MaxLength = 6;
             this.txtConfirmar.Name = "txtConfirmar";
             this.txtConfirmar.Size = new System.Drawing.Size(299, 22);
             this.txtConfirmar.TabIndex = 5;

@@ -26,7 +26,7 @@ namespace PokedexApp
             {
                               
 
-                if (pokedexManager.RegistrarUsuario(txtUsuario.Text, txtContraseña.Text))
+                if (pokedexManager.RegistrarUsuario(txtUsuario.Text, txtContraseña.Text, txtConfirmar.Text))
                 {
                     MessageBox.Show("Usuario registrado correctamnete");
                     this.Close();
