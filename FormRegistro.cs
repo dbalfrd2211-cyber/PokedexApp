@@ -12,7 +12,7 @@ namespace PokedexApp
 {
     public partial class FormRegistro : Form
     {
-        private PokedexManager pokedexManager = new PokedexManager();
+        private PokedexManager manager = new PokedexManager();
 
         public FormRegistro()
         {
@@ -26,9 +26,15 @@ namespace PokedexApp
             {
                               
 
-                if (pokedexManager.RegistrarUsuario(txtUsuario.Text, txtContraseña.Text, txtConfirmar.Text))
+                if (manager.RegistrarUsuario(txtUsuario.Text, txtContraseña.Text, txtConfirmar.Text))
                 {
                     MessageBox.Show("Usuario registrado correctamnete");
+
+                    this.Hide();
+                    using (FrmMenu menu = new FrmMenu())
+                    {
+                        menu.ShowDialog();
+                    }
                     this.Close();
                 }
                 else
