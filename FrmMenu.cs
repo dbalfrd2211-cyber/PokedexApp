@@ -15,7 +15,7 @@ namespace PokedexApp
 
         public FrmMenu()
         {
-            InitializeComponent();;
+            InitializeComponent();
           
         }
 
