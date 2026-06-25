@@ -12,7 +12,7 @@ namespace PokedexApp
 {
     public partial class FormRegistro : Form
     {
-        private PokedexManager pokedexManager = new PokedexManager();
+        private PokedexManager manager = new PokedexManager();
 
         public FormRegistro()
         {
