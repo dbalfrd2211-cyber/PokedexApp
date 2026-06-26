@@ -12,7 +12,7 @@ namespace PokedexApp
 {
     public partial class FormRegistro : Form
     {
-        private PokedexManager pokedexManager = new PokedexManager();
+        private PokedexManager manager = new PokedexManager();
 
         public FormRegistro()
         {
@@ -22,23 +22,37 @@ namespace PokedexApp
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if (txtContraseña.Text == txtConfirmar.Text)
+            if (manager.ExisteUsuario(txtUsuario.Text))
             {
-                              
-
-                if (pokedexManager.RegistrarUsuario(txtUsuario.Text, txtContraseña.Text, txtConfirmar.Text))
-                {
-                    MessageBox.Show("Usuario registrado correctamnete");
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Error al registrar usuario. El nombre puede estar en uso");
-                }
+                MessageBox.Show("El nombre de usuario ya existe, porfavor elige otro");
+                return;
             }
             else
             {
-                MessageBox.Show("Las contraseñas no coinciden");
+                if (txtContraseña.Text == txtConfirmar.Text)
+                {
+
+
+                    if (manager.RegistrarUsuario(txtUsuario.Text, txtContraseña.Text, txtConfirmar.Text))
+                    {
+                        MessageBox.Show("Usuario registrado correctamnete");
+
+                        this.Hide();
+                        using (FrmInicio inicio = new FrmInicio())
+                        {
+                            inicio.ShowDialog();
+                        }
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar usuario. El nombre puede estar en uso");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Las contraseñas no coinciden");
+                }
             }
 
 

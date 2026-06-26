@@ -34,5 +34,17 @@ namespace PokedexApp
             FormInformacionDeUsuario frmInfo = new FormInformacionDeUsuario(usuarioActual,infoActual);
             frmInfo.ShowDialog();
         }
+
+        private void btnMultijugador_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnColeccionCartas_Click(object sender, EventArgs e)
+        {
+            ColeccionCartas frmColeccion = new ColeccionCartas();
+            frmColeccion.ShowDialog();
+
+        }
     }
 }

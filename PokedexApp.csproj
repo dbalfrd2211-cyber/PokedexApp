@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllDataPokemon.cs" />
     <Compile Include="Ataques.cs" />
     <Compile Include="BatallasDetalle.cs" />
     <Compile Include="Cartas.cs" />
@@ -76,6 +77,12 @@
     </Compile>
     <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormNuevaCarta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNuevaCarta.Designer.cs">
+      <DependentUpon>FormNuevaCarta.cs</DependentUpon>
     </Compile>
     <Compile Include="FormRegistro.cs">
       <SubType>Form</SubType>
