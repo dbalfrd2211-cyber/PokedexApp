@@ -37,6 +37,7 @@
             this.txtBuscarPokemon = new System.Windows.Forms.TextBox();
             this.btnAñadirAColeccion = new System.Windows.Forms.Button();
             this.btnCrearNuevaCarta = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,19 +115,29 @@
             // 
             // btnCrearNuevaCarta
             // 
-            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(549, 147);
+            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(596, 367);
             this.btnCrearNuevaCarta.Name = "btnCrearNuevaCarta";
-            this.btnCrearNuevaCarta.Size = new System.Drawing.Size(159, 95);
+            this.btnCrearNuevaCarta.Size = new System.Drawing.Size(170, 43);
             this.btnCrearNuevaCarta.TabIndex = 11;
             this.btnCrearNuevaCarta.Text = "Crear Nueva Carta";
             this.btnCrearNuevaCarta.UseVisualStyleBackColor = true;
             this.btnCrearNuevaCarta.Click += new System.EventHandler(this.btnCrearNuevaCarta_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(549, 119);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(243, 180);
+            this.listBox1.TabIndex = 12;
             // 
             // ColeccionCartas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1462, 685);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnCrearNuevaCarta);
             this.Controls.Add(this.btnAñadirAColeccion);
             this.Controls.Add(this.txtBuscarPokemon);
@@ -156,5 +167,6 @@
         private System.Windows.Forms.TextBox txtBuscarPokemon;
         private System.Windows.Forms.Button btnAñadirAColeccion;
         private System.Windows.Forms.Button btnCrearNuevaCarta;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
