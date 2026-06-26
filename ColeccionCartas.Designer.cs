@@ -46,6 +46,7 @@
             this.DGVListadoCartas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListadoCartas.Location = new System.Drawing.Point(31, 119);
             this.DGVListadoCartas.Name = "DGVListadoCartas";
+            this.DGVListadoCartas.ReadOnly = true;
             this.DGVListadoCartas.RowHeadersWidth = 51;
             this.DGVListadoCartas.RowTemplate.Height = 24;
             this.DGVListadoCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
