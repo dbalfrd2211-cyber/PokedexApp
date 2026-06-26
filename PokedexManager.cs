@@ -67,7 +67,7 @@ namespace PokedexApp
 
             if (contraseña != confirmar)
             {
-                MessageBox.Show("Las contrase;as no son iguales");
+                MessageBox.Show("Las contraseñas no son iguales");
 
                 return false;
             }
@@ -112,9 +112,42 @@ namespace PokedexApp
 
             return false;
         }
+
+        public List<Cartas> BuscarCartasPorNombre(string nombre)
+        {
+            List<Cartas> lista = new List<Cartas>();
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = @"SELECT C.* FROM Cartas C
+                    JOIN Pokemon P ON C.IdPokemon= P.IdPokemon
+                    WHERE P.Nombre LIKE @nombre";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Cartas(
+                                Convert.ToInt32(reader["IdCarta"]),
+                                Convert.ToInt32(reader["IdPokemon"]),
+                                Convert.ToInt32(reader["Hp"]),
+                                reader["Rareza"].ToString(),
+                                Convert.ToInt32(reader["NumeroColeccion"])
+
+                                ));
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
     }
 
 
 }
+
 
 

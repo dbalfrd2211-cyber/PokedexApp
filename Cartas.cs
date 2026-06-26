@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokedexApp
 {
-    internal class Cartas
+    public class Cartas
     {
         
         public int IdCarta { get; set; }
