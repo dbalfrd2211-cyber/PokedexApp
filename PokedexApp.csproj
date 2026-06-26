@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllDataPokemon.cs" />
     <Compile Include="Ataques.cs" />
     <Compile Include="BatallasDetalle.cs" />
     <Compile Include="Cartas.cs" />

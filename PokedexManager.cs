@@ -165,7 +165,58 @@ namespace PokedexApp
             }
         }
 
+        public List<AllDataPokemon> ObtenerTodoDato()
+        {
+            List<AllDataPokemon> lista = new List<AllDataPokemon>();
+            string query = @"SELECT p.IdPokemon, p.Pokedex, p.Nombre, p.Tipo1, p.Tipo2,
+                                    c.IdCarta, c.HP, c.Rareza, c.NumeroColeccion,
+                                    e.Altura, e.Peso, e.HPBase,
+                                    a.Nombre AS NombreAtaque, a.Danio AS DanioAtaque
+                                    FROM Pokemon p
+                                    LEFT JOIN Cartas c ON p.IdPokemon = c.IdPokemon
+                                    LEFT JOIN EstadisticasPokemon e ON p.IdPokemon = e.IdPokemon
+                                    LEFT JOIN PokemonAtaque pa ON p.IdPokemon = pa.IdPokemon
+                                    LEFT JOIN Ataques a ON pa.IdAtaque = a.IdAtaque";
 
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            AllDataPokemon data = new AllDataPokemon();
+
+                            data.IdPokemon = Convert.ToInt32(reader["IdPokemon"]);
+                            data.Pokedex = Convert.ToInt32(reader["Pokedex"]);
+                            data.Nombre = reader["Nombre"].ToString();
+                            data.Tipo1 = reader["Tipo1"].ToString();
+                            data.Tipo2 = reader["Tipo2"] != DBNull.Value ? reader["Tipo2"].ToString() : "";
+
+                            data.IdCarta = reader["IdCarta"] != DBNull.Value ? Convert.ToInt32(reader["IdCarta"]) : 0;
+                            data.HP = reader["HP"] != DBNull.Value ? Convert.ToInt32(reader["HP"]) : 0;
+                            data.Rareza = reader["Rareza"] != DBNull.Value ? reader["Rareza"].ToString() : "Sin Carta";
+                            data.NumeroColeccion = reader["NumeroColeccion"] != DBNull.Value ? Convert.ToInt32(reader["NumeroColeccion"]) : 0;
+
+                            data.Altura = reader["Altura"] != DBNull.Value ? Convert.ToDouble(reader["Altura"]) : 0.0;
+                            data.Peso = reader["Peso"] != DBNull.Value ? Convert.ToDouble(reader["Peso"]) : 0.0;
+                            data.HPBase = reader["HPBase"] != DBNull.Value ? Convert.ToInt32(reader["HPBase"]) : 0;
+
+                            data.NombreAtaque = reader["NombreAtaque"] != DBNull.Value ? reader["NombreAtaque"].ToString() : "Ninguno";
+                            data.DanioAtaque = reader["DanioAtaque"] != DBNull.Value ? Convert.ToInt32(reader["DanioAtaque"]) : 0;
+
+                            lista.Add(data);
+                        }
+                    }
+                }
+            }
+
+            return lista;
+
+        }
     }
 }
 
