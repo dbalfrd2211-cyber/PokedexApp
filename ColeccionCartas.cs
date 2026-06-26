@@ -51,15 +51,13 @@ namespace PokedexApp
             DGVListadoCartas.DataSource = listaVisualizada;
         }
 
-        private void DGVListadoCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ColeccionCartas_Load(object sender, EventArgs e)
         {
-            if (DGVListadoCartas.CurrentRow?.DataBoundItem is Cartas c)
-            {
-                txtDetallesPokemon.Text = $"Rareza:{c.Rareza}|HP:{c.Hp}";
-                btnAñadirAColeccion.Enabled = true;
-            }
-        }
+            var resultados = manager.BuscarCartasPorNombre("");
 
-        
+            listaVisualizada = new BindingList<Cartas>(resultados);
+
+            DGVListadoCartas.DataSource = listaVisualizada;
+        }
     }
 }

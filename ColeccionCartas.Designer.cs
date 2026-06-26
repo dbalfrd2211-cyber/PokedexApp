@@ -50,7 +50,6 @@
             this.DGVListadoCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVListadoCartas.Size = new System.Drawing.Size(464, 192);
             this.DGVListadoCartas.TabIndex = 0;
-            this.DGVListadoCartas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoCartas_CellContentClick);
             // 
             // label1
             // 
@@ -139,6 +138,7 @@
             this.Controls.Add(this.DGVListadoCartas);
             this.Name = "ColeccionCartas";
             this.Text = "ColeccionCartas";
+            this.Load += new System.EventHandler(this.ColeccionCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
