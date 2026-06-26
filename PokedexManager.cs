@@ -205,8 +205,16 @@ namespace PokedexApp
                             data.Altura = reader["Altura"] != DBNull.Value ? Convert.ToDouble(reader["Altura"]) : 0.0;
                             data.Peso = reader["Peso"] != DBNull.Value ? Convert.ToDouble(reader["Peso"]) : 0.0;
                             data.HPBase = reader["HPBase"] != DBNull.Value ? Convert.ToInt32(reader["HPBase"]) : 0;
-        
 
+
+                            lista.Add(data);
+                        }
+
+                        return lista;   
+                    }
+                }
+            }
+            
 
         }
         public Usuario ObtenerUsuario(string nombreUsuario)
@@ -230,20 +238,20 @@ namespace PokedexApp
                                 //Convert.ToBoolean(reader["EsPublico"])
                             );
 
-                            data.NombreAtaque = reader["NombreAtaque"] != DBNull.Value ? reader["NombreAtaque"].ToString() : "Ninguno";
-                            data.DanioAtaque = reader["DanioAtaque"] != DBNull.Value ? Convert.ToInt32(reader["DanioAtaque"]) : 0;
                         }
                     }
                 }
 
-                            lista.Add(data);
-                        }
-                    }
-                }
-            }
             }
             return null;
+
         }
+ 
+    
+    
+    
+    
+    
         public InfoUsuario ObtenerInfoUsuario(int idUsuario)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
@@ -273,14 +281,19 @@ namespace PokedexApp
 
 
         }
-
-            return lista;
-
-        }
+    
+    
     }
 }
-    }
-}
+            
+
+
+     
 
 
 
+                            //data.NombreAtaque = reader["NombreAtaque"] != DBNull.Value ? reader["NombreAtaque"].ToString() : "Ninguno";
+                            //data.DanioAtaque = reader["DanioAtaque"] != DBNull.Value ? Convert.ToInt32(reader["DanioAtaque"]) : 0;
+                            //lista.Add(data);
+            //return null;
+            //return lista;

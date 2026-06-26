@@ -36,7 +36,8 @@ namespace PokedexApp
                 FrmMenu menu = new FrmMenu(usuarioActual, infoActual);
                   //aqui ocultamos el loging y la de inicio para que no se superponga al menu
                 menu.ShowDialog();
-                this.Close();            
+                this.Close();            //this.ShowDialog(); // Muestra el formulario FrmMenu como un cuadro de diálogo modal
+
 
             }
             else

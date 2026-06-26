@@ -30,6 +30,7 @@ namespace PokedexApp
         public void  FormInformacionDeUsuario_Load(object sender, EventArgs e)
         {
             InitializeComponent();
+
             lblNombre.Text = usuario.NombreUsuario;
             lblNivel.Text = $"Nivel: {info.Nivel}";
             lblGanadas.Text = $"Partidas Ganadas: {info.BatallasGanadas}";

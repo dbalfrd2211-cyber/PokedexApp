@@ -16,7 +16,7 @@ namespace PokedexApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ColeccionCartas());
+            Application.Run(new FrmInicio()); //aqui tenina puesto Application.Run(new ColeccionCartas());
         }
     }
 }
