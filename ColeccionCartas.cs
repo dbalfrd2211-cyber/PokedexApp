@@ -35,11 +35,11 @@ namespace PokedexApp
         {
             if (DGVListadoCartas.CurrentRow?.DataBoundItem is Cartas c)
             {
+
                 if (manager.AgregarCartaColeccion(c.IdPokemon, c.Hp, c.Rareza, c.NumeroDeColeccion))
                 {
                     MessageBox.Show("¡Carta añadida a tu coleccion");
                 }
-
             }
         }
 

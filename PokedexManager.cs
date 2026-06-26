@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -32,8 +33,8 @@ namespace PokedexApp
                 {
                     cmd.Parameters.AddWithValue("@usuario", usuario);
                     cmd.Parameters.AddWithValue("@contrasena", contraseña);
-                    return Convert.ToInt32(cmd.ExecuteScalar())>0;
-                     
+                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+
                 }
             }
         }
@@ -71,7 +72,7 @@ namespace PokedexApp
 
                 return false;
             }
-            
+
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
@@ -81,7 +82,7 @@ namespace PokedexApp
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@usuario", usuario);
-                    cmd.Parameters.AddWithValue("@contrasena",contraseña);
+                    cmd.Parameters.AddWithValue("@contrasena", contraseña);
                     return cmd.ExecuteNonQuery() > 0;
 
                 }
@@ -91,7 +92,7 @@ namespace PokedexApp
 
         }
 
-        internal bool ExisteUsuario(string usuario)
+        public bool ExisteUsuario(string usuario)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
@@ -144,9 +145,28 @@ namespace PokedexApp
             }
             return lista;
         }
+
+        public bool AgregarCartaColeccion(int idPokemon, int hp, string rareza, int numeroDeColeccion)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "INSERT INTO ColeccionUsuario (IdUsuario, IdPokemon)VALUES(@idUsuario, @idPokemon)";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", 1);
+                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                    return cmd.ExecuteNonQuery() > 0;
+
+                }
+
+
+            }
+        }
+
+
     }
-
-
 }
 
 

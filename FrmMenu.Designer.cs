@@ -36,9 +36,9 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnInformacion = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnColeccionCartas = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnMultijugador = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -156,7 +156,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel3.Controls.Add(this.button2, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.btnColeccionCartas, 1, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(267, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -167,23 +167,24 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(266, 151);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
-            // button2
+            // btnColeccionCartas
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::PokedexApp.Properties.Resources.Boton3;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(29, 18);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(206, 114);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Colección De Cartas";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnColeccionCartas.BackColor = System.Drawing.Color.Transparent;
+            this.btnColeccionCartas.BackgroundImage = global::PokedexApp.Properties.Resources.Boton3;
+            this.btnColeccionCartas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnColeccionCartas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnColeccionCartas.FlatAppearance.BorderSize = 0;
+            this.btnColeccionCartas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnColeccionCartas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnColeccionCartas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnColeccionCartas.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColeccionCartas.Location = new System.Drawing.Point(29, 18);
+            this.btnColeccionCartas.Name = "btnColeccionCartas";
+            this.btnColeccionCartas.Size = new System.Drawing.Size(206, 114);
+            this.btnColeccionCartas.TabIndex = 0;
+            this.btnColeccionCartas.Text = "Colección De Cartas";
+            this.btnColeccionCartas.UseVisualStyleBackColor = false;
+            this.btnColeccionCartas.Click += new System.EventHandler(this.btnColeccionCartas_Click);
             // 
             // tableLayoutPanel4
             // 
@@ -192,7 +193,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel4.Controls.Add(this.button3, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.btnMultijugador, 1, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(539, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -203,23 +204,24 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(258, 151);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
-            // button3
+            // btnMultijugador
             // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::PokedexApp.Properties.Resources.Boton4;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(28, 18);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(200, 114);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Multijugador";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnMultijugador.BackColor = System.Drawing.Color.Transparent;
+            this.btnMultijugador.BackgroundImage = global::PokedexApp.Properties.Resources.Boton4;
+            this.btnMultijugador.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnMultijugador.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMultijugador.FlatAppearance.BorderSize = 0;
+            this.btnMultijugador.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnMultijugador.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnMultijugador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMultijugador.Font = new System.Drawing.Font("Impact", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMultijugador.Location = new System.Drawing.Point(28, 18);
+            this.btnMultijugador.Name = "btnMultijugador";
+            this.btnMultijugador.Size = new System.Drawing.Size(200, 114);
+            this.btnMultijugador.TabIndex = 0;
+            this.btnMultijugador.Text = "Multijugador";
+            this.btnMultijugador.UseVisualStyleBackColor = false;
+            this.btnMultijugador.Click += new System.EventHandler(this.btnMultijugador_Click);
             // 
             // FrmMenu
             // 
@@ -253,7 +255,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Button btnInformacion;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnColeccionCartas;
+        private System.Windows.Forms.Button btnMultijugador;
     }
 }
