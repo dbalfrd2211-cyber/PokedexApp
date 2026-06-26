@@ -13,7 +13,7 @@ namespace PokedexApp
     public partial class ColeccionCartas : Form
     {
         private PokedexManager manager = new PokedexManager();
-        private BindingList<Cartas> listaVisualizada;
+        private BindingList<AllDataPokemon> listaVisualizada;
         public ColeccionCartas()
         {
             InitializeComponent();
@@ -45,19 +45,30 @@ namespace PokedexApp
 
         private void txtBuscarPokemon_TextChanged(object sender, EventArgs e)
         {
-            var resultados = manager.BuscarCartasPorNombre(txtBuscarPokemon.Text);
-            listaVisualizada = new BindingList<Cartas>(resultados);
+            if (!txtBuscarPokemon.Focused) return;
 
+            var resultados = manager.ObtenerTodoDato()
+                            .Where(p => p.Nombre.IndexOf(txtBuscarPokemon.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                            .ToList();
+
+            listaVisualizada = new BindingList<AllDataPokemon>(resultados);
             DGVListadoCartas.DataSource = listaVisualizada;
         }
 
         private void ColeccionCartas_Load(object sender, EventArgs e)
         {
-            var resultados = manager.BuscarCartasPorNombre("");
+            var resultados = manager.ObtenerTodoDato();
 
-            listaVisualizada = new BindingList<Cartas>(resultados);
-
+            listaVisualizada = new BindingList<AllDataPokemon>(resultados);
             DGVListadoCartas.DataSource = listaVisualizada;
+        }
+
+        private void DGVListadoCartas_SelectionChanged(object sender, EventArgs e)
+        {
+            if (DGVListadoCartas.CurrentRow?.DataBoundItem is AllDataPokemon pokemonSeleccionado)
+            {
+                txtBuscarPokemon.Text = pokemonSeleccionado.Nombre;
+            }
         }
     }
 }

@@ -52,6 +52,7 @@
             this.DGVListadoCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVListadoCartas.Size = new System.Drawing.Size(464, 192);
             this.DGVListadoCartas.TabIndex = 0;
+            this.DGVListadoCartas.SelectionChanged += new System.EventHandler(this.DGVListadoCartas_SelectionChanged);
             // 
             // label1
             // 
