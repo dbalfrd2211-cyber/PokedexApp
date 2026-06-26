@@ -29,58 +29,93 @@
         private void InitializeComponent()
         {
             this.btnRegresar = new System.Windows.Forms.Button();
-            this.lblInfoUsuario = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.lblNivel = new System.Windows.Forms.Label();
             this.btnGuardarCambios = new System.Windows.Forms.Button();
+            this.lblGanadas = new System.Windows.Forms.Label();
+            this.lblPerdidas = new System.Windows.Forms.Label();
+            this.lblCartas = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnRegresar
             // 
-            this.btnRegresar.Location = new System.Drawing.Point(284, 369);
+            this.btnRegresar.Location = new System.Drawing.Point(350, 369);
             this.btnRegresar.Name = "btnRegresar";
-            this.btnRegresar.Size = new System.Drawing.Size(75, 23);
+            this.btnRegresar.Size = new System.Drawing.Size(109, 23);
             this.btnRegresar.TabIndex = 1;
             this.btnRegresar.Text = "Regresar";
             this.btnRegresar.UseVisualStyleBackColor = true;
+            this.btnRegresar.Click += new System.EventHandler(this.btnRegresar_Click);
             // 
-            // lblInfoUsuario
+            // lblNombre
             // 
-            this.lblInfoUsuario.AutoSize = true;
-            this.lblInfoUsuario.Location = new System.Drawing.Point(111, 152);
-            this.lblInfoUsuario.Name = "lblInfoUsuario";
-            this.lblInfoUsuario.Size = new System.Drawing.Size(37, 16);
-            this.lblInfoUsuario.TabIndex = 2;
-            this.lblInfoUsuario.Text = "label";
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Location = new System.Drawing.Point(182, 73);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(37, 16);
+            this.lblNombre.TabIndex = 2;
+            this.lblNombre.Text = "label";
             // 
-            // label2
+            // lblNivel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(370, 152);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 16);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "label2";
+            this.lblNivel.AutoSize = true;
+            this.lblNivel.Location = new System.Drawing.Point(182, 137);
+            this.lblNivel.Name = "lblNivel";
+            this.lblNivel.Size = new System.Drawing.Size(44, 16);
+            this.lblNivel.TabIndex = 3;
+            this.lblNivel.Text = "label2";
             // 
             // btnGuardarCambios
             // 
-            this.btnGuardarCambios.Location = new System.Drawing.Point(403, 369);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(538, 369);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(141, 23);
             this.btnGuardarCambios.TabIndex = 4;
             this.btnGuardarCambios.Text = "Guardar cambios";
             this.btnGuardarCambios.UseVisualStyleBackColor = true;
             // 
+            // lblGanadas
+            // 
+            this.lblGanadas.AutoSize = true;
+            this.lblGanadas.Location = new System.Drawing.Point(182, 201);
+            this.lblGanadas.Name = "lblGanadas";
+            this.lblGanadas.Size = new System.Drawing.Size(44, 16);
+            this.lblGanadas.TabIndex = 5;
+            this.lblGanadas.Text = "label1";
+            // 
+            // lblPerdidas
+            // 
+            this.lblPerdidas.AutoSize = true;
+            this.lblPerdidas.Location = new System.Drawing.Point(182, 316);
+            this.lblPerdidas.Name = "lblPerdidas";
+            this.lblPerdidas.Size = new System.Drawing.Size(44, 16);
+            this.lblPerdidas.TabIndex = 6;
+            this.lblPerdidas.Text = "label2";
+            // 
+            // lblCartas
+            // 
+            this.lblCartas.AutoSize = true;
+            this.lblCartas.Location = new System.Drawing.Point(182, 264);
+            this.lblCartas.Name = "lblCartas";
+            this.lblCartas.Size = new System.Drawing.Size(44, 16);
+            this.lblCartas.TabIndex = 7;
+            this.lblCartas.Text = "label1";
+            // 
             // FormInformacionDeUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblCartas);
+            this.Controls.Add(this.lblPerdidas);
+            this.Controls.Add(this.lblGanadas);
             this.Controls.Add(this.btnGuardarCambios);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.lblInfoUsuario);
+            this.Controls.Add(this.lblNivel);
+            this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.btnRegresar);
             this.Name = "FormInformacionDeUsuario";
             this.Text = "FormInformacionDeUsuario";
+            this.Load += new System.EventHandler(this.FormInformacionDeUsuario_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,8 +123,11 @@
 
         #endregion
         private System.Windows.Forms.Button btnRegresar;
-        private System.Windows.Forms.Label lblInfoUsuario;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Label lblNivel;
         private System.Windows.Forms.Button btnGuardarCambios;
+        private System.Windows.Forms.Label lblGanadas;
+        private System.Windows.Forms.Label lblPerdidas;
+        private System.Windows.Forms.Label lblCartas;
     }
 }

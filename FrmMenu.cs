@@ -12,6 +12,9 @@ namespace PokedexApp
 {
     public partial class FrmMenu : Form
     {
+        private Usuario usuarioActual;
+
+        private InfoUsuario infoActual;
 
         public FrmMenu()
         {
@@ -19,10 +22,17 @@ namespace PokedexApp
           
         }
 
+        public FrmMenu(Usuario usuarioActual, InfoUsuario infoActual)
+        {
+            InitializeComponent();
+            this.usuarioActual = usuarioActual;
+            this.infoActual = infoActual;
+        }
+
         private void btnInformacion_Click(object sender, EventArgs e)
         {
-            FormInformacionDeUsuario frminfo = new FormInformacionDeUsuario();
-            frminfo.ShowDialog();
+            FormInformacionDeUsuario frmInfo = new FormInformacionDeUsuario(usuarioActual,infoActual);
+            frmInfo.ShowDialog();
         }
     }
 }

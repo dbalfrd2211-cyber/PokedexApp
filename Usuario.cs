@@ -8,17 +8,18 @@ namespace PokedexApp
 {
     public class Usuario
     {
-         public int IdUsuario { get; set; }
+        public InfoUsuario Info { get; set; }
+        public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
         public string Contraseña { get; set; }
-         public bool Espublico { get; set; }
+        //public bool EsPublico { get; set; }
 
-        public Usuario(int idUsuario, string nombreUsuario, string contraseña, bool espublico)
+        public Usuario(int idUsuario, string nombreUsuario, string contraseña)
         {
             IdUsuario = idUsuario;
             NombreUsuario = nombreUsuario;
             Contraseña = contraseña;
-            Espublico = espublico;
+            //EsPublico = esPublico;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -85,12 +86,71 @@ namespace PokedexApp
                 }
             }
 
+        
 
 
         }
+        public Usuario ObtenerUsuario(string nombreUsuario)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "SELECT  IdUsuario, NombreUsuario,Contrasena FROM Usuarios WHERE NombreUsuario=@nombre";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", nombreUsuario);
+                    
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new Usuario(
+                                Convert.ToInt32(reader["IdUsuario"]),
+                                reader["NombreUsuario"].ToString(),
+                                reader["Contrasena"].ToString()
+                                //Convert.ToBoolean(reader["EsPublico"])
+                            );
+
+                        }
+                    }
+                }
+
+            }
+            return null;
+        }
+        public InfoUsuario ObtenerInfoUsuario(int idUsuario)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "SELECT IdInfo, IdUsuario, Nivel, BatallasGanadas, BatallasPerdidas, NumeroCartas FROM InfoUsuario WHERE IdUsuario=@id";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", idUsuario);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new InfoUsuario(
+                                Convert.ToInt32(reader["IdInfo"]),
+                                Convert.ToInt32(reader["IdUsuario"]),
+                                Convert.ToInt32(reader["Nivel"]),
+                                Convert.ToInt32(reader["BatallasGanadas"]),
+                                Convert.ToInt32(reader["BatallasPerdidas"]),
+                                Convert.ToInt32(reader["NumeroCartas"])
+                            );
+                        }
+                    }
+                }
+            }
+            return null;
+
+
+        }
+
+
     }
-
-
 }
+
 
 
