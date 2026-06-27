@@ -52,5 +52,10 @@ namespace PokedexApp
         {
             DGVListadoCartas.DataSource = manager.AllDatoPokemon();
         }
+
+        private void btnVolverCC_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

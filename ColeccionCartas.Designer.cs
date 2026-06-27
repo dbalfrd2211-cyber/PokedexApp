@@ -38,6 +38,7 @@
             this.btnAñadirAColeccion = new System.Windows.Forms.Button();
             this.btnCrearNuevaCarta = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.btnVolverCC = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,11 +141,22 @@
             this.listBox1.Size = new System.Drawing.Size(243, 180);
             this.listBox1.TabIndex = 12;
             // 
+            // btnVolverCC
+            // 
+            this.btnVolverCC.Location = new System.Drawing.Point(313, 423);
+            this.btnVolverCC.Name = "btnVolverCC";
+            this.btnVolverCC.Size = new System.Drawing.Size(166, 31);
+            this.btnVolverCC.TabIndex = 13;
+            this.btnVolverCC.Text = "Volver al menu principal";
+            this.btnVolverCC.UseVisualStyleBackColor = true;
+            this.btnVolverCC.Click += new System.EventHandler(this.btnVolverCC_Click);
+            // 
             // ColeccionCartas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnVolverCC);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnCrearNuevaCarta);
             this.Controls.Add(this.btnAñadirAColeccion);
@@ -176,5 +188,6 @@
         private System.Windows.Forms.Button btnAñadirAColeccion;
         private System.Windows.Forms.Button btnCrearNuevaCarta;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button btnVolverCC;
     }
 }

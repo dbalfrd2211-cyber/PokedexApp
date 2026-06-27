@@ -39,11 +39,11 @@
             // 
             // btnRegresar
             // 
-            this.btnRegresar.Location = new System.Drawing.Point(350, 369);
+            this.btnRegresar.Location = new System.Drawing.Point(289, 369);
             this.btnRegresar.Name = "btnRegresar";
-            this.btnRegresar.Size = new System.Drawing.Size(109, 23);
+            this.btnRegresar.Size = new System.Drawing.Size(201, 40);
             this.btnRegresar.TabIndex = 1;
-            this.btnRegresar.Text = "Regresar";
+            this.btnRegresar.Text = "Volver al menu principal";
             this.btnRegresar.UseVisualStyleBackColor = true;
             this.btnRegresar.Click += new System.EventHandler(this.btnRegresar_Click);
             // 

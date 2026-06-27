@@ -28,12 +28,71 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnCombate = new System.Windows.Forms.Button();
+            this.lblBatallaPokemon = new System.Windows.Forms.Label();
+            this.btnVolverMenu = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // btnCombate
+            // 
+            this.btnCombate.Location = new System.Drawing.Point(320, 125);
+            this.btnCombate.Name = "btnCombate";
+            this.btnCombate.Size = new System.Drawing.Size(133, 23);
+            this.btnCombate.TabIndex = 0;
+            this.btnCombate.Text = "1 vs 1";
+            this.btnCombate.UseVisualStyleBackColor = true;
+            this.btnCombate.Click += new System.EventHandler(this.btnCombate_Click);
+            // 
+            // lblBatallaPokemon
+            // 
+            this.lblBatallaPokemon.AutoSize = true;
+            this.lblBatallaPokemon.Location = new System.Drawing.Point(317, 71);
+            this.lblBatallaPokemon.Name = "lblBatallaPokemon";
+            this.lblBatallaPokemon.Size = new System.Drawing.Size(136, 16);
+            this.lblBatallaPokemon.TabIndex = 1;
+            this.lblBatallaPokemon.Text = "BATALLA POKEMON";
+            // 
+            // btnVolverMenu
+            // 
+            this.btnVolverMenu.Location = new System.Drawing.Point(303, 299);
+            this.btnVolverMenu.Name = "btnVolverMenu";
+            this.btnVolverMenu.Size = new System.Drawing.Size(176, 35);
+            this.btnVolverMenu.TabIndex = 2;
+            this.btnVolverMenu.Text = "Volver al menu principal";
+            this.btnVolverMenu.UseVisualStyleBackColor = true;
+            this.btnVolverMenu.Click += new System.EventHandler(this.btnVolverMenu_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(222, 128);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Batalla";
+            // 
+            // FormMultijugador
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnVolverMenu);
+            this.Controls.Add(this.lblBatallaPokemon);
+            this.Controls.Add(this.btnCombate);
+            this.Name = "FormMultijugador";
             this.Text = "FormMultijugador";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnCombate;
+        private System.Windows.Forms.Label lblBatallaPokemon;
+        private System.Windows.Forms.Button btnVolverMenu;
+        private System.Windows.Forms.Label label1;
     }
 }

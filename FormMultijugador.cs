@@ -16,5 +16,15 @@ namespace PokedexApp
         {
             InitializeComponent();
         }
+
+        private void btnCombate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVolverMenu_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
