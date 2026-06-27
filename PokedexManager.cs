@@ -225,9 +225,46 @@ namespace PokedexApp
             return null;
         }
 
-        internal List<Cartas> AllDatoPokemon()
+        internal DataTable AllDatoPokemon()
         {
-            throw new NotImplementedException();
+            DataTable dt = new DataTable();
+
+            string query = @"SELECT
+                            p.Nombre,
+                            c.NumeroColeccion,
+                            p.Tipo1,
+                            p.Tipo2,
+                            c.HP,
+                            r.NombreRegion AS Region,
+                            c.Rareza,
+                            GROUP_CONCAT(a.Nombre, ', ') AS Ataques
+                            FROM Cartas c
+                            INNER JOIN Pokemon p ON c.IdPokemon = p.IdPokemon
+                            LEFT JOIN Regiones r ON p.IdRegion = r.IdRegion
+                            LEFT JOIN PokemonAtaque pa ON p.IdPokemon = pa.IdPokemon
+                            LEFT JOIN Ataques a ON pa.IdAtaque = a.IdAtaque
+                            GROUP BY
+                                p.Nombre,
+                                c.NumeroColeccion,
+                                p.Tipo1,
+                                p.Tipo2,
+                                c.HP,
+                                r.NombreRegion,
+                                c.Rareza;";
+                                                        
+
+            using (SQLiteConnection conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
         }
     }
 }

@@ -47,5 +47,10 @@ namespace PokedexApp
         {
 
         }
+
+        private void ColeccionCartas_Load(object sender, EventArgs e)
+        {
+            DGVListadoCartas.DataSource = manager.AllDatoPokemon();
+        }
     }
 }

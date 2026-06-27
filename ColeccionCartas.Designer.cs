@@ -43,6 +43,10 @@
             // 
             // DGVListadoCartas
             // 
+            this.DGVListadoCartas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGVListadoCartas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGVListadoCartas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGVListadoCartas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListadoCartas.Location = new System.Drawing.Point(31, 119);
             this.DGVListadoCartas.Name = "DGVListadoCartas";
@@ -52,7 +56,6 @@
             this.DGVListadoCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVListadoCartas.Size = new System.Drawing.Size(464, 192);
             this.DGVListadoCartas.TabIndex = 0;
-            this.DGVListadoCartas.SelectionChanged += new System.EventHandler(this.DGVListadoCartas_SelectionChanged);
             // 
             // label1
             // 
@@ -99,6 +102,8 @@
             // 
             // txtBuscarPokemon
             // 
+            this.txtBuscarPokemon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscarPokemon.Location = new System.Drawing.Point(144, 43);
             this.txtBuscarPokemon.Name = "txtBuscarPokemon";
             this.txtBuscarPokemon.Size = new System.Drawing.Size(351, 22);
@@ -127,6 +132,7 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(549, 119);
@@ -138,7 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1462, 685);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnCrearNuevaCarta);
             this.Controls.Add(this.btnAñadirAColeccion);
