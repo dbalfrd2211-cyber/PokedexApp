@@ -46,7 +46,6 @@
             // 
             this.DGVListadoCartas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DGVListadoCartas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DGVListadoCartas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGVListadoCartas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListadoCartas.Location = new System.Drawing.Point(31, 119);
@@ -55,8 +54,9 @@
             this.DGVListadoCartas.RowHeadersWidth = 51;
             this.DGVListadoCartas.RowTemplate.Height = 24;
             this.DGVListadoCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVListadoCartas.Size = new System.Drawing.Size(464, 192);
+            this.DGVListadoCartas.Size = new System.Drawing.Size(675, 226);
             this.DGVListadoCartas.TabIndex = 0;
+            this.DGVListadoCartas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoCartas_CellContentClick);
             // 
             // label1
             // 
@@ -70,7 +70,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 337);
+            this.label2.Location = new System.Drawing.Point(28, 367);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 16);
             this.label2.TabIndex = 2;
@@ -78,10 +78,13 @@
             // 
             // txtDetallesPokemon
             // 
-            this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 356);
+            this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 389);
+            this.txtDetallesPokemon.Multiline = true;
             this.txtDetallesPokemon.Name = "txtDetallesPokemon";
-            this.txtDetallesPokemon.Size = new System.Drawing.Size(464, 22);
+            this.txtDetallesPokemon.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDetallesPokemon.Size = new System.Drawing.Size(518, 54);
             this.txtDetallesPokemon.TabIndex = 3;
+            this.txtDetallesPokemon.TextChanged += new System.EventHandler(this.txtDetallesPokemon_TextChanged);
             // 
             // label3
             // 
@@ -107,15 +110,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscarPokemon.Location = new System.Drawing.Point(144, 43);
             this.txtBuscarPokemon.Name = "txtBuscarPokemon";
-            this.txtBuscarPokemon.Size = new System.Drawing.Size(351, 22);
+            this.txtBuscarPokemon.Size = new System.Drawing.Size(562, 22);
             this.txtBuscarPokemon.TabIndex = 9;
             this.txtBuscarPokemon.TextChanged += new System.EventHandler(this.txtBuscarPokemon_TextChanged);
             // 
             // btnAñadirAColeccion
             // 
-            this.btnAñadirAColeccion.Location = new System.Drawing.Point(31, 398);
+            this.btnAñadirAColeccion.Location = new System.Drawing.Point(42, 478);
             this.btnAñadirAColeccion.Name = "btnAñadirAColeccion";
-            this.btnAñadirAColeccion.Size = new System.Drawing.Size(159, 23);
+            this.btnAñadirAColeccion.Size = new System.Drawing.Size(126, 56);
             this.btnAñadirAColeccion.TabIndex = 10;
             this.btnAñadirAColeccion.Text = "Añadir a mi colección";
             this.btnAñadirAColeccion.UseVisualStyleBackColor = true;
@@ -123,7 +126,7 @@
             // 
             // btnCrearNuevaCarta
             // 
-            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(596, 367);
+            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(220, 485);
             this.btnCrearNuevaCarta.Name = "btnCrearNuevaCarta";
             this.btnCrearNuevaCarta.Size = new System.Drawing.Size(170, 43);
             this.btnCrearNuevaCarta.TabIndex = 11;
@@ -136,14 +139,14 @@
             this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(549, 119);
+            this.listBox1.Location = new System.Drawing.Point(807, 119);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(243, 180);
+            this.listBox1.Size = new System.Drawing.Size(192, 180);
             this.listBox1.TabIndex = 12;
             // 
             // btnVolverCC
             // 
-            this.btnVolverCC.Location = new System.Drawing.Point(313, 423);
+            this.btnVolverCC.Location = new System.Drawing.Point(833, 527);
             this.btnVolverCC.Name = "btnVolverCC";
             this.btnVolverCC.Size = new System.Drawing.Size(166, 31);
             this.btnVolverCC.TabIndex = 13;
@@ -155,7 +158,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1011, 570);
             this.Controls.Add(this.btnVolverCC);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnCrearNuevaCarta);

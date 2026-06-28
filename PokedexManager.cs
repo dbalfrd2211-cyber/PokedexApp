@@ -1,15 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SQLite;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Console;
 
 
 namespace PokedexApp
@@ -69,7 +61,7 @@ namespace PokedexApp
         {
 
             if (contraseña != confirmar)
-            {                
+            {
                 return false;
             }
 
@@ -120,9 +112,11 @@ namespace PokedexApp
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = @"SELECT C.* FROM Cartas C
-                    JOIN Pokemon P ON C.IdPokemon= P.IdPokemon
-                    WHERE P.Nombre LIKE @nombre";
+                // Agregamos el JOIN para obtener el Nombre y el alias necesario
+                string query = @"SELECT C.*, P.Nombre 
+                         FROM Cartas C
+                         JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
+                         WHERE P.Nombre LIKE @nombre";
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
@@ -134,11 +128,12 @@ namespace PokedexApp
                             lista.Add(new Cartas(
                                 Convert.ToInt32(reader["IdCarta"]),
                                 Convert.ToInt32(reader["IdPokemon"]),
-                                Convert.ToInt32(reader["Hp"]),
+                                Convert.ToInt32(reader["HP"]), // Asegúrate de usar HP en mayúsculas
                                 reader["Rareza"].ToString(),
-                                Convert.ToInt32(reader["NumeroColeccion"])
-
-                                ));
+                                Convert.ToInt32(reader["NumeroColeccion"]),
+                                reader["Nombre"].ToString(),
+                                "Sin ataques" // Completamos los 7 argumentos requeridos
+                            ));
                         }
                     }
                 }
@@ -174,7 +169,7 @@ namespace PokedexApp
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@nombre", nombreUsuario);
-                    
+
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -183,7 +178,7 @@ namespace PokedexApp
                                 Convert.ToInt32(reader["IdUsuario"]),
                                 reader["NombreUsuario"].ToString(),
                                 reader["Contrasena"].ToString()
-                                //Convert.ToBoolean(reader["EsPublico"])
+                            //Convert.ToBoolean(reader["EsPublico"])
                             );
 
                         }
@@ -194,7 +189,7 @@ namespace PokedexApp
             return null;
 
         }
- 
+
         public InfoUsuario ObtenerInfoUsuario(int idUsuario)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
@@ -223,58 +218,52 @@ namespace PokedexApp
             return null;
         }
 
-        internal DataTable AllDatoPokemon()
+        public List<Cartas> AllDatoPokemon()
         {
-            DataTable dt = new DataTable();
-
-            string query = @"SELECT
-                            p.Nombre,
-                            c.NumeroColeccion,
-                            p.Tipo1,
-                            p.Tipo2,
-                            c.HP,
-                            r.NombreRegion AS Region,
-                            c.Rareza,
-                            GROUP_CONCAT(a.Nombre, ', ') AS Ataques
-                            FROM Cartas c
-                            INNER JOIN Pokemon p ON c.IdPokemon = p.IdPokemon
-                            LEFT JOIN Regiones r ON p.IdRegion = r.IdRegion
-                            LEFT JOIN PokemonAtaque pa ON p.IdPokemon = pa.IdPokemon
-                            LEFT JOIN Ataques a ON pa.IdAtaque = a.IdAtaque
-                            GROUP BY
-                                p.Nombre,
-                                c.NumeroColeccion,
-                                p.Tipo1,
-                                p.Tipo2,
-                                c.HP,
-                                r.NombreRegion,
-                                c.Rareza;";
-                                                        
-
-            using (SQLiteConnection conn = new SQLiteConnection(db.cadenaConexion))
+            List<Cartas> lista = new List<Cartas>();
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
+                // Usamos LEFT JOIN para no perder ninguna carta, incluso si no tienen ataques asociados
+                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, P.Nombre, 
+                                GROUP_CONCAT(A.Nombre ||': '||E.Descripcion, '|') AS DetallesAtaques
+                         FROM Cartas C
+                         LEFT JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
+                         LEFT JOIN PokemonAtaque PA ON P.IdPokemon = PA.IdPokemon
+                         LEFT JOIN Ataques A ON PA.IdAtaque = A.IdAtaque
+                         LEFT JOIN Efectos E ON A.IdEfecto = E.IdEfecto
+                         GROUP BY C.IdCarta";
 
-                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                using (var cmd = new SQLiteCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
-                    da.Fill(dt);
+                    while (reader.Read())
+                    {
+                        lista.Add(new Cartas(
+                            Convert.ToInt32(reader["IdCarta"]),
+                            Convert.ToInt32(reader["IdPokemon"]),
+                            Convert.ToInt32(reader["HP"]),
+                            reader["Rareza"].ToString(),
+                            Convert.ToInt32(reader["NumeroColeccion"]),
+                            reader["Nombre"] != DBNull.Value ? reader["Nombre"].ToString() : "Desconocido",
+                            reader["DetallesAtaques"] != DBNull.Value ? reader["DetallesAtaques"].ToString() : "Sin ataques"
+                        ));
+                    }
                 }
             }
-
-            return dt;
+            return lista;
         }
     }
 }
-            
-
-
-     
 
 
 
-                            //data.NombreAtaque = reader["NombreAtaque"] != DBNull.Value ? reader["NombreAtaque"].ToString() : "Ninguno";
-                            //data.DanioAtaque = reader["DanioAtaque"] != DBNull.Value ? Convert.ToInt32(reader["DanioAtaque"]) : 0;
-                            //lista.Add(data);
-            //return null;
-            //return lista;
+
+
+
+
+//data.NombreAtaque = reader["NombreAtaque"] != DBNull.Value ? reader["NombreAtaque"].ToString() : "Ninguno";
+//data.DanioAtaque = reader["DanioAtaque"] != DBNull.Value ? Convert.ToInt32(reader["DanioAtaque"]) : 0;
+//lista.Add(data);
+//return null;
+//return lista;

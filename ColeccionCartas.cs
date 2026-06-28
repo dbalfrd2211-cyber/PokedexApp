@@ -13,11 +13,11 @@ namespace PokedexApp
     public partial class ColeccionCartas : Form
     {
         private PokedexManager manager = new PokedexManager();
-        private BindingList<Cartas> listaVisualizada;
+      
         public ColeccionCartas()
         {
             InitializeComponent();
-            btnAñadirAColeccion.Enabled = false;
+            DGVListadoCartas.DataSource = manager.AllDatoPokemon();
         }
 
       
@@ -45,17 +45,55 @@ namespace PokedexApp
 
         private void txtBuscarPokemon_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtBuscarPokemon.Text))
+            {
+                DGVListadoCartas.DataSource = manager.AllDatoPokemon();
+
+            }
+            else
+            {
+                DGVListadoCartas.DataSource = manager.BuscarCartasPorNombre(txtBuscarPokemon.Text);
+
+            }
+
+
 
         }
 
         private void ColeccionCartas_Load(object sender, EventArgs e)
         {
             DGVListadoCartas.DataSource = manager.AllDatoPokemon();
+            DGVListadoCartas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
+            DGVListadoCartas.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            DGVListadoCartas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
         }
 
         private void btnVolverCC_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void DGVListadoCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            { if (DGVListadoCartas.Rows[e.RowIndex].DataBoundItem is Cartas c)
+                {
+                    txtDetallesPokemon.Text = $"Pokemon:{c.Nombre}" + Environment.NewLine +
+                        $"Hp:{c.Hp}|Rareza:{c.Rareza}" + Environment.NewLine +
+                        $"Ataques y Efectos:" + Environment.NewLine +
+                        $"{c.DetallesAtaque}";
+
+                    btnAñadirAColeccion.Enabled = true;
+                }
+
+            }
+        }
+
+        private void txtDetallesPokemon_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
