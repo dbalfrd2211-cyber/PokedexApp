@@ -69,9 +69,7 @@ namespace PokedexApp
         {
 
             if (contraseña != confirmar)
-            {
-                MessageBox.Show("Las contraseñas no son iguales");
-
+            {                
                 return false;
             }
 
