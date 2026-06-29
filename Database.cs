@@ -9,6 +9,6 @@ namespace PokedexApp
 {
     public class Database
     {
-        public string cadenaConexion = "Data Source=PokemonTCG.db;Version=3;";
+        public string cadenaConexion = "Data Source=PokemonTCGB.db;Version=3;";
     }
 }
