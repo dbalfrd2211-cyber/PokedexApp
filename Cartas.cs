@@ -10,6 +10,7 @@ namespace PokedexApp
     {
        
         public int IdCarta { get; set; }
+        public int IdUsuario { get; set; }
         public int IdPokemon { get; set; }
         public int Hp { get; set; }
         public string Rareza { get; set; }
@@ -17,7 +18,7 @@ namespace PokedexApp
 
         public string Nombre { get; set; }
        public string DetallesAtaque { get; set; }
-        public Cartas(int idCarta, int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string detallesAtaque)
+        public Cartas(int idCarta, int idUsuario, int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string detallesAtaque)
         {
             IdCarta = idCarta;
             IdPokemon = idPokemon;
