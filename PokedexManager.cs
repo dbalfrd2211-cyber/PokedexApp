@@ -201,7 +201,7 @@ namespace PokedexApp
         }
 
 
-        public bool AgregarCartaColeccion(int idPokemon, int idUsuario, int hp, string rareza, int numeroDeColeccion)
+        public bool AgregarCartaColeccion(int idPokemon, int hp, string rareza, int numeroDeColeccion)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
@@ -210,7 +210,7 @@ namespace PokedexApp
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    cmd.Parameters.AddWithValue("@idUsuario", 1);
                     cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
                     return cmd.ExecuteNonQuery() > 0;
 
