@@ -377,8 +377,3 @@ namespace PokedexApp
 
 
 
-//data.NombreAtaque = reader["NombreAtaque"] != DBNull.Value ? reader["NombreAtaque"].ToString() : "Ninguno";
-//data.DanioAtaque = reader["DanioAtaque"] != DBNull.Value ? Convert.ToInt32(reader["DanioAtaque"]) : 0;
-//lista.Add(data);
-//return null;
-//return lista;
