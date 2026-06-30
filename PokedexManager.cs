@@ -297,6 +297,42 @@ namespace PokedexApp
         }
 
 
+
+        public List<Cartas> ObtenerCartasUsuario(int idUsuario)
+        {
+            List<Cartas> lista = new List<Cartas>();
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, P.Nombre
+                               FROM ColeccionUsuario CU
+                               JOIN Cartas C ON CU.IdPokemon = C.IdPokemon
+                               JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
+                               WHERE CU.IdUsuario = @idUsuario
+                               Oeder BY C.NumeroColeccion";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Cartas(
+                                Convert.ToInt32(reader["IdCarta"]),
+                                Convert.ToInt32(reader["idPokemon"]),
+                                Convert.ToInt32(reader["HP"]),
+                                reader["Rareza"].ToString(),
+                                Convert.ToInt32(reader["NumeroColeccion"]),
+                                reader["Nombre"].ToString(),
+                                "Sin ataques"
+                            ));
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
     }
 
    
