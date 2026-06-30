@@ -80,12 +80,26 @@ namespace PokedexApp
             if (e.RowIndex >= 0)
             { if (DGVListadoCartas.Rows[e.RowIndex].DataBoundItem is Cartas c)
                 {
-                    txtDetallesPokemon.Text = $"Pokemon:{c.Nombre}" + Environment.NewLine +
-                        $"Hp:{c.Hp}|Rareza:{c.Rareza}" + Environment.NewLine +
-                        $"Ataques y Efectos:" + Environment.NewLine +
-                        $"{c.DetallesAtaque}";
+                    VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
+                    if (detalle != null)
+                    {
+                        txtDetallesPokemon.Text =
+                            $"Pokémon" +
+                            $" Id:{detalle.Pokedex} - Nombre:{detalle.Nombre}" + Environment.NewLine +
+                    $"Tipo: {detalle.Tipo1}/{detalle.Tipo2} | Región: {detalle.Region}" + Environment.NewLine +
+                    $"Altura: {detalle.Altura}m | Peso: {detalle.Peso}kg" + Environment.NewLine +
+                    $"---**********************+*******--" + Environment.NewLine +
+                    $"Hp Carta: {detalle.HPCarta} | Rareza: {detalle.Rareza}" + Environment.NewLine +
+                    $"Ataques y Efectos:" + Environment.NewLine +
+                    // Reemplazamos el separador " | " de la vista por un salto de línea real
+                    $"{detalle.DetallesAtaques.Replace(" | ", Environment.NewLine)}";
 
-                    btnAñadirAColeccion.Enabled = true;
+                        btnAñadirAColeccion.Enabled = true;
+                    }
+                    else
+                    {
+                        txtDetallesPokemon.Text = "No se encontraron detalles completos";
+                    }
                 }
 
             }

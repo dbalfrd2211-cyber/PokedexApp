@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace PokedexApp
@@ -257,7 +258,48 @@ namespace PokedexApp
             return lista;
         }
 
+            public VistaCartasMaestra ObtenerDetallesCarta(int idPokemon)
+
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "SELECT * FROM VistaCartasMaestra WHERE IdPokemon=@id";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", idPokemon);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new VistaCartasMaestra(
+                                reader["Nombre"].ToString(),
+                                Convert.ToInt32(reader["IdPokemon"]),
+                                Convert.ToInt32(reader["Pokedex"]),
+                                reader["Tipo1"].ToString(),
+                                reader["Tipo2"] != DBNull.Value ? reader["Tipo2"].ToString() : "Ninguno",
+                                reader["Region"] != DBNull.Value ? reader["Region"].ToString() : "Desconocida",
+                                reader["Altura"] != DBNull.Value ? Convert.ToDouble(reader["Altura"]) : 0,
+                                reader["Peso"] != DBNull.Value ? Convert.ToDouble(reader["Peso"]) : 0,
+                                reader["HPBase"] != DBNull.Value ? Convert.ToInt32(reader["HPBase"]) : 0,
+                                Convert.ToInt32(reader["HP"]),
+                                reader["Rareza"].ToString(),
+                                Convert.ToInt32(reader["NumeroColeccion"]),
+                                 reader["DetallesAtaques"] != DBNull.Value ? reader["DetallesAtaques"].ToString() : "Sin ataques"
+                                 );
+                        }
+                    }
+                }
+
+            }
+
+            return null;
+        }
+
+
     }
+
+   
 }
 
 
