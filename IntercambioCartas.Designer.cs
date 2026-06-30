@@ -28,36 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DGVAgregarU1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.DGVAgregarU2 = new System.Windows.Forms.DataGridView();
+            this.DGVIntercambiarU1 = new System.Windows.Forms.DataGridView();
+            this.DGVIntercambiarU2 = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRealizarIntercambio = new System.Windows.Forms.Button();
             this.btnAgregarU1 = new System.Windows.Forms.Button();
             this.btnAgregarU2 = new System.Windows.Forms.Button();
             this.btnRetirarU1 = new System.Windows.Forms.Button();
             this.btnRetirarU2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVIntercambiarU1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVIntercambiarU2)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // DGVAgregarU1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 72);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(313, 104);
-            this.dataGridView1.TabIndex = 0;
+            this.DGVAgregarU1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVAgregarU1.Location = new System.Drawing.Point(15, 72);
+            this.DGVAgregarU1.Name = "DGVAgregarU1";
+            this.DGVAgregarU1.RowHeadersWidth = 51;
+            this.DGVAgregarU1.RowTemplate.Height = 24;
+            this.DGVAgregarU1.Size = new System.Drawing.Size(313, 104);
+            this.DGVAgregarU1.TabIndex = 0;
             // 
             // label1
             // 
@@ -95,35 +95,35 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Colección";
             // 
-            // dataGridView2
+            // DGVAgregarU2
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(424, 72);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(313, 104);
-            this.dataGridView2.TabIndex = 0;
+            this.DGVAgregarU2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVAgregarU2.Location = new System.Drawing.Point(424, 72);
+            this.DGVAgregarU2.Name = "DGVAgregarU2";
+            this.DGVAgregarU2.RowHeadersWidth = 51;
+            this.DGVAgregarU2.RowTemplate.Height = 24;
+            this.DGVAgregarU2.Size = new System.Drawing.Size(313, 104);
+            this.DGVAgregarU2.TabIndex = 0;
             // 
-            // dataGridView3
+            // DGVIntercambiarU1
             // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(15, 248);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.RowHeadersWidth = 51;
-            this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(313, 98);
-            this.dataGridView3.TabIndex = 0;
+            this.DGVIntercambiarU1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVIntercambiarU1.Location = new System.Drawing.Point(15, 248);
+            this.DGVIntercambiarU1.Name = "DGVIntercambiarU1";
+            this.DGVIntercambiarU1.RowHeadersWidth = 51;
+            this.DGVIntercambiarU1.RowTemplate.Height = 24;
+            this.DGVIntercambiarU1.Size = new System.Drawing.Size(313, 98);
+            this.DGVIntercambiarU1.TabIndex = 0;
             // 
-            // dataGridView4
+            // DGVIntercambiarU2
             // 
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(424, 248);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.RowHeadersWidth = 51;
-            this.dataGridView4.RowTemplate.Height = 24;
-            this.dataGridView4.Size = new System.Drawing.Size(313, 98);
-            this.dataGridView4.TabIndex = 0;
+            this.DGVIntercambiarU2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVIntercambiarU2.Location = new System.Drawing.Point(424, 248);
+            this.DGVIntercambiarU2.Name = "DGVIntercambiarU2";
+            this.DGVIntercambiarU2.RowHeadersWidth = 51;
+            this.DGVIntercambiarU2.RowTemplate.Height = 24;
+            this.DGVIntercambiarU2.Size = new System.Drawing.Size(313, 98);
+            this.DGVIntercambiarU2.TabIndex = 0;
             // 
             // label5
             // 
@@ -143,14 +143,14 @@
             this.label6.TabIndex = 2;
             this.label6.Text = "Cartas a entregar usuario 2";
             // 
-            // button1
+            // btnRealizarIntercambio
             // 
-            this.button1.Location = new System.Drawing.Point(282, 395);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(238, 43);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Realizar intercambio";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRealizarIntercambio.Location = new System.Drawing.Point(282, 395);
+            this.btnRealizarIntercambio.Name = "btnRealizarIntercambio";
+            this.btnRealizarIntercambio.Size = new System.Drawing.Size(238, 43);
+            this.btnRealizarIntercambio.TabIndex = 3;
+            this.btnRealizarIntercambio.Text = "Realizar intercambio";
+            this.btnRealizarIntercambio.UseVisualStyleBackColor = true;
             // 
             // btnAgregarU1
             // 
@@ -197,23 +197,23 @@
             this.Controls.Add(this.btnRetirarU1);
             this.Controls.Add(this.btnAgregarU2);
             this.Controls.Add(this.btnAgregarU1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnRealizarIntercambio);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.dataGridView4);
-            this.Controls.Add(this.dataGridView3);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DGVAgregarU2);
+            this.Controls.Add(this.DGVIntercambiarU2);
+            this.Controls.Add(this.DGVIntercambiarU1);
+            this.Controls.Add(this.DGVAgregarU1);
             this.Name = "IntercambioCartas";
             this.Text = "IntercambioCartas";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVIntercambiarU1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVIntercambiarU2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,17 +221,17 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DGVAgregarU1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.DataGridView DGVAgregarU2;
+        private System.Windows.Forms.DataGridView DGVIntercambiarU1;
+        private System.Windows.Forms.DataGridView DGVIntercambiarU2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRealizarIntercambio;
         private System.Windows.Forms.Button btnAgregarU1;
         private System.Windows.Forms.Button btnAgregarU2;
         private System.Windows.Forms.Button btnRetirarU1;

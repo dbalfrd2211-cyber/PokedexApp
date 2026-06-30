@@ -53,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ataques.cs" />
+    <Compile Include="AutenticadorUsuario2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutenticadorUsuario2.Designer.cs">
+      <DependentUpon>AutenticadorUsuario2.cs</DependentUpon>
+    </Compile>
     <Compile Include="BatallasDetalle.cs" />
     <Compile Include="Cartas.cs" />
     <Compile Include="ColeccionCartas.cs">
@@ -125,6 +131,9 @@
     <Compile Include="TransaccionDeCartas.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="VistaCartasMaestra.cs" />
+    <EmbeddedResource Include="AutenticadorUsuario2.resx">
+      <DependentUpon>AutenticadorUsuario2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ColeccionCartas.resx">
       <DependentUpon>ColeccionCartas.cs</DependentUpon>
     </EmbeddedResource>
