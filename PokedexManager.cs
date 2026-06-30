@@ -366,7 +366,7 @@ namespace PokedexApp
         }
 
 
-
+       
    
     }
 }
