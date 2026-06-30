@@ -108,6 +108,12 @@
       <DependentUpon>FrmMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="InfoUsuario.cs" />
+    <Compile Include="IntercambioCartas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IntercambioCartas.Designer.cs">
+      <DependentUpon>IntercambioCartas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Partida.cs" />
     <Compile Include="Pokemon.cs" />
     <Compile Include="PokemonAtaque.cs" />
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMenu.resx">
       <DependentUpon>FrmMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IntercambioCartas.resx">
+      <DependentUpon>IntercambioCartas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
