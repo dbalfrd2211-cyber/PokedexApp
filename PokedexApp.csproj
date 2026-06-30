@@ -117,6 +117,7 @@
     <Compile Include="Regiones.cs" />
     <Compile Include="TransaccionDeCartas.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="VistaCartasMaestra.cs" />
     <EmbeddedResource Include="ColeccionCartas.resx">
       <DependentUpon>ColeccionCartas.cs</DependentUpon>
     </EmbeddedResource>
