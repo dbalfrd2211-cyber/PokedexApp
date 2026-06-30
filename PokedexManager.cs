@@ -216,6 +216,8 @@ namespace PokedexApp
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@idUsuario", Sesion.IdUsuarioActual);
+                    // linea 218 aqui estaba el error, no estaba pasando el idUsuario
+                    //actual asi estaba cmd.Parameters.AddWithValue("@idUsuario", 1);
                     cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
                     return cmd.ExecuteNonQuery() > 0;
 
