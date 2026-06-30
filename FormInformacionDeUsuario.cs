@@ -33,14 +33,16 @@ namespace PokedexApp
             InitializeComponent();
             lblNombre.Text = usuario.NombreUsuario;
             lblNivel.Text = $"Nivel: {info.Nivel}";
-            lblGanadas.Text = $"Partidas Ganadas: {info.BatallasGanadas}";
+                lblGanadas.Text = $"Partidas Ganadas: {info.BatallasGanadas}";
             lblPerdidas.Text = $"Partidas Perdidas: {info.BatallasPerdidas}";
-            lblCartas.Text = $"Cartas Obtenidas: {info.NumeroCartas}";
+            
 
 
             PokedexManager manager = new PokedexManager();
             DGVCartasUsuario.DataSource = manager.ObtenerCartasUsuario(usuario.IdUsuario);
-            
+            var cartasUsuario = manager.ObtenerCartasUsuario(usuario.IdUsuario);
+            lblCartas.Text = $"Cartas Obtenidas: {cartasUsuario.Count}";
+
 
             DGVCartasUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVCartasUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;

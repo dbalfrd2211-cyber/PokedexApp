@@ -131,6 +131,9 @@
     <EmbeddedResource Include="FormMultijugador.resx">
       <DependentUpon>FormMultijugador.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormNuevaCarta.resx">
+      <DependentUpon>FormNuevaCarta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormRegistro.resx">
       <DependentUpon>FormRegistro.cs</DependentUpon>
     </EmbeddedResource>

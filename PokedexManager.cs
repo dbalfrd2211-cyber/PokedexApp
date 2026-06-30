@@ -211,10 +211,11 @@ namespace PokedexApp
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = "INSERT INTO ColeccionUsuario (IdUsuario, IdPokemon)VALUES(@idUsuario, @idPokemon)";
+                string query = "INSERT INTO ColeccionUsuario (IdUsuario, IdPokemon)VALUES(@idUsuario, @idPokemon)"; // string query = "INSERT INTO ColeccionUsuario (IdUsuario, IdPokemon, IdCarta)VALUES(@idUsuario, @idPokemon, @idCarta)";
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
+                    //cmd.Parameters.AddWithValue("@idCarta", idCarta);
                     cmd.Parameters.AddWithValue("@idUsuario", Sesion.IdUsuarioActual);
                     // linea 218 aqui estaba el error, no estaba pasando el idUsuario
                     //actual asi estaba cmd.Parameters.AddWithValue("@idUsuario", 1);
@@ -341,9 +342,33 @@ namespace PokedexApp
             }
             return lista;
         }
-    }
+
+
+
+        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion) //,string nombre, string detallesAtaque
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = @"INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) 
+                               VALUES (@idPokemon, @hp, @rareza, @numeroDeColeccion)";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                    cmd.Parameters.AddWithValue("@hp", hp);
+                    cmd.Parameters.AddWithValue("@rareza", rareza);
+                    cmd.Parameters.AddWithValue("@numeroDeColeccion", numeroDeColeccion);
+                    //cmd.Parameters.AddWithValue("@nombre", nombre);
+                    //cmd.Parameters.AddWithValue("@detallesAtque", detallesAtaque);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+
 
    
+    }
 }
 
 

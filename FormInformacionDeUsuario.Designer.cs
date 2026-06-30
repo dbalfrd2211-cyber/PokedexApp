@@ -52,7 +52,7 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(179, 53);
+            this.lblNombre.Location = new System.Drawing.Point(19, 53);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(37, 16);
             this.lblNombre.TabIndex = 2;
@@ -61,7 +61,7 @@
             // lblNivel
             // 
             this.lblNivel.AutoSize = true;
-            this.lblNivel.Location = new System.Drawing.Point(354, 53);
+            this.lblNivel.Location = new System.Drawing.Point(176, 53);
             this.lblNivel.Name = "lblNivel";
             this.lblNivel.Size = new System.Drawing.Size(44, 16);
             this.lblNivel.TabIndex = 3;
@@ -79,7 +79,7 @@
             // lblGanadas
             // 
             this.lblGanadas.AutoSize = true;
-            this.lblGanadas.Location = new System.Drawing.Point(535, 53);
+            this.lblGanadas.Location = new System.Drawing.Point(383, 53);
             this.lblGanadas.Name = "lblGanadas";
             this.lblGanadas.Size = new System.Drawing.Size(44, 16);
             this.lblGanadas.TabIndex = 5;
@@ -88,7 +88,7 @@
             // lblPerdidas
             // 
             this.lblPerdidas.AutoSize = true;
-            this.lblPerdidas.Location = new System.Drawing.Point(711, 53);
+            this.lblPerdidas.Location = new System.Drawing.Point(562, 53);
             this.lblPerdidas.Name = "lblPerdidas";
             this.lblPerdidas.Size = new System.Drawing.Size(44, 16);
             this.lblPerdidas.TabIndex = 6;
@@ -97,7 +97,7 @@
             // lblCartas
             // 
             this.lblCartas.AutoSize = true;
-            this.lblCartas.Location = new System.Drawing.Point(12, 149);
+            this.lblCartas.Location = new System.Drawing.Point(12, 119);
             this.lblCartas.Name = "lblCartas";
             this.lblCartas.Size = new System.Drawing.Size(44, 16);
             this.lblCartas.TabIndex = 7;
@@ -107,13 +107,13 @@
             // 
             this.DGVCartasUsuario.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVCartasUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVCartasUsuario.Location = new System.Drawing.Point(122, 149);
+            this.DGVCartasUsuario.Location = new System.Drawing.Point(12, 149);
             this.DGVCartasUsuario.Name = "DGVCartasUsuario";
             this.DGVCartasUsuario.ReadOnly = true;
             this.DGVCartasUsuario.RowHeadersWidth = 51;
             this.DGVCartasUsuario.RowTemplate.Height = 24;
             this.DGVCartasUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVCartasUsuario.Size = new System.Drawing.Size(666, 150);
+            this.DGVCartasUsuario.Size = new System.Drawing.Size(776, 150);
             this.DGVCartasUsuario.TabIndex = 8;
             // 
             // FormInformacionDeUsuario
