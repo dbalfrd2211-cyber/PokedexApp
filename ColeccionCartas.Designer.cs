@@ -159,6 +159,7 @@
             // 
             // picMapa
             // 
+            this.picMapa.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.picMapa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picMapa.Image = ((System.Drawing.Image)(resources.GetObject("picMapa.Image")));
             this.picMapa.Location = new System.Drawing.Point(785, 58);
@@ -277,7 +278,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DGVListadoCartas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.Name = "ColeccionCartas";
             this.Text = "ColeccionCartas";
             this.Load += new System.EventHandler(this.ColeccionCartas_Load);
