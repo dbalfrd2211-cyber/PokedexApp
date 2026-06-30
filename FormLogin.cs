@@ -31,6 +31,9 @@ namespace PokedexApp
                 Usuario usuarioActual = manager.ObtenerUsuario(txtUsuario.Text);
                 InfoUsuario infoActual = manager.ObtenerInfoUsuario(usuarioActual.IdUsuario);
 
+                //para guardar en mi memoria de sesiones
+                Sesion.Iniciar(usuarioActual.IdUsuario, usuarioActual.NombreUsuario);
+
                 MessageBox.Show("Inicio de sesión exitoso, BIENVENIDO A LA POKEDEX");
                 this.Hide();
                 FrmMenu menu = new FrmMenu(usuarioActual, infoActual);
