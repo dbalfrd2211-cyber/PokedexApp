@@ -35,6 +35,8 @@
             this.lblGanadas = new System.Windows.Forms.Label();
             this.lblPerdidas = new System.Windows.Forms.Label();
             this.lblCartas = new System.Windows.Forms.Label();
+            this.DGVCartasUsuario = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVCartasUsuario)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRegresar
@@ -43,14 +45,14 @@
             this.btnRegresar.Name = "btnRegresar";
             this.btnRegresar.Size = new System.Drawing.Size(201, 40);
             this.btnRegresar.TabIndex = 1;
-            this.btnRegresar.Text = "Volver al menu principal";
+            this.btnRegresar.Text = "Volver al menu";
             this.btnRegresar.UseVisualStyleBackColor = true;
             this.btnRegresar.Click += new System.EventHandler(this.btnRegresar_Click);
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(182, 73);
+            this.lblNombre.Location = new System.Drawing.Point(179, 53);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(37, 16);
             this.lblNombre.TabIndex = 2;
@@ -59,7 +61,7 @@
             // lblNivel
             // 
             this.lblNivel.AutoSize = true;
-            this.lblNivel.Location = new System.Drawing.Point(182, 137);
+            this.lblNivel.Location = new System.Drawing.Point(354, 53);
             this.lblNivel.Name = "lblNivel";
             this.lblNivel.Size = new System.Drawing.Size(44, 16);
             this.lblNivel.TabIndex = 3;
@@ -77,7 +79,7 @@
             // lblGanadas
             // 
             this.lblGanadas.AutoSize = true;
-            this.lblGanadas.Location = new System.Drawing.Point(182, 201);
+            this.lblGanadas.Location = new System.Drawing.Point(535, 53);
             this.lblGanadas.Name = "lblGanadas";
             this.lblGanadas.Size = new System.Drawing.Size(44, 16);
             this.lblGanadas.TabIndex = 5;
@@ -86,7 +88,7 @@
             // lblPerdidas
             // 
             this.lblPerdidas.AutoSize = true;
-            this.lblPerdidas.Location = new System.Drawing.Point(182, 316);
+            this.lblPerdidas.Location = new System.Drawing.Point(711, 53);
             this.lblPerdidas.Name = "lblPerdidas";
             this.lblPerdidas.Size = new System.Drawing.Size(44, 16);
             this.lblPerdidas.TabIndex = 6;
@@ -95,17 +97,31 @@
             // lblCartas
             // 
             this.lblCartas.AutoSize = true;
-            this.lblCartas.Location = new System.Drawing.Point(182, 264);
+            this.lblCartas.Location = new System.Drawing.Point(12, 149);
             this.lblCartas.Name = "lblCartas";
             this.lblCartas.Size = new System.Drawing.Size(44, 16);
             this.lblCartas.TabIndex = 7;
             this.lblCartas.Text = "label1";
+            // 
+            // DGVCartasUsuario
+            // 
+            this.DGVCartasUsuario.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVCartasUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVCartasUsuario.Location = new System.Drawing.Point(122, 149);
+            this.DGVCartasUsuario.Name = "DGVCartasUsuario";
+            this.DGVCartasUsuario.ReadOnly = true;
+            this.DGVCartasUsuario.RowHeadersWidth = 51;
+            this.DGVCartasUsuario.RowTemplate.Height = 24;
+            this.DGVCartasUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DGVCartasUsuario.Size = new System.Drawing.Size(666, 150);
+            this.DGVCartasUsuario.TabIndex = 8;
             // 
             // FormInformacionDeUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DGVCartasUsuario);
             this.Controls.Add(this.lblCartas);
             this.Controls.Add(this.lblPerdidas);
             this.Controls.Add(this.lblGanadas);
@@ -116,6 +132,7 @@
             this.Name = "FormInformacionDeUsuario";
             this.Text = "FormInformacionDeUsuario";
             this.Load += new System.EventHandler(this.FormInformacionDeUsuario_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVCartasUsuario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,5 +146,6 @@
         private System.Windows.Forms.Label lblGanadas;
         private System.Windows.Forms.Label lblPerdidas;
         private System.Windows.Forms.Label lblCartas;
+        private System.Windows.Forms.DataGridView DGVCartasUsuario;
     }
 }

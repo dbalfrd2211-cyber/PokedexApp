@@ -37,6 +37,13 @@ namespace PokedexApp
             lblPerdidas.Text = $"Partidas Perdidas: {info.BatallasPerdidas}";
             lblCartas.Text = $"Cartas Obtenidas: {info.NumeroCartas}";
 
+
+            PokedexManager manager = new PokedexManager();
+            DGVCartasUsuario.DataSource = manager.ObtenerCartasUsuario(usuario.IdUsuario);
+            
+
+            DGVCartasUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DGVCartasUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         private void btnRegresar_Click(object sender, EventArgs e)

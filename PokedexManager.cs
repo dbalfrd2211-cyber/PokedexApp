@@ -215,7 +215,7 @@ namespace PokedexApp
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@idUsuario", 1);
+                    cmd.Parameters.AddWithValue("@idUsuario", Sesion.IdUsuarioActual);
                     cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
                     return cmd.ExecuteNonQuery() > 0;
 
@@ -313,10 +313,12 @@ namespace PokedexApp
                                JOIN Cartas C ON CU.IdPokemon = C.IdPokemon
                                JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
                                WHERE CU.IdUsuario = @idUsuario
-                               Oeder BY C.NumeroColeccion";
+                               ORDER BY C.NumeroColeccion";
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
+
+                    
                     cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -324,7 +326,7 @@ namespace PokedexApp
                         {
                             lista.Add(new Cartas(
                                 Convert.ToInt32(reader["IdCarta"]),
-                                Convert.ToInt32(reader["idPokemon"]),
+                                Convert.ToInt32(reader["IdPokemon"]),
                                 Convert.ToInt32(reader["HP"]),
                                 reader["Rareza"].ToString(),
                                 Convert.ToInt32(reader["NumeroColeccion"]),
