@@ -204,6 +204,10 @@ namespace PokedexApp
 
         public bool AgregarCartaColeccion(int idPokemon, int hp, string rareza, int numeroDeColeccion)
         {
+            if (!Sesion.HaySesionActiva())
+            {
+                return false;
+            }
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();

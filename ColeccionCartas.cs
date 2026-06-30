@@ -84,15 +84,15 @@ namespace PokedexApp
                     if (detalle != null)
                     {
                         txtDetallesPokemon.Text =
-                            $"Pokémon" +
-                            $" Id:{detalle.Pokedex} - Nombre:{detalle.Nombre}" + Environment.NewLine +
-                    $"Tipo: {detalle.Tipo1}/{detalle.Tipo2} | Región: {detalle.Region}" + Environment.NewLine +
-                    $"Altura: {detalle.Altura}m | Peso: {detalle.Peso}kg" + Environment.NewLine +
-                    $"---**********************+*******--" + Environment.NewLine +
-                    $"Hp Carta: {detalle.HPCarta} | Rareza: {detalle.Rareza}" + Environment.NewLine +
-                    $"Ataques y Efectos:" + Environment.NewLine +
-                    // Reemplazamos el separador " | " de la vista por un salto de línea real
-                    $"{detalle.DetallesAtaques.Replace(" | ", Environment.NewLine)}";
+                         $"[ POKÉMON: #{detalle.Pokedex} - {detalle.Nombre.ToUpper()} ]" + Environment.NewLine +
+                        $"Tipo: {detalle.Tipo1} / {detalle.Tipo2} | Región: {detalle.Region}" + Environment.NewLine +
+                         $"Altura: {detalle.Altura}m | Peso: {detalle.Peso}kg | HP Base Biológico: {detalle.HPBase}" + Environment.NewLine +
+                         $"--------------------------------------------------" + Environment.NewLine +
+                        $"[ DATOS DE LA CARTA ]" + Environment.NewLine +
+                         $"Puntos de Vida (HP Carta): {detalle.HPCarta} | Rareza: {detalle.Rareza}" + Environment.NewLine +
+                          $"--------------------------------------------------" + Environment.NewLine +
+                        $"[ ATAQUES Y EFECTOS ]" + Environment.NewLine +
+                      $" - {detalle.DetallesAtaques.Replace(" | ", Environment.NewLine + " - ")}";
 
                         btnAñadirAColeccion.Enabled = true;
                     }
