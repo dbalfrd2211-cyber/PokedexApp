@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokedexApp
 {
-    internal class BatallasDetalle
+    public class BatallasDetalle
     {
         public int IdDetalle { get; set; }
         public int IdPartida { get; set; }

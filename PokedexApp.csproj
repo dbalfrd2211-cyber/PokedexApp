@@ -143,6 +143,9 @@
     <EmbeddedResource Include="ColeccionCartas.resx">
       <DependentUpon>ColeccionCartas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormBatalla.resx">
+      <DependentUpon>FormBatalla.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormInformacionDeUsuario.resx">
       <DependentUpon>FormInformacionDeUsuario.cs</DependentUpon>
     </EmbeddedResource>

@@ -364,10 +364,62 @@ namespace PokedexApp
                 }
             }
         }
+        public bool GuardarResultadoBatalla(Partida partida, BatallasDetalle detalle)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        string queryPartida = @"INSERT INTO Partidas (IdJugador1, IdJugador2, Ganador, Fecha) 
+                                                VALUES (@jugador1, @jugador2, @ganador, @fecha);
+                                                SELECT last_insert_rowid();";
+
+                        int idPartidaGenerado = 0;
+
+                        using (var cmdPartida = new SQLiteCommand(queryPartida, conn, transaction))
+                        {
+                            cmdPartida.Parameters.AddWithValue("@jugador1", partida.IdJugador1);
+                            cmdPartida.Parameters.AddWithValue("@jugador2", partida.IdJugador2);
+                            cmdPartida.Parameters.AddWithValue("@ganador", partida.Ganador);
+                            cmdPartida.Parameters.AddWithValue("@fecha", partida.Fecha);
+
+                            idPartidaGenerado = Convert.ToInt32(cmdPartida.ExecuteScalar());
+                        }
+
+                        string queryDetalle = @"INSERT INTO BatallasDetalle (IdPartida, IdUsuarioGanador, IdPokemonUsado, IdPokemonRival) 
+                                                VALUES (@idPartida, @ganador, @pokeUsado, @pokeRival)";
+
+                        using (var cmdDetalle = new SQLiteCommand(queryDetalle, conn, transaction))
+                        {
+                            cmdDetalle.Parameters.AddWithValue("@idPartida", idPartidaGenerado);
+                            cmdDetalle.Parameters.AddWithValue("@ganador", detalle.IdUsuarioGanador);
+                            cmdDetalle.Parameters.AddWithValue("@pokeUsado", detalle.IdPokemonUsado);
+                            cmdDetalle.Parameters.AddWithValue("@pokeRival", detalle.IdPokemonRival);
+
+                            cmdDetalle.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.WriteLine("Error al guardar la batalla: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+        }
 
 
-       
-   
+
+
+
     }
 }
 

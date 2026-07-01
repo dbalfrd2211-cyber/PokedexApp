@@ -22,15 +22,21 @@ namespace PokedexApp
 
         private void btnCombate_Click(object sender, EventArgs e)
         {
-            string nombreRival = "NombreDelRival";
+            PokedexManager manager = new PokedexManager();
 
-            AutenticadorUsuario2 authRival = new AutenticadorUsuario2(nombreRival)
-                if (authRival.ShowDialog() == DialogResult.OK) 
+            // 1. Obtenemos dos cartas de prueba desde tu base de datos (Ej: Bulbasaur #1 y Pikachu #25)
+            VistaCartasMaestra miPokemon = manager.ObtenerDetallesCarta(1);
+            VistaCartasMaestra rivalPokemon = manager.ObtenerDetallesCarta(25);
+
+            // 2. Revisamos que existan y abrimos tu nueva arena
+            if (miPokemon != null && rivalPokemon != null)
             {
-                MessageBox.Show("¡Oponente verificado! Entrando a la Arena...",
-                "Matchmaking", MessageBoxButtons.OK, MessageBoxIcon.Information)
-             }
-         }
+                FormFondo arena = new FormFondo(miPokemon, rivalPokemon);
+                this.Hide();
+                arena.ShowDialog();
+                this.Show();
+            }
+        }
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
