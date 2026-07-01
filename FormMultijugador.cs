@@ -22,7 +22,8 @@ namespace PokedexApp
 
         private void btnCombate_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("¡Buscando un oponente en la Arena...", 
+            "Matchmaking", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
