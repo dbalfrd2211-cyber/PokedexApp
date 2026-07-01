@@ -22,9 +22,15 @@ namespace PokedexApp
 
         private void btnCombate_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("¡Buscando un oponente en la Arena...", 
-            "Matchmaking", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+            string nombreRival = "NombreDelRival";
+
+            AutenticadorUsuario2 authRival = new AutenticadorUsuario2(nombreRival)
+                if (authRival.ShowDialog() == DialogResult.OK) 
+            {
+                MessageBox.Show("¡Oponente verificado! Entrando a la Arena...",
+                "Matchmaking", MessageBoxButtons.OK, MessageBoxIcon.Information)
+             }
+         }
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
