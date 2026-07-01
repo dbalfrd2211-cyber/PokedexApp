@@ -37,7 +37,7 @@ namespace PokedexApp
 
         private void btnMultijugador_Click(object sender, EventArgs e)
         {
-            FormMultijugador frmMultijugador = new FormMultijugador();
+            FormMultijugador frmMultijugador = new FormMultijugador(usuarioActual);
             frmMultijugador.ShowDialog();
         }
 

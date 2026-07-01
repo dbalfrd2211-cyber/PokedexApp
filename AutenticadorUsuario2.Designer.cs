@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblUsuarioAutenticador = new System.Windows.Forms.Label();
+            this.txtContrasena = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAceptarAuntenticar = new System.Windows.Forms.Button();
+            this.btnCancelarAuntenticar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lblUsuarioAutenticador
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(193, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Usuario";
+            this.lblUsuarioAutenticador.AutoSize = true;
+            this.lblUsuarioAutenticador.Location = new System.Drawing.Point(193, 33);
+            this.lblUsuarioAutenticador.Name = "lblUsuarioAutenticador";
+            this.lblUsuarioAutenticador.Size = new System.Drawing.Size(54, 16);
+            this.lblUsuarioAutenticador.TabIndex = 0;
+            this.lblUsuarioAutenticador.Text = "Usuario";
             // 
-            // textBox1
+            // txtContrasena
             // 
-            this.textBox1.Location = new System.Drawing.Point(138, 114);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(175, 22);
-            this.textBox1.TabIndex = 1;
+            this.txtContrasena.Location = new System.Drawing.Point(138, 114);
+            this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.Size = new System.Drawing.Size(175, 22);
+            this.txtContrasena.TabIndex = 1;
             // 
             // label2
             // 
@@ -60,36 +60,39 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Introduzca su contraseña para continuar:";
             // 
-            // button1
+            // btnAceptarAuntenticar
             // 
-            this.button1.Location = new System.Drawing.Point(100, 185);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 42);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAceptarAuntenticar.Location = new System.Drawing.Point(100, 185);
+            this.btnAceptarAuntenticar.Name = "btnAceptarAuntenticar";
+            this.btnAceptarAuntenticar.Size = new System.Drawing.Size(111, 42);
+            this.btnAceptarAuntenticar.TabIndex = 3;
+            this.btnAceptarAuntenticar.Text = "Aceptar";
+            this.btnAceptarAuntenticar.UseVisualStyleBackColor = true;
+            this.btnAceptarAuntenticar.Click += new System.EventHandler(this.btnAceptarAuntenticar_Click);
             // 
-            // button2
+            // btnCancelarAuntenticar
             // 
-            this.button2.Location = new System.Drawing.Point(261, 185);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(111, 42);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancelarAuntenticar.Location = new System.Drawing.Point(261, 185);
+            this.btnCancelarAuntenticar.Name = "btnCancelarAuntenticar";
+            this.btnCancelarAuntenticar.Size = new System.Drawing.Size(111, 42);
+            this.btnCancelarAuntenticar.TabIndex = 3;
+            this.btnCancelarAuntenticar.Text = "Cancelar";
+            this.btnCancelarAuntenticar.UseVisualStyleBackColor = true;
+            this.btnCancelarAuntenticar.Click += new System.EventHandler(this.btnCancelarAuntenticar_Click);
             // 
             // AutenticadorUsuario2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(456, 262);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCancelarAuntenticar);
+            this.Controls.Add(this.btnAceptarAuntenticar);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtContrasena);
+            this.Controls.Add(this.lblUsuarioAutenticador);
             this.Name = "AutenticadorUsuario2";
             this.Text = "AutenticadorUsuario2";
+            this.Load += new System.EventHandler(this.AutenticadorUsuario2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -97,10 +100,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblUsuarioAutenticador;
+        private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAceptarAuntenticar;
+        private System.Windows.Forms.Button btnCancelarAuntenticar;
     }
 }

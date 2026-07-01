@@ -32,6 +32,7 @@
             this.lblBatallaPokemon = new System.Windows.Forms.Label();
             this.btnVolverMenu = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnIntercambio = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCombate
@@ -72,6 +73,16 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Batalla";
             // 
+            // btnIntercambio
+            // 
+            this.btnIntercambio.Location = new System.Drawing.Point(320, 164);
+            this.btnIntercambio.Name = "btnIntercambio";
+            this.btnIntercambio.Size = new System.Drawing.Size(133, 52);
+            this.btnIntercambio.TabIndex = 0;
+            this.btnIntercambio.Text = "Intercambio de Cartas";
+            this.btnIntercambio.UseVisualStyleBackColor = true;
+            this.btnIntercambio.Click += new System.EventHandler(this.btnIntercambio_Click);
+            // 
             // FormMultijugador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -80,6 +91,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnVolverMenu);
             this.Controls.Add(this.lblBatallaPokemon);
+            this.Controls.Add(this.btnIntercambio);
             this.Controls.Add(this.btnCombate);
             this.Name = "FormMultijugador";
             this.Text = "FormMultijugador";
@@ -94,5 +106,6 @@
         private System.Windows.Forms.Label lblBatallaPokemon;
         private System.Windows.Forms.Button btnVolverMenu;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnIntercambio;
     }
 }
