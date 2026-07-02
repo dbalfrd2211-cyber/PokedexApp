@@ -352,7 +352,7 @@ namespace PokedexApp
             {
                 conn.Open();
 
-                string checkQuery = "SELEC COUNT (*) FROM Pokemon WHERE IdPokemon=@id";
+                string checkQuery = "SELECT COUNT (*) FROM Pokemon WHERE IdPokemon=@id";
                 using (var cmdCheck = new SQLiteCommand(checkQuery, conn))
                 {
                     cmdCheck.Parameters.AddWithValue("@id", idPokemon);
