@@ -54,9 +54,11 @@
             // 
             this.DGVAgregarU1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVAgregarU1.Location = new System.Drawing.Point(15, 72);
+            this.DGVAgregarU1.MultiSelect = false;
             this.DGVAgregarU1.Name = "DGVAgregarU1";
             this.DGVAgregarU1.RowHeadersWidth = 51;
             this.DGVAgregarU1.RowTemplate.Height = 24;
+            this.DGVAgregarU1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVAgregarU1.Size = new System.Drawing.Size(313, 104);
             this.DGVAgregarU1.TabIndex = 0;
             // 
@@ -91,9 +93,11 @@
             // 
             this.DGVAgregarU2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVAgregarU2.Location = new System.Drawing.Point(424, 72);
+            this.DGVAgregarU2.MultiSelect = false;
             this.DGVAgregarU2.Name = "DGVAgregarU2";
             this.DGVAgregarU2.RowHeadersWidth = 51;
             this.DGVAgregarU2.RowTemplate.Height = 24;
+            this.DGVAgregarU2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVAgregarU2.Size = new System.Drawing.Size(313, 104);
             this.DGVAgregarU2.TabIndex = 0;
             // 
@@ -101,9 +105,11 @@
             // 
             this.DGVIntercambiarU1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVIntercambiarU1.Location = new System.Drawing.Point(15, 248);
+            this.DGVIntercambiarU1.MultiSelect = false;
             this.DGVIntercambiarU1.Name = "DGVIntercambiarU1";
             this.DGVIntercambiarU1.RowHeadersWidth = 51;
             this.DGVIntercambiarU1.RowTemplate.Height = 24;
+            this.DGVIntercambiarU1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVIntercambiarU1.Size = new System.Drawing.Size(313, 98);
             this.DGVIntercambiarU1.TabIndex = 0;
             // 
@@ -111,9 +117,11 @@
             // 
             this.DGVIntercambiarU2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVIntercambiarU2.Location = new System.Drawing.Point(424, 248);
+            this.DGVIntercambiarU2.MultiSelect = false;
             this.DGVIntercambiarU2.Name = "DGVIntercambiarU2";
             this.DGVIntercambiarU2.RowHeadersWidth = 51;
             this.DGVIntercambiarU2.RowTemplate.Height = 24;
+            this.DGVIntercambiarU2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVIntercambiarU2.Size = new System.Drawing.Size(313, 98);
             this.DGVIntercambiarU2.TabIndex = 0;
             // 
@@ -143,6 +151,7 @@
             this.btnRealizarIntercambio.TabIndex = 3;
             this.btnRealizarIntercambio.Text = "Realizar intercambio";
             this.btnRealizarIntercambio.UseVisualStyleBackColor = true;
+            this.btnRealizarIntercambio.Click += new System.EventHandler(this.btnRealizarIntercambio_Click);
             // 
             // btnAgregarU1
             // 
@@ -162,6 +171,7 @@
             this.btnAgregarU2.TabIndex = 3;
             this.btnAgregarU2.Text = "Agregar al intercambio";
             this.btnAgregarU2.UseVisualStyleBackColor = true;
+            this.btnAgregarU2.Click += new System.EventHandler(this.btnAgregarU2_Click);
             // 
             // btnRetirarU1
             // 
@@ -181,6 +191,7 @@
             this.btnRetirarU2.TabIndex = 3;
             this.btnRetirarU2.Text = "Retirar del intercambio";
             this.btnRetirarU2.UseVisualStyleBackColor = true;
+            this.btnRetirarU2.Click += new System.EventHandler(this.btnRetirarU2_Click);
             // 
             // cmbUsuarios2
             // 
