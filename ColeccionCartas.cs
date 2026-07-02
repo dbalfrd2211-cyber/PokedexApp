@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -111,11 +112,20 @@ namespace PokedexApp
 
         private void DGVListadoCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                if (DGVListadoCartas.Rows[e.RowIndex].DataBoundItem is Cartas c)
+            if (e.RowIndex >= 0 && DGVListadoCartas.Rows[e.RowIndex].DataBoundItem is Cartas c)
+            {                //para q salga la imagen
+                string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
+                string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+
+                if (File.Exists(ruta))
                 {
-                    VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
+                    picCarta.Image = Image.FromFile(ruta);
+                }
+                else
+                {
+                    picCarta.Image = null; 
+                }
+                VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
                     if (detalle != null)
                     {
                         txtDetallesPokemon.Text =
@@ -145,10 +155,7 @@ namespace PokedexApp
                 }
 
             }
-
-
-
-        }
+              
 
         private void txtDetallesPokemon_TextChanged(object sender, EventArgs e)
         {

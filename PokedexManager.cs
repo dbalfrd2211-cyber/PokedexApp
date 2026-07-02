@@ -192,7 +192,8 @@ namespace PokedexApp
                                 reader["Rareza"].ToString(),
                                 Convert.ToInt32(reader["NumeroColeccion"]),
                                 reader["Nombre"].ToString(),
-                                "Sin ataques"
+                                "Sin ataques",
+                                reader["Imagen"]!= DBNull.Value? reader["Imagen"].ToString():"default.png"
                             ));
                         }
                     }
@@ -236,7 +237,7 @@ namespace PokedexApp
             {
                 conn.Open();
                 // Usamos LEFT JOIN para no perder ninguna carta, incluso si no tienen ataques asociados
-                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, P.Nombre, 
+                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, C.Imagen,P.Nombre, 
                                 GROUP_CONCAT(A.Nombre ||': '||E.Descripcion, '|') AS DetallesAtaques
                          FROM Cartas C
                          LEFT JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
@@ -257,7 +258,8 @@ namespace PokedexApp
                             reader["Rareza"].ToString(),
                             Convert.ToInt32(reader["NumeroColeccion"]),
                             reader["Nombre"] != DBNull.Value ? reader["Nombre"].ToString() : "Desconocido",
-                            reader["DetallesAtaques"] != DBNull.Value ? reader["DetallesAtaques"].ToString() : "Sin ataques"
+                            reader["DetallesAtaques"] != DBNull.Value ? reader["DetallesAtaques"].ToString() : "Sin ataques",
+                            reader["Imagen"]!=DBNull.Value? reader["Imagen"].ToString ():"default.png"
                         ));
                     }
                 }
@@ -334,7 +336,8 @@ namespace PokedexApp
                                 reader["Rareza"].ToString(),
                                 Convert.ToInt32(reader["NumeroColeccion"]),
                                 reader["Nombre"].ToString(),
-                                "Sin ataques"
+                                "Sin ataques",
+                                reader["Imagen"]!= DBNull.Value? reader["Imagen"].ToString():"default.png"
                             ));
                         }
                     }

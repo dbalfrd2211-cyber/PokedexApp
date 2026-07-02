@@ -50,14 +50,15 @@
             this.btnPaldea = new System.Windows.Forms.Button();
             this.btnUnova = new System.Windows.Forms.Button();
             this.btnEliminarCarta = new System.Windows.Forms.Button();
+            this.picCarta = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
             this.SuspendLayout();
             // 
             // DGVListadoCartas
             // 
-            this.DGVListadoCartas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGVListadoCartas.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.DGVListadoCartas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGVListadoCartas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListadoCartas.Location = new System.Drawing.Point(31, 119);
@@ -66,10 +67,9 @@
             this.DGVListadoCartas.RowHeadersWidth = 51;
             this.DGVListadoCartas.RowTemplate.Height = 24;
             this.DGVListadoCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVListadoCartas.Size = new System.Drawing.Size(621, 226);
+            this.DGVListadoCartas.Size = new System.Drawing.Size(527, 273);
             this.DGVListadoCartas.TabIndex = 0;
             this.DGVListadoCartas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoCartas_CellContentClick);
-            //this.DGVListadoCartas.SelectionChanged += new System.EventHandler(this.DGVListadoCartas_SelectionChanged);
             // 
             // label1
             // 
@@ -83,7 +83,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 367);
+            this.label2.Location = new System.Drawing.Point(28, 423);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 16);
             this.label2.TabIndex = 2;
@@ -91,8 +91,9 @@
             // 
             // txtDetallesPokemon
             // 
+            this.txtDetallesPokemon.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.txtDetallesPokemon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 389);
+            this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 442);
             this.txtDetallesPokemon.Multiline = true;
             this.txtDetallesPokemon.Name = "txtDetallesPokemon";
             this.txtDetallesPokemon.ReadOnly = true;
@@ -104,7 +105,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 646);
+            this.label3.Location = new System.Drawing.Point(37, 687);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 16);
             this.label3.TabIndex = 7;
@@ -125,13 +126,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscarPokemon.Location = new System.Drawing.Point(144, 43);
             this.txtBuscarPokemon.Name = "txtBuscarPokemon";
-            this.txtBuscarPokemon.Size = new System.Drawing.Size(545, 22);
+            this.txtBuscarPokemon.Size = new System.Drawing.Size(549, 22);
             this.txtBuscarPokemon.TabIndex = 9;
             this.txtBuscarPokemon.TextChanged += new System.EventHandler(this.txtBuscarPokemon_TextChanged);
             // 
             // btnAñadirAColeccion
             // 
-            this.btnAñadirAColeccion.Location = new System.Drawing.Point(31, 562);
+            this.btnAñadirAColeccion.Location = new System.Drawing.Point(31, 617);
             this.btnAñadirAColeccion.Name = "btnAñadirAColeccion";
             this.btnAñadirAColeccion.Size = new System.Drawing.Size(126, 56);
             this.btnAñadirAColeccion.TabIndex = 10;
@@ -141,7 +142,7 @@
             // 
             // btnCrearNuevaCarta
             // 
-            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(174, 575);
+            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(175, 624);
             this.btnCrearNuevaCarta.Name = "btnCrearNuevaCarta";
             this.btnCrearNuevaCarta.Size = new System.Drawing.Size(170, 43);
             this.btnCrearNuevaCarta.TabIndex = 11;
@@ -151,7 +152,7 @@
             // 
             // btnVolverCC
             // 
-            this.btnVolverCC.Location = new System.Drawing.Point(574, 642);
+            this.btnVolverCC.Location = new System.Drawing.Point(1048, 680);
             this.btnVolverCC.Name = "btnVolverCC";
             this.btnVolverCC.Size = new System.Drawing.Size(166, 31);
             this.btnVolverCC.TabIndex = 13;
@@ -164,7 +165,7 @@
             this.picMapa.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.picMapa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picMapa.Image = ((System.Drawing.Image)(resources.GetObject("picMapa.Image")));
-            this.picMapa.Location = new System.Drawing.Point(785, 58);
+            this.picMapa.Location = new System.Drawing.Point(789, 58);
             this.picMapa.Name = "picMapa";
             this.picMapa.Size = new System.Drawing.Size(650, 593);
             this.picMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -256,19 +257,29 @@
             // 
             // btnEliminarCarta
             // 
-            this.btnEliminarCarta.Location = new System.Drawing.Point(415, 575);
+            this.btnEliminarCarta.Location = new System.Drawing.Point(362, 624);
             this.btnEliminarCarta.Name = "btnEliminarCarta";
             this.btnEliminarCarta.Size = new System.Drawing.Size(145, 43);
             this.btnEliminarCarta.TabIndex = 25;
             this.btnEliminarCarta.Text = "Eliminar Carta";
             this.btnEliminarCarta.UseVisualStyleBackColor = true;
-            //this.btnEliminarCarta.Click += new System.EventHandler(this.btnEliminarCarta_Click);
+            // 
+            // picCarta
+            // 
+            this.picCarta.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.picCarta.Location = new System.Drawing.Point(564, 119);
+            this.picCarta.Name = "picCarta";
+            this.picCarta.Size = new System.Drawing.Size(204, 273);
+            this.picCarta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCarta.TabIndex = 26;
+            this.picCarta.TabStop = false;
             // 
             // ColeccionCartas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1489, 815);
+            this.ClientSize = new System.Drawing.Size(1493, 815);
+            this.Controls.Add(this.picCarta);
             this.Controls.Add(this.btnEliminarCarta);
             this.Controls.Add(this.btnUnova);
             this.Controls.Add(this.btnPaldea);
@@ -296,6 +307,7 @@
             this.Load += new System.EventHandler(this.ColeccionCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCarta)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,5 +336,6 @@
         private System.Windows.Forms.Button btnPaldea;
         private System.Windows.Forms.Button btnUnova;
         private System.Windows.Forms.Button btnEliminarCarta;
+        private System.Windows.Forms.PictureBox picCarta;
     }
 }
