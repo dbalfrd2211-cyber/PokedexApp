@@ -255,5 +255,10 @@ namespace PokedexApp
                 }
             }
         }
+
+        private void btnRegresarVM_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
