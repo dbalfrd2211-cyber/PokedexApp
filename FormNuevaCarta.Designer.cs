@@ -101,7 +101,7 @@
             this.txtNumeroColeccion.Name = "txtNumeroColeccion";
             this.txtNumeroColeccion.Size = new System.Drawing.Size(174, 22);
             this.txtNumeroColeccion.TabIndex = 7;
-            this.txtNumeroColeccion.TextChanged += new System.EventHandler(this.txtNumeroColeccion_TextChanged);
+            //this.txtNumeroColeccion.TextChanged += new System.EventHandler(this.txtNumeroColeccion_TextChanged);
             // 
             // btnGuardar
             // 
@@ -167,7 +167,7 @@
             this.cmbRareza.Name = "cmbRareza";
             this.cmbRareza.Size = new System.Drawing.Size(169, 24);
             this.cmbRareza.TabIndex = 14;
-            this.cmbRareza.SelectedIndexChanged += new System.EventHandler(this.cmbRareza_SelectedIndexChanged);
+            //this.cmbRareza.SelectedIndexChanged += new System.EventHandler(this.cmbRareza_SelectedIndexChanged);
             // 
             // lblInfo
             // 
@@ -199,7 +199,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormNuevaCarta";
             this.Text = "FormNuevaCarta";
-            this.Load += new System.EventHandler(this.FormNuevaCarta_Load);
+            //this.Load += new System.EventHandler(this.FormNuevaCarta_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

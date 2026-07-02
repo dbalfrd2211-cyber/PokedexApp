@@ -55,24 +55,5 @@ namespace PokedexApp
             }
         }
 
-        private void cmbRareza_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //borrar
-            
-
-
-        }
-
-        private void FormNuevaCarta_Load(object sender, EventArgs e)
-        {
-          //borrra
-
-        
-        }
-
-        private void txtNumeroColeccion_TextChanged(object sender, EventArgs e)
-        {
-            //borarra
-        }
     }
 }
