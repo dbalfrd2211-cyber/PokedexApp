@@ -92,6 +92,7 @@ namespace PokedexApp
                     AplicarDañoAlRival();
                 }
             }
+
         }
 
         private void AplicarDañoAlRival()
