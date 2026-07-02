@@ -101,7 +101,6 @@
             this.txtNumeroColeccion.Name = "txtNumeroColeccion";
             this.txtNumeroColeccion.Size = new System.Drawing.Size(174, 22);
             this.txtNumeroColeccion.TabIndex = 7;
-            //this.txtNumeroColeccion.TextChanged += new System.EventHandler(this.txtNumeroColeccion_TextChanged);
             // 
             // btnGuardar
             // 
