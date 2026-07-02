@@ -42,6 +42,7 @@
             this.txtDetallesAtaque = new System.Windows.Forms.TextBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.cmbRareza = new System.Windows.Forms.ComboBox();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -74,7 +75,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(441, 136);
+            this.label4.Location = new System.Drawing.Point(441, 90);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(135, 16);
             this.label4.TabIndex = 3;
@@ -96,10 +97,11 @@
             // 
             // txtNumeroColeccion
             // 
-            this.txtNumeroColeccion.Location = new System.Drawing.Point(582, 136);
+            this.txtNumeroColeccion.Location = new System.Drawing.Point(582, 90);
             this.txtNumeroColeccion.Name = "txtNumeroColeccion";
             this.txtNumeroColeccion.Size = new System.Drawing.Size(174, 22);
             this.txtNumeroColeccion.TabIndex = 7;
+            this.txtNumeroColeccion.TextChanged += new System.EventHandler(this.txtNumeroColeccion_TextChanged);
             // 
             // btnGuardar
             // 
@@ -165,12 +167,22 @@
             this.cmbRareza.Name = "cmbRareza";
             this.cmbRareza.Size = new System.Drawing.Size(169, 24);
             this.cmbRareza.TabIndex = 14;
+            this.cmbRareza.SelectedIndexChanged += new System.EventHandler(this.cmbRareza_SelectedIndexChanged);
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Location = new System.Drawing.Point(441, 136);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(0, 16);
+            this.lblInfo.TabIndex = 15;
             // 
             // FormNuevaCarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.cmbRareza);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.txtDetallesAtaque);
@@ -187,6 +199,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormNuevaCarta";
             this.Text = "FormNuevaCarta";
+            this.Load += new System.EventHandler(this.FormNuevaCarta_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,5 +221,6 @@
         private System.Windows.Forms.TextBox txtDetallesAtaque;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.ComboBox cmbRareza;
+        private System.Windows.Forms.Label lblInfo;
     }
 }
