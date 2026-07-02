@@ -347,9 +347,18 @@ namespace PokedexApp
 
         public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion) //,string nombre, string detallesAtaque
         {
+            if (idPokemon <= 151) return false;
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
+
+                string checkQuery = "SELEC COUNT (*) FROM Pokemon WHERE IdPokemon=@id";
+                using (var cmdCheck = new SQLiteCommand(checkQuery, conn))
+                {
+                    cmdCheck.Parameters.AddWithValue("@id", idPokemon);
+                    if (Convert.ToInt32(cmdCheck.ExecuteScalar()) == 0) return false;
+                }
+
                 string query = @"INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) 
                                VALUES (@idPokemon, @hp, @rareza, @numeroDeColeccion)";
                 using (var cmd = new SQLiteCommand(query, conn))
@@ -416,15 +425,16 @@ namespace PokedexApp
             }
         }
 
-        public bool EliminarCarta(int idPokemon)
+        public bool EliminarCarta(int idCarta, int idPokemon)
         {
+            if (idPokemon <= 151) return false;
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = "DELETE FROM Cartas WHERE IdPokemon = @id AND IdPokemon > 151";
+                string query = "DELETE FROM Cartas WHERE IdPokemon = @idCarta";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", idPokemon);
+                    cmd.Parameters.AddWithValue("@idCarta", idCarta);
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }

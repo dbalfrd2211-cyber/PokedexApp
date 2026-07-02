@@ -15,6 +15,9 @@ namespace PokedexApp
         public FormNuevaCarta()
         {
             InitializeComponent();
+            txtIdPokemon.KeyPress += ValidacionesUI.SoloNumeros;
+            txtHP.KeyPress += ValidacionesUI.SoloNumeros;
+            txtNumeroColeccion.KeyPress += ValidacionesUI.SoloNumeros;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -50,6 +53,26 @@ namespace PokedexApp
             {
                 MessageBox.Show("Error al crear la carta. Verifica los datos ingresados.");
             }
+        }
+
+        private void cmbRareza_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //borrar
+            
+
+
+        }
+
+        private void FormNuevaCarta_Load(object sender, EventArgs e)
+        {
+          //borrra
+
+        
+        }
+
+        private void txtNumeroColeccion_TextChanged(object sender, EventArgs e)
+        {
+            //borarra
         }
     }
 }

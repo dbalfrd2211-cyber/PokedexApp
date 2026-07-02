@@ -293,21 +293,24 @@ namespace PokedexApp
 
         private void btnEliminarCarta_Click(object sender, EventArgs e)
         {
-            if(DGVListadoCartas.CurrentRow?.DataBoundItem is Cartas c)
+            if (DGVListadoCartas.CurrentRow?.DataBoundItem is Cartas c)
             {
-                if (manager.EliminarCarta(c.IdPokemon))
+                var confirmResult = MessageBox.Show("¿Seguro que deseas eliminar esta carta?",
+                                     "Confirmar eliminación", MessageBoxButtons.YesNo);
+
+                if (confirmResult == DialogResult.Yes)
                 {
-                    MessageBox.Show("Carta eliminada de tu coleccion");
-                    txtBuscarPokemon_TextChanged(sender, e);
+                    if (manager.EliminarCarta(c.IdCarta, c.IdPokemon))
+                    {
+                        MessageBox.Show("Carta eliminada de tu colección");
+                        txtBuscarPokemon_TextChanged(sender, e); 
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: No puedes eliminar cartas originales del sistema.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("No se pudo eliminar la carta de tu coleccion");
-                }
-            }
-            else
-            {
-                MessageBox.Show("No puedes eliminar cartas originales");
+
             }
         }
 

@@ -136,6 +136,7 @@
     <Compile Include="Sesion.cs" />
     <Compile Include="TransaccionDeCartas.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="ValidacionesUI.cs" />
     <Compile Include="VistaCartasMaestra.cs" />
     <EmbeddedResource Include="AutenticadorUsuario2.resx">
       <DependentUpon>AutenticadorUsuario2.cs</DependentUpon>
