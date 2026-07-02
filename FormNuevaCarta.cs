@@ -25,10 +25,16 @@ namespace PokedexApp
                 MessageBox.Show("Debes llenar los campos IdPokemon, HP y Numero de coleccion con numeros");
                 return;
             }
+            if(cmbRareza.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debes seleccionar una rareza");
+                return;
+            }
+        
 
             int idPokemon = Convert.ToInt32(txtIdPokemon.Text);
             int hp = Convert.ToInt32(txtHP.Text);
-            string rareza = txtRareza.Text;
+            string rareza = cmbRareza.SelectedItem.ToString();
             int numeroColeccion = Convert.ToInt32(txtNumeroColeccion.Text);
             //string nombre = txtNombre.Text;
             //string detallesAtaque = txtDetallesAtaque.Text;

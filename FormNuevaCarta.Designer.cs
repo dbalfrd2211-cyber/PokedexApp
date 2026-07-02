@@ -34,7 +34,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtIdPokemon = new System.Windows.Forms.TextBox();
             this.txtHP = new System.Windows.Forms.TextBox();
-            this.txtRareza = new System.Windows.Forms.TextBox();
             this.txtNumeroColeccion = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtDetallesAtaque = new System.Windows.Forms.TextBox();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.cmbRareza = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -93,13 +93,6 @@
             this.txtHP.Name = "txtHP";
             this.txtHP.Size = new System.Drawing.Size(174, 22);
             this.txtHP.TabIndex = 5;
-            // 
-            // txtRareza
-            // 
-            this.txtRareza.Location = new System.Drawing.Point(191, 246);
-            this.txtRareza.Name = "txtRareza";
-            this.txtRareza.Size = new System.Drawing.Size(174, 22);
-            this.txtRareza.TabIndex = 6;
             // 
             // txtNumeroColeccion
             // 
@@ -160,11 +153,25 @@
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             // 
+            // cmbRareza
+            // 
+            this.cmbRareza.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRareza.FormattingEnabled = true;
+            this.cmbRareza.Items.AddRange(new object[] {
+            "Comun",
+            "Rara",
+            "Legendaria"});
+            this.cmbRareza.Location = new System.Drawing.Point(191, 243);
+            this.cmbRareza.Name = "cmbRareza";
+            this.cmbRareza.Size = new System.Drawing.Size(169, 24);
+            this.cmbRareza.TabIndex = 14;
+            // 
             // FormNuevaCarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cmbRareza);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.txtDetallesAtaque);
             this.Controls.Add(this.label6);
@@ -172,7 +179,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.txtNumeroColeccion);
-            this.Controls.Add(this.txtRareza);
             this.Controls.Add(this.txtHP);
             this.Controls.Add(this.txtIdPokemon);
             this.Controls.Add(this.label4);
@@ -194,7 +200,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtIdPokemon;
         private System.Windows.Forms.TextBox txtHP;
-        private System.Windows.Forms.TextBox txtRareza;
         private System.Windows.Forms.TextBox txtNumeroColeccion;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label label5;
@@ -202,5 +207,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtDetallesAtaque;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.ComboBox cmbRareza;
     }
 }
