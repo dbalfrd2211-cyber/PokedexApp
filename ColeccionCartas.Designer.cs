@@ -69,7 +69,7 @@
             this.DGVListadoCartas.Size = new System.Drawing.Size(621, 226);
             this.DGVListadoCartas.TabIndex = 0;
             this.DGVListadoCartas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoCartas_CellContentClick);
-            this.DGVListadoCartas.SelectionChanged += new System.EventHandler(this.DGVListadoCartas_SelectionChanged);
+            //this.DGVListadoCartas.SelectionChanged += new System.EventHandler(this.DGVListadoCartas_SelectionChanged);
             // 
             // label1
             // 
@@ -262,7 +262,7 @@
             this.btnEliminarCarta.TabIndex = 25;
             this.btnEliminarCarta.Text = "Eliminar Carta";
             this.btnEliminarCarta.UseVisualStyleBackColor = true;
-            this.btnEliminarCarta.Click += new System.EventHandler(this.btnEliminarCarta_Click);
+            //this.btnEliminarCarta.Click += new System.EventHandler(this.btnEliminarCarta_Click);
             // 
             // ColeccionCartas
             // 

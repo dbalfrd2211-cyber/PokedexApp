@@ -18,14 +18,14 @@ namespace PokedexApp
         private Size tamañoOriginalMapa;
         private Point ubicacionOriginalMapa;
         private string regionActual = "";
-      
+
         public ColeccionCartas()
         {
             InitializeComponent();
             DGVListadoCartas.DataSource = manager.AllDatoPokemon();
         }
 
-      
+
         private void btnCrearNuevaCarta_Click(object sender, EventArgs e)
         {
             FormNuevaCarta frm = new FormNuevaCarta();
@@ -67,7 +67,7 @@ namespace PokedexApp
 
         private void ColeccionCartas_Load(object sender, EventArgs e)
         {
-                     
+
             txtDetallesPokemon.ReadOnly = true;
 
             DGVListadoCartas.DataSource = manager.AllDatoPokemon();
@@ -99,7 +99,7 @@ namespace PokedexApp
             int nuevaX = btn.Location.X - picMapa.Location.X;
             int nuevaY = btn.Location.Y - picMapa.Location.Y;
 
-            btn.Location= new Point (nuevaX, nuevaY);
+            btn.Location = new Point(nuevaX, nuevaY);
             btn.Parent = picMapa;
 
         }
@@ -112,7 +112,8 @@ namespace PokedexApp
         private void DGVListadoCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
-            { if (DGVListadoCartas.Rows[e.RowIndex].DataBoundItem is Cartas c)
+            {
+                if (DGVListadoCartas.Rows[e.RowIndex].DataBoundItem is Cartas c)
                 {
                     VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
                     if (detalle != null)
@@ -132,7 +133,7 @@ namespace PokedexApp
                         if (mapaAmpliado == false)
                         {
                             ResaltarRegion(regionActual);
-                        
+
                         }
 
                         btnAñadirAColeccion.Enabled = true;
@@ -145,7 +146,7 @@ namespace PokedexApp
 
             }
 
-            
+
 
         }
 
@@ -222,106 +223,6 @@ namespace PokedexApp
 
         private void picMapa_Click(object sender, EventArgs e)
         {
-            if (mapaAmpliado == false)
-            {
-                ResaltarRegion("");
-                picMapa.BringToFront();
-                picMapa.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                picMapa.SizeMode = PictureBoxSizeMode.StretchImage;
-
-
-                picMapa.Size = new Size(3100, 2150);
-
-                switch (regionActual.Trim().ToLower())
-                {
-                    case "kanto":
-                        // Empujamos a -30 para esconder el borde gris izquierdo
-                        // Y en -380 para centrarla perfectamente en vertical
-                        picMapa.Location = new Point(-30, -370);
-                        break;
-
-                    case "johto":
-                        picMapa.Location = new Point(-750, -70);
-                        break;
-
-                    case "hoenn":
-                        picMapa.Location = new Point(-900, -750);
-                        break;
-
-                    case "sinnoh":
-                        picMapa.Location = new Point(-1550, -70);
-                        break;
-
-                    case "unova":
-                    case "teselia":
-                        picMapa.Location = new Point(-2150, -300);
-                        break;
-
-                    case "kalos":
-                        picMapa.Location = new Point(-2100, -750);
-                        break;
-
-                    case "alola":
-                        picMapa.Location = new Point(-80, -1250);
-                        break;
-
-                    case "galar":
-                        picMapa.Location = new Point(-1000, -1250);
-                        break;
-
-                    case "paldea":
-                        picMapa.Location = new Point(-2100, -1250);
-                        break;
-
-                    default:
-                        picMapa.Location = new Point(-1000, -750);
-                        break;
-                }
-                mapaAmpliado = true;
-
-               
-            }
-            else
-            {
-                picMapa.Size = tamañoOriginalMapa;
-                picMapa.Location = ubicacionOriginalMapa;
-
-                ResaltarRegion(regionActual);
-                mapaAmpliado = false;
-            }
-        }
-
-        private void btnEliminarCarta_Click(object sender, EventArgs e)
-        {
-            if(DGVListadoCartas.CurrentRow?.DataBoundItem is Cartas c)
-            {
-                if (manager.EliminarCarta(c.IdPokemon))
-                {
-                    MessageBox.Show("Carta eliminada de tu coleccion");
-                    txtBuscarPokemon_TextChanged(sender, e);
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo eliminar la carta de tu coleccion");
-                }
-            }
-            else
-            {
-                MessageBox.Show("No puedes eliminar cartas originales");
-            }
-        }
-
-        private void DGVListadoCartas_SelectionChanged(object sender, EventArgs e)
-        {
-            if (DGVListadoCartas.CurrentRow?.DataBoundItem is Cartas c)
-            {
-                btnEliminarCarta.Enabled = c.IdPokemon > 151;
-            }
-            else
-            {
-                btnEliminarCarta.Enabled = false;
-            }
         }
     }
 }
-
