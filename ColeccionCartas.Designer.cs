@@ -49,6 +49,7 @@
             this.btnGalar = new System.Windows.Forms.Button();
             this.btnPaldea = new System.Windows.Forms.Button();
             this.btnUnova = new System.Windows.Forms.Button();
+            this.btnEliminarCarta = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).BeginInit();
             this.SuspendLayout();
@@ -68,6 +69,7 @@
             this.DGVListadoCartas.Size = new System.Drawing.Size(621, 226);
             this.DGVListadoCartas.TabIndex = 0;
             this.DGVListadoCartas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoCartas_CellContentClick);
+            this.DGVListadoCartas.SelectionChanged += new System.EventHandler(this.DGVListadoCartas_SelectionChanged);
             // 
             // label1
             // 
@@ -252,11 +254,22 @@
             this.btnUnova.Text = "Unova";
             this.btnUnova.UseVisualStyleBackColor = false;
             // 
+            // btnEliminarCarta
+            // 
+            this.btnEliminarCarta.Location = new System.Drawing.Point(415, 575);
+            this.btnEliminarCarta.Name = "btnEliminarCarta";
+            this.btnEliminarCarta.Size = new System.Drawing.Size(145, 43);
+            this.btnEliminarCarta.TabIndex = 25;
+            this.btnEliminarCarta.Text = "Eliminar Carta";
+            this.btnEliminarCarta.UseVisualStyleBackColor = true;
+            this.btnEliminarCarta.Click += new System.EventHandler(this.btnEliminarCarta_Click);
+            // 
             // ColeccionCartas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1489, 815);
+            this.Controls.Add(this.btnEliminarCarta);
             this.Controls.Add(this.btnUnova);
             this.Controls.Add(this.btnPaldea);
             this.Controls.Add(this.btnGalar);
@@ -310,5 +323,6 @@
         private System.Windows.Forms.Button btnGalar;
         private System.Windows.Forms.Button btnPaldea;
         private System.Windows.Forms.Button btnUnova;
+        private System.Windows.Forms.Button btnEliminarCarta;
     }
 }

@@ -90,6 +90,7 @@ namespace PokedexApp
             ubicacionOriginalMapa = picMapa.Location;
             ResaltarRegion("");
 
+            btnEliminarCarta.Enabled = false;
         }
 
         private void VincularBotonAlMapa(Button btn)
@@ -289,5 +290,38 @@ namespace PokedexApp
                 mapaAmpliado = false;
             }
         }
+
+        private void btnEliminarCarta_Click(object sender, EventArgs e)
+        {
+            if(DGVListadoCartas.CurrentRow?.DataBoundItem is Cartas c)
+            {
+                if (manager.EliminarCarta(c.IdPokemon))
+                {
+                    MessageBox.Show("Carta eliminada de tu coleccion");
+                    txtBuscarPokemon_TextChanged(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar la carta de tu coleccion");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No puedes eliminar cartas originales");
+            }
+        }
+
+        private void DGVListadoCartas_SelectionChanged(object sender, EventArgs e)
+        {
+            if (DGVListadoCartas.CurrentRow?.DataBoundItem is Cartas c)
+            {
+                btnEliminarCarta.Enabled = c.IdPokemon > 151;
+            }
+            else
+            {
+                btnEliminarCarta.Enabled = false;
+            }
+        }
     }
 }
+

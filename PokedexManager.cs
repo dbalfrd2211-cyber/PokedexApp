@@ -416,7 +416,19 @@ namespace PokedexApp
             }
         }
 
-
+        public bool EliminarCarta(int idPokemon)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "DELETE FROM Cartas WHERE IdPokemon = @id AND IdPokemon > 151";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", idPokemon);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
 
 
 
