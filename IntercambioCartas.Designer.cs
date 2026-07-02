@@ -44,6 +44,7 @@
             this.btnRetirarU2 = new System.Windows.Forms.Button();
             this.cmbUsuarios2 = new System.Windows.Forms.ComboBox();
             this.txtUserInter1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVIntercambiarU1)).BeginInit();
@@ -145,7 +146,7 @@
             // 
             // btnRealizarIntercambio
             // 
-            this.btnRealizarIntercambio.Location = new System.Drawing.Point(282, 395);
+            this.btnRealizarIntercambio.Location = new System.Drawing.Point(163, 395);
             this.btnRealizarIntercambio.Name = "btnRealizarIntercambio";
             this.btnRealizarIntercambio.Size = new System.Drawing.Size(238, 43);
             this.btnRealizarIntercambio.TabIndex = 3;
@@ -211,6 +212,16 @@
             this.txtUserInter1.TabIndex = 5;
             this.txtUserInter1.Text = "Usuario";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(443, 395);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(238, 43);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Realizar intercambio";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnRealizarIntercambio_Click);
+            // 
             // IntercambioCartas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -222,6 +233,7 @@
             this.Controls.Add(this.btnRetirarU1);
             this.Controls.Add(this.btnAgregarU2);
             this.Controls.Add(this.btnAgregarU1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnRealizarIntercambio);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
@@ -262,5 +274,6 @@
         private System.Windows.Forms.Button btnRetirarU2;
         private System.Windows.Forms.ComboBox cmbUsuarios2;
         private System.Windows.Forms.Label txtUserInter1;
+        private System.Windows.Forms.Button button1;
     }
 }
