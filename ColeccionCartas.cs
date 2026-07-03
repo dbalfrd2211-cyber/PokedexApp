@@ -321,5 +321,15 @@ namespace PokedexApp
 
             }
         }
+
+        private void picCarta_Click(object sender, EventArgs e)
+        {
+            if (picCarta.Image != null)
+            {
+                FormVisorCarta visor = new FormVisorCarta(picCarta.Image);
+                visor.ShowDialog();
+            }
+
+        }
     }
 }

@@ -39,7 +39,6 @@
             this.btnAñadirAColeccion = new System.Windows.Forms.Button();
             this.btnCrearNuevaCarta = new System.Windows.Forms.Button();
             this.btnVolverCC = new System.Windows.Forms.Button();
-            this.picMapa = new System.Windows.Forms.PictureBox();
             this.btnKanto = new System.Windows.Forms.Button();
             this.btnSinnoh = new System.Windows.Forms.Button();
             this.btnJohto = new System.Windows.Forms.Button();
@@ -51,9 +50,10 @@
             this.btnUnova = new System.Windows.Forms.Button();
             this.btnEliminarCarta = new System.Windows.Forms.Button();
             this.picCarta = new System.Windows.Forms.PictureBox();
+            this.picMapa = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picMapa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picMapa)).BeginInit();
             this.SuspendLayout();
             // 
             // DGVListadoCartas
@@ -160,19 +160,6 @@
             this.btnVolverCC.UseVisualStyleBackColor = true;
             this.btnVolverCC.Click += new System.EventHandler(this.btnVolverCC_Click);
             // 
-            // picMapa
-            // 
-            this.picMapa.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.picMapa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picMapa.Image = ((System.Drawing.Image)(resources.GetObject("picMapa.Image")));
-            this.picMapa.Location = new System.Drawing.Point(789, 58);
-            this.picMapa.Name = "picMapa";
-            this.picMapa.Size = new System.Drawing.Size(650, 593);
-            this.picMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picMapa.TabIndex = 15;
-            this.picMapa.TabStop = false;
-            this.picMapa.Click += new System.EventHandler(this.picMapa_Click);
-            // 
             // btnKanto
             // 
             this.btnKanto.Location = new System.Drawing.Point(865, 208);
@@ -273,6 +260,20 @@
             this.picCarta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCarta.TabIndex = 26;
             this.picCarta.TabStop = false;
+            this.picCarta.Click += new System.EventHandler(this.picCarta_Click);
+            // 
+            // picMapa
+            // 
+            this.picMapa.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.picMapa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picMapa.Image = ((System.Drawing.Image)(resources.GetObject("picMapa.Image")));
+            this.picMapa.Location = new System.Drawing.Point(789, 58);
+            this.picMapa.Name = "picMapa";
+            this.picMapa.Size = new System.Drawing.Size(650, 593);
+            this.picMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picMapa.TabIndex = 15;
+            this.picMapa.TabStop = false;
+            this.picMapa.Click += new System.EventHandler(this.picMapa_Click);
             // 
             // ColeccionCartas
             // 
@@ -306,8 +307,8 @@
             this.Text = "ColeccionCartas";
             this.Load += new System.EventHandler(this.ColeccionCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picMapa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picMapa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
