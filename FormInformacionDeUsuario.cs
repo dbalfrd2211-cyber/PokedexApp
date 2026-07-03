@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace PokedexApp
 {
@@ -46,8 +47,48 @@ namespace PokedexApp
 
             DGVCartasUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVCartasUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            MostrarImagenesEnGrid();
         }
 
+        private void MostrarImagenesEnGrid()
+        {
+            if (DGVCartasUsuario.Columns["imagen"] != null)
+            {
+                DGVCartasUsuario.Columns["imagen"].Visible = false;
+            }
+
+            DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
+            colFoto.Name = "ColumnaFoto";
+            colFoto.HeaderText = "Foto";
+            colFoto.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            DGVCartasUsuario.Columns.Add(colFoto);
+
+            foreach (DataGridViewRow fila in DGVCartasUsuario.Rows)
+            {
+                if (fila.IsNewRow)continue;
+                
+                string nombreArchivo = fila.Cells["imagen"].Value?.ToString();
+
+                if(!string.IsNullOrEmpty(nombreArchivo))
+                {
+                    string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo + ".jpeg");
+                    if (File.Exists(ruta))
+                    {
+                       
+                        fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
+                    }
+                }
+            }
+
+
+        }
+
+
+
+
+
+        
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Close();

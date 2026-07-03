@@ -315,7 +315,7 @@ namespace PokedexApp
                 using (var conn = db.ObtenerConexion())
                 {
                     conn.Open();
-                    string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, P.Nombre
+                    string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, P.Nombre, C.Imagen
                                FROM ColeccionUsuario CU
                                JOIN Cartas C ON CU.IdPokemon = C.IdPokemon
                                JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
