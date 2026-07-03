@@ -46,12 +46,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.cmbTipo1 = new System.Windows.Forms.ComboBox();
+            this.txtPokedex = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(60, 73);
+            this.label1.Location = new System.Drawing.Point(37, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 16);
             this.label1.TabIndex = 0;
@@ -60,7 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(60, 166);
+            this.label2.Location = new System.Drawing.Point(37, 126);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 16);
             this.label2.TabIndex = 1;
@@ -69,7 +73,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(61, 275);
+            this.label3.Location = new System.Drawing.Point(38, 235);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 16);
             this.label3.TabIndex = 2;
@@ -78,7 +82,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(440, 78);
+            this.label4.Location = new System.Drawing.Point(408, 44);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(135, 16);
             this.label4.TabIndex = 3;
@@ -86,21 +90,21 @@
             // 
             // txtIdPokemon
             // 
-            this.txtIdPokemon.Location = new System.Drawing.Point(180, 73);
+            this.txtIdPokemon.Location = new System.Drawing.Point(157, 33);
             this.txtIdPokemon.Name = "txtIdPokemon";
             this.txtIdPokemon.Size = new System.Drawing.Size(174, 22);
             this.txtIdPokemon.TabIndex = 4;
             // 
             // txtHP
             // 
-            this.txtHP.Location = new System.Drawing.Point(180, 166);
+            this.txtHP.Location = new System.Drawing.Point(157, 126);
             this.txtHP.Name = "txtHP";
             this.txtHP.Size = new System.Drawing.Size(174, 22);
             this.txtHP.TabIndex = 5;
             // 
             // txtNumeroColeccion
             // 
-            this.txtNumeroColeccion.Location = new System.Drawing.Point(581, 78);
+            this.txtNumeroColeccion.Location = new System.Drawing.Point(549, 44);
             this.txtNumeroColeccion.Name = "txtNumeroColeccion";
             this.txtNumeroColeccion.Size = new System.Drawing.Size(174, 22);
             this.txtNumeroColeccion.TabIndex = 7;
@@ -118,7 +122,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(440, 172);
+            this.label5.Location = new System.Drawing.Point(408, 138);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 16);
             this.label5.TabIndex = 9;
@@ -126,7 +130,7 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(581, 165);
+            this.txtNombre.Location = new System.Drawing.Point(549, 131);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(174, 22);
             this.txtNombre.TabIndex = 10;
@@ -134,7 +138,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(440, 279);
+            this.label6.Location = new System.Drawing.Point(38, 289);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 16);
             this.label6.TabIndex = 11;
@@ -142,7 +146,7 @@
             // 
             // txtDetallesAtaque
             // 
-            this.txtDetallesAtaque.Location = new System.Drawing.Point(581, 278);
+            this.txtDetallesAtaque.Location = new System.Drawing.Point(179, 288);
             this.txtDetallesAtaque.Multiline = true;
             this.txtDetallesAtaque.Name = "txtDetallesAtaque";
             this.txtDetallesAtaque.Size = new System.Drawing.Size(174, 92);
@@ -165,7 +169,7 @@
             "Comun",
             "Rara",
             "Legendaria"});
-            this.cmbRareza.Location = new System.Drawing.Point(181, 272);
+            this.cmbRareza.Location = new System.Drawing.Point(158, 232);
             this.cmbRareza.Name = "cmbRareza";
             this.cmbRareza.Size = new System.Drawing.Size(169, 24);
             this.cmbRareza.TabIndex = 14;
@@ -173,7 +177,7 @@
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(441, 136);
+            this.lblInfo.Location = new System.Drawing.Point(409, 102);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(0, 16);
             this.lblInfo.TabIndex = 15;
@@ -181,7 +185,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(161, 108);
+            this.label7.Location = new System.Drawing.Point(138, 68);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(220, 16);
             this.label7.TabIndex = 16;
@@ -190,7 +194,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(187, 200);
+            this.label8.Location = new System.Drawing.Point(164, 160);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(152, 16);
             this.label8.TabIndex = 17;
@@ -199,17 +203,104 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(593, 108);
+            this.label9.Location = new System.Drawing.Point(561, 74);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(152, 16);
             this.label9.TabIndex = 18;
             this.label9.Text = "Solo se admite numeros";
+            // 
+            // cmbTipo1
+            // 
+            this.cmbTipo1.FormattingEnabled = true;
+            this.cmbTipo1.Items.AddRange(new object[] {
+            "Acero",
+            "",
+            "",
+            "Agua",
+            "",
+            "",
+            "Bicho",
+            "",
+            "",
+            "Dragón",
+            "",
+            "",
+            "Eléctrico",
+            "",
+            "",
+            "Fantasma",
+            "",
+            "",
+            "Fuego",
+            "",
+            "",
+            "Hada",
+            "",
+            "",
+            "Hielo",
+            "",
+            "",
+            "Lucha",
+            "",
+            "",
+            "Normal",
+            "",
+            "",
+            "Planta",
+            "",
+            "",
+            "Psíquico",
+            "",
+            "",
+            "Roca",
+            "",
+            "",
+            "Tierra",
+            "",
+            "",
+            "Veneno",
+            "",
+            "",
+            "Volador"});
+            this.cmbTipo1.Location = new System.Drawing.Point(549, 286);
+            this.cmbTipo1.Name = "cmbTipo1";
+            this.cmbTipo1.Size = new System.Drawing.Size(121, 24);
+            this.cmbTipo1.TabIndex = 19;
+            // 
+            // txtPokedex
+            // 
+            this.txtPokedex.Location = new System.Drawing.Point(549, 205);
+            this.txtPokedex.Name = "txtPokedex";
+            this.txtPokedex.Size = new System.Drawing.Size(174, 22);
+            this.txtPokedex.TabIndex = 20;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(412, 210);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(61, 16);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Pokedex";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(415, 288);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 16);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Tipo";
             // 
             // FormNuevaCarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.txtPokedex);
+            this.Controls.Add(this.cmbTipo1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -255,5 +346,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cmbTipo1;
+        private System.Windows.Forms.TextBox txtPokedex;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
     }
 }

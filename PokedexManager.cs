@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 
 
 namespace PokedexApp
@@ -348,32 +349,70 @@ namespace PokedexApp
 
 
 
-        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion) //,string nombre, string detallesAtaque
+        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string tipo1, int pokedex) //,string nombre, string detallesAtaque
         {
             if (idPokemon <= 151) return false;
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
 
-                string checkQuery = "SELECT COUNT (*) FROM Pokemon WHERE IdPokemon=@id";
-                using (var cmdCheck = new SQLiteCommand(checkQuery, conn))
+                using (var transaction = conn.BeginTransaction())
                 {
-                    cmdCheck.Parameters.AddWithValue("@id", idPokemon);
-                    if (Convert.ToInt32(cmdCheck.ExecuteScalar()) == 0) return false;
-                }
+                    try
+                    {
+                        string query = "INSERT INTO Pokemon (IdPokemon, Pokemon, Nombre, Tipo1) VALUES (@id, @pokemon, @nombre, @tipo1)";
+                        using (var cmd = new SQLiteCommand(query, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                            cmd.Parameters.AddWithValue("@pokedex", pokedex);
+                            cmd.Parameters.AddWithValue("@nombre", nombre);
+                            cmd.Parameters.AddWithValue("@tipo1", tipo1);
+                            //cmd.Parameters.AddWithValue("@nombre", nombre);
+                            //cmd.Parameters.AddWithValue("@detallesAtque", detallesAtaque);
+                            cmd.ExecuteNonQuery();
+                        }
 
-                string query = @"INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) 
-                               VALUES (@idPokemon, @hp, @rareza, @numeroDeColeccion)";
-                using (var cmd = new SQLiteCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
-                    cmd.Parameters.AddWithValue("@hp", hp);
-                    cmd.Parameters.AddWithValue("@rareza", rareza);
-                    cmd.Parameters.AddWithValue("@numeroDeColeccion", numeroDeColeccion);
-                    //cmd.Parameters.AddWithValue("@nombre", nombre);
-                    //cmd.Parameters.AddWithValue("@detallesAtque", detallesAtaque);
-                    return cmd.ExecuteNonQuery() > 0;
+
+                        query = @"INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) 
+                                  VALUES (@idPokemon, @hp, @rareza, @numeroDeColeccion)";
+
+                        using (var cmd = new SQLiteCommand(query, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                            cmd.Parameters.AddWithValue("@hp", hp);
+                            cmd.Parameters.AddWithValue("@rareza", rareza);
+                            cmd.Parameters.AddWithValue("@numeroDeColeccion", numeroDeColeccion);
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Error al crear la carta: " + ex.Message);
+                        return false;
+                    }
                 }
+                //string query = "SELECT COUNT (*) FROM Pokemon WHERE IdPokemon=@id";
+                //using (var cmd = new SQLiteCommand(checkQuery, conn))
+                //{
+                //    cmdCheck.Parameters.AddWithValue("@id", idPokemon);
+                //    if (Convert.ToInt32(cmdCheck.ExecuteScalar()) == 0) return false;
+                //}
+                //
+                //string query = @"INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) 
+                //               VALUES (@idPokemon, @hp, @rareza, @numeroDeColeccion)";
+                //using (var cmd = new SQLiteCommand(query, conn))
+                //{
+                //    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                //    cmd.Parameters.AddWithValue("@hp", hp);
+                //    cmd.Parameters.AddWithValue("@rareza", rareza);
+                //    cmd.Parameters.AddWithValue("@numeroDeColeccion", numeroDeColeccion);
+                //    //cmd.Parameters.AddWithValue("@nombre", nombre);
+                //    //cmd.Parameters.AddWithValue("@detallesAtque", detallesAtaque);
+                //    return cmd.ExecuteNonQuery() > 0;
+                //}
             }
         }
         public bool GuardarResultadoBatalla(Partida partida, BatallasDetalle detalle)
