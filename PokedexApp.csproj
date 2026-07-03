@@ -107,11 +107,11 @@
     <Compile Include="FormRegistro.Designer.cs">
       <DependentUpon>FormRegistro.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormSeleccionEquipoCartas.cs">
+    <Compile Include="FormSeleccionMiEquipo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSeleccionEquipoCartas.Designer.cs">
-      <DependentUpon>FormSeleccionEquipoCartas.cs</DependentUpon>
+    <Compile Include="FormSeleccionMiEquipo.Designer.cs">
+      <DependentUpon>FormSeleccionMiEquipo.cs</DependentUpon>
     </Compile>
     <Compile Include="FormVisorCarta.cs">
       <SubType>Form</SubType>
@@ -175,8 +175,8 @@
     <EmbeddedResource Include="FormRegistro.resx">
       <DependentUpon>FormRegistro.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSeleccionEquipoCartas.resx">
-      <DependentUpon>FormSeleccionEquipoCartas.cs</DependentUpon>
+    <EmbeddedResource Include="FormSeleccionMiEquipo.resx">
+      <DependentUpon>FormSeleccionMiEquipo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVisorCarta.resx">
       <DependentUpon>FormVisorCarta.cs</DependentUpon>

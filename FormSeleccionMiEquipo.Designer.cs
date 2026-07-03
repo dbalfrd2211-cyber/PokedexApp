@@ -1,6 +1,6 @@
 ﻿namespace PokedexApp
 {
-    partial class FormSeleccionEquipoCartas
+    partial class FormSeleccionMiEquipo
     {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDetalles = new System.Windows.Forms.TextBox();
+            this.btnRemover = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListMisCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
             this.SuspendLayout();
@@ -47,6 +48,7 @@
             this.btnConfirmar.TabIndex = 0;
             this.btnConfirmar.Text = "Confirmar";
             this.btnConfirmar.UseVisualStyleBackColor = true;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
             // 
             // DGVListMisCartas
             // 
@@ -81,12 +83,13 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(172, 288);
+            this.btnCancelar.Location = new System.Drawing.Point(251, 288);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // label2
             // 
@@ -104,11 +107,22 @@
             this.txtDetalles.Size = new System.Drawing.Size(413, 22);
             this.txtDetalles.TabIndex = 6;
             // 
-            // FormSeleccionEquipoCartas
+            // btnRemover
+            // 
+            this.btnRemover.Location = new System.Drawing.Point(159, 288);
+            this.btnRemover.Name = "btnRemover";
+            this.btnRemover.Size = new System.Drawing.Size(75, 23);
+            this.btnRemover.TabIndex = 7;
+            this.btnRemover.Text = "Remover";
+            this.btnRemover.UseVisualStyleBackColor = true;
+            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            // 
+            // FormSeleccionMiEquipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRemover);
             this.Controls.Add(this.txtDetalles);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancelar);
@@ -116,8 +130,8 @@
             this.Controls.Add(this.lblContador);
             this.Controls.Add(this.DGVListMisCartas);
             this.Controls.Add(this.btnConfirmar);
-            this.Name = "FormSeleccionEquipoCartas";
-            this.Text = "FormSeleccionEquipoCartas";
+            this.Name = "FormSeleccionMiEquipo";
+            this.Text = "FormSeleccionMiEquipo";
             this.Load += new System.EventHandler(this.FormSeleccionEquipoCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListMisCartas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).EndInit();
@@ -135,5 +149,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDetalles;
+        private System.Windows.Forms.Button btnRemover;
     }
 }

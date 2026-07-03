@@ -11,12 +11,14 @@ using System.Windows.Forms;
 
 namespace PokedexApp
 {
-    public partial class FormSeleccionEquipoCartas : Form
+    public partial class FormSeleccionMiEquipo : Form
     {
         private PokedexManager manager = new PokedexManager();
-        public FormSeleccionEquipoCartas()
+        public List<Cartas> EquipoSeleccionado { get; private set; }
+        public FormSeleccionMiEquipo()
         {
             InitializeComponent();
+            DGVListMisCartas.SelectionChanged += DGVListMisCartas_SelectionChanged;
         }
 
         private void DGVListMisCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -29,16 +31,10 @@ namespace PokedexApp
         private void FormSeleccionEquipoCartas_Load(object sender, EventArgs e)
         {
             DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
-
-            // 2. Configuración estética igual a ColeccionCartas
             DGVListMisCartas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            DGVListMisCartas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            // 3. Selección múltiple obligatoria para elegir 3 cartas
-            DGVListMisCartas.MultiSelect = true;
+            DGVListMisCartas.MultiSelect = true; // Permite elegir varias
             DGVListMisCartas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // 4. Mostrar imágenes (Reutilizando la lógica de tu otro formulario)
             MostrarImagenesEnGrid();
         }
 
@@ -72,6 +68,21 @@ namespace PokedexApp
                     }
                 }
             }
+        }
+
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemover_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

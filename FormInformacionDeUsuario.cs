@@ -53,29 +53,36 @@ namespace PokedexApp
 
         private void MostrarImagenesEnGrid()
         {
-            if (DGVCartasUsuario.Columns["imagen"] != null)
+            if (DGVCartasUsuario.Columns["Imagen"] != null)
             {
-                DGVCartasUsuario.Columns["imagen"].Visible = false;
+                DGVCartasUsuario.Columns["Imagen"].Visible = false;
             }
 
-            DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
-            colFoto.Name = "ColumnaFoto";
-            colFoto.HeaderText = "Foto";
-            colFoto.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            DGVCartasUsuario.Columns.Add(colFoto);
+            
+            if (DGVCartasUsuario.Columns["ColumnaFoto"] == null)
+            {
+                DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
+                colFoto.Name = "ColumnaFoto";
+                colFoto.HeaderText = "Foto";
+                colFoto.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                DGVCartasUsuario.Columns.Add(colFoto);
+            }
 
             foreach (DataGridViewRow fila in DGVCartasUsuario.Rows)
             {
-                if (fila.IsNewRow)continue;
-                
-                string nombreArchivo = fila.Cells["imagen"].Value?.ToString();
+                if (fila.IsNewRow) continue;
 
-                if(!string.IsNullOrEmpty(nombreArchivo))
+                var valor = fila.Cells["Imagen"].Value;
+                if (valor != null)
                 {
-                    string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo + ".jpeg");
+                    string nombreArchivo = valor.ToString();
+                    string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+
+                 
+                    if (!File.Exists(ruta)) ruta += ".jpeg";
+
                     if (File.Exists(ruta))
                     {
-                       
                         fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
                     }
                 }
@@ -92,6 +99,17 @@ namespace PokedexApp
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FormInformacionDeUsuario_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (DataGridViewRow fila in DGVCartasUsuario.Rows)
+            {
+                if (fila.Cells["ColumnaFoto"].Value is Image img)
+                {
+                    img.Dispose();
+                }
+            }
         }
     }
 }
