@@ -360,7 +360,7 @@ namespace PokedexApp
                 {
                     try
                     {
-                        string query = "INSERT INTO Pokemon (IdPokemon, Pokemon, Nombre, Tipo1) VALUES (@id, @pokemon, @nombre, @tipo1)";
+                        string query = "INSERT INTO Pokemon (IdPokemon, Pokedex, Nombre, Tipo1) VALUES (@idPokemon, @pokedex, @nombre, @tipo1)";
                         using (var cmd = new SQLiteCommand(query, conn, transaction))
                         {
                             cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
