@@ -8,28 +8,28 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace PokedexApp
 {
-    public class Pokemon
+      public sealed class Pokemon : PokedexElement
+       {
+            public int Pokedex { get; set; }
+            public string Tipo1 { get; set; }
+            public string Tipo2 { get; set; }
+            public int IdRegion { get; set; }
 
-    {
-       
-        public int IdPokemon { get; set; }
-        public int Pokedex { get; set; }
-        public string  Nombre { get; set; }
-        public string Tipo1 { get; set; }
-        public string Tipo2 { get; set; }
-        public int IdRegion { get; set; }
+            // El constructor inicializa al hijo y hereda del padre
+            public Pokemon(int id, string nombre, int pokedex, string tipo1, string tipo2, int idRegion)
+            {
+                this.Id = id;
+                this.Nombre = nombre;
+                this.Pokedex = pokedex;
+                this.Tipo1 = tipo1;
+                this.Tipo2 = tipo2;
+                this.IdRegion = idRegion;
+            }
 
-
-        public Pokemon(int idPokemon, int pokedex, string nombre, string tipo1, string tipo2, int idRegion)
-        {
-            IdPokemon = idPokemon;
-            Pokedex = pokedex;
-            Nombre = nombre;
-            Tipo1 = tipo1;
-            Tipo2 = tipo2;
-            IdRegion = idRegion;
+            // Implementación del método de la clase base
+            public override string ObtenerDetalles()
+            {
+                return $"#{Pokedex} - {Nombre} | Tipo: {Tipo1} {Tipo2}";
+            }
         }
-
-
     }
-}

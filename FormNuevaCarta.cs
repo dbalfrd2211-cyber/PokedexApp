@@ -25,18 +25,19 @@ namespace PokedexApp
         private void btnGuardar_Click(object sender, EventArgs e)
         {
 
-            if(txtIdPokemon.Text == "" || txtHP.Text == "" ||txtNumeroColeccion.Text == "")
+            if (string.IsNullOrWhiteSpace(txtIdPokemon.Text) || string.IsNullOrWhiteSpace(txtHP.Text) ||
+                 string.IsNullOrWhiteSpace(txtNumeroColeccion.Text) || string.IsNullOrWhiteSpace(txtPokedex.Text))
             {
-                MessageBox.Show("Debes llenar los campos IdPokemon, HP y Numero de coleccion con numeros");
+                MessageBox.Show("Debes llenar todos los campos numéricos.");
                 return;
             }
-            if(txtNombre.Text == "")
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("Debes llenar los campos Nombre");
+                MessageBox.Show("Debes llenar el campo Nombre.");
                 return;
             }
-        
-            if(cmbRareza.SelectedIndex == -1 || cmbTipo1.SelectedIndex == -1)
+
+            if (cmbRareza.SelectedIndex == -1 || cmbTipo1.SelectedIndex == -1)
             {
                 MessageBox.Show("Debes seleccionar una rareza y un tipo");
                 return;

@@ -133,6 +133,7 @@
       <DependentUpon>IntercambioCartas.cs</DependentUpon>
     </Compile>
     <Compile Include="Partida.cs" />
+    <Compile Include="PokedexElement.cs" />
     <Compile Include="Pokemon.cs" />
     <Compile Include="PokemonAtaque.cs" />
     <Compile Include="PokedexManager.cs" />
