@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PokedexApp
@@ -18,21 +13,44 @@ namespace PokedexApp
         public FormSeleccionMiEquipo()
         {
             InitializeComponent();
-            DGVListMisCartas.SelectionChanged += DGVListMisCartas_SelectionChanged;
+       
         }
 
         private void DGVListMisCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //borrar
+            int seleccionadas = DGVListMisCartas.SelectedRows.Count;
+            lblContador.Text = $"Cartas seleccionadas: {seleccionadas}/3";
+            btnConfirmar.Enabled = (seleccionadas == 3);
 
+            if (seleccionadas > 0)
+            {
+                // 1. Mostrar imagen (asegúrate de que el control se llame picCarta)
+                var c = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
+                string ruta = Path.Combine(Application.StartupPath, "Imagenes", c.Imagen);
+                if (File.Exists(ruta))
+                {
+                    picCarta.Image = Image.FromFile(ruta);
+                }
+                else
+                {
+                    picCarta.Image = null;
+                }
 
+                // 2. Mostrar detalles
+                var detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
+                if (detalle != null)
+                {
+                    txtDetalles.Text = $"Pokémon: {detalle.Nombre}\nTipo: {detalle.Tipo1}\nHP: {detalle.HPCarta}";
+                }
+            }
         }
 
         private void FormSeleccionEquipoCartas_Load(object sender, EventArgs e)
         {
             DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
+
             DGVListMisCartas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            DGVListMisCartas.MultiSelect = true; // Permite elegir varias
+            DGVListMisCartas.MultiSelect = true;
             DGVListMisCartas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             MostrarImagenesEnGrid();
@@ -40,13 +58,8 @@ namespace PokedexApp
 
         private void MostrarImagenesEnGrid()
         {
-            // Aseguramos que la columna de imagen exista y la configuramos
-            if (DGVListMisCartas.Columns["Imagen"] != null)
-            {
-                DGVListMisCartas.Columns["Imagen"].Visible = false;
-            }
+            if (DGVListMisCartas.Columns["Imagen"] != null) DGVListMisCartas.Columns["Imagen"].Visible = false;
 
-            // Agregar columna de imagen si no existe
             if (!DGVListMisCartas.Columns.Contains("ColumnaFoto"))
             {
                 DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
@@ -70,8 +83,17 @@ namespace PokedexApp
             }
         }
 
+
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
+            EquipoSeleccionado = new List<Cartas>();
+            foreach (DataGridViewRow fila in DGVListMisCartas.SelectedRows)
+            {
+                EquipoSeleccionado.Add((Cartas)fila.DataBoundItem);
+            }
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
 
         }
 
@@ -82,6 +104,8 @@ namespace PokedexApp
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
 
         }
     }
