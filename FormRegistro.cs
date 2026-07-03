@@ -17,9 +17,18 @@ namespace PokedexApp
         public FormRegistro()
         {
             InitializeComponent();
-            btnRegistrar.Enabled = true;
+            btnRegistrar.Enabled = false;
+            txtUsuario.TextChanged += ValidarFormulario;
+            txtContraseña.TextChanged += ValidarFormulario;
+            txtConfirmar.TextChanged += ValidarFormulario;
         }
-
+        private void ValidarFormulario(object sender, EventArgs e)
+        {
+            Action actualizarBoton = () => btnRegistrar.Enabled =
+                !string.IsNullOrWhiteSpace(txtUsuario.Text) &&
+                !string.IsNullOrWhiteSpace(txtContraseña.Text) &&
+                !string.IsNullOrWhiteSpace(txtConfirmar.Text);
+        }
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             if (manager.ExisteUsuario(txtUsuario.Text))

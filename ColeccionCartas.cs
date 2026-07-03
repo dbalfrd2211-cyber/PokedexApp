@@ -308,7 +308,7 @@ namespace PokedexApp
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    if (manager.EliminarCarta(c.IdCarta, c.IdPokemon))
+                    if (manager.EliminarCarta(c.IdCarta))
                     {
                         MessageBox.Show("Carta eliminada de tu colección");
                         txtBuscarPokemon_TextChanged(sender, e); 

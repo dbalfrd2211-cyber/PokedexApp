@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace PokedexApp
 {
-    public class VistaCartasMaestra
+    public class VistaCartasMaestra:PokedexElement
     {
-       
 
-        public string Nombre { get; set; }
         public int IdPokemon { get; set; }
         public int Pokedex { get; set; }
         public string Tipo1 { get; set; }
@@ -24,30 +22,30 @@ namespace PokedexApp
         public int NumeroColeccion { get; set; }
         public string DetallesAtaques { get; set; }
 
-
-        public VistaCartasMaestra(string nombre, int idPokemon, int pokedex, 
-            string tipo1, string tipo2, string region, double altura, double peso,
-            int hPBase, int hPCarta, string rareza, int numeroColeccion, 
-            string detallesAtaques)
+        public VistaCartasMaestra(string nombre, int idPokemon, int pokedex, string tipo1, string tipo2,
+                                  string region, double altura, double peso, int hpBase, int hpCarta,
+                                  string rareza, int numColeccion, string detalles)
         {
-            Nombre = nombre;
-            IdPokemon = idPokemon;
-            Pokedex = pokedex;
-            Tipo1 = tipo1;
-            Tipo2 = tipo2;
-            Region = region;
-            Altura = altura;
-            Peso = peso;
-            HPBase = hPBase;
-            HPCarta = hPCarta;
-            Rareza = rareza;
-            NumeroColeccion = numeroColeccion;
-            DetallesAtaques = detallesAtaques;
+            this.Nombre = nombre;      
+            this.Id = idPokemon;       
+
+            this.IdPokemon = idPokemon;
+            this.Pokedex = pokedex;
+            this.Tipo1 = tipo1;
+            this.Tipo2 = tipo2;
+            this.Region = region;
+            this.Altura = altura;
+            this.Peso = peso;
+            this.HPBase = hpBase;
+            this.HPCarta = hpCarta;
+            this.Rareza = rareza;
+            this.NumeroColeccion = numColeccion;
+            this.DetallesAtaques = detalles;
         }
 
-
-
-
-
+        public override string ObtenerDetalles()
+        {
+            return $"#{Pokedex} - {Nombre} ({Region})";
+        }
     }
 }

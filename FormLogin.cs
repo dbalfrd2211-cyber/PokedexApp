@@ -13,42 +13,68 @@ namespace PokedexApp
 {
     public partial class FormLogin : Form
     {
-       
-        private PokedexManager manager= new PokedexManager();
+        private PokedexManager manager = new PokedexManager();
+
         public FormLogin()
         {
             InitializeComponent();
-           
-            txtContraseña.PasswordChar = '*'; // Oculta la contraseña c
+            txtContraseña.PasswordChar = '*';
         }
-
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            
-            if (manager.ValidarCredenciales(txtUsuario.Text, txtContraseña.Text))
+        
+            Func<bool> sonCamposInvalidos = () =>
+                string.IsNullOrWhiteSpace(txtUsuario.Text) || string.IsNullOrWhiteSpace(txtContraseña.Text);
+
+            if (sonCamposInvalidos())
             {
-                Usuario usuarioActual = manager.ObtenerUsuario(txtUsuario.Text);
-                InfoUsuario infoActual = manager.ObtenerInfoUsuario(usuarioActual.IdUsuario);
-
-                //para guardar en mi memoria de sesiones
-                Sesion.Iniciar(usuarioActual.IdUsuario, usuarioActual.NombreUsuario);
-
-                MessageBox.Show("Inicio de sesión exitoso, BIENVENIDO A LA POKEDEX");
-                this.Hide();
-                FrmMenu menu = new FrmMenu(usuarioActual, infoActual);
-                  //aqui ocultamos el loging y la de inicio para que no se superponga al menu
-                menu.ShowDialog();
-                this.Close();            //this.ShowDialog(); // Muestra el formulario FrmMenu como un cuadro de diálogo modal
-
-
-            }
-            else
-            {
-                MessageBox.Show("Usuario o contraseña incorrectos. Inténtalo de nuevo.");
+                MessageBox.Show("Por favor, ingresa usuario y tu contraseña.");
+                return;
             }
 
+            try
+            {
+                if (manager.ValidarCredenciales(txtUsuario.Text, txtContraseña.Text))
+                {
+                    Usuario usuarioActual = manager.ObtenerUsuario(txtUsuario.Text);
+
+                    
+                    if (usuarioActual != null)
+                    {
+                        InfoUsuario infoActual = manager.ObtenerInfoUsuario(usuarioActual.IdUsuario);
+
+                       
+                        Sesion.Iniciar(usuarioActual.IdUsuario, usuarioActual.NombreUsuario);
+
+                        MessageBox.Show("Inicio de sesión exitoso, BIENVENIDO A LA POKEDEX");
+
+                        this.Hide();
+
+                        using (FrmMenu menu = new FrmMenu(usuarioActual, infoActual))
+                        {
+                            menu.ShowDialog();
+                        }
+
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: No se pudo cargar la información del usuario.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos. Inténtalo de nuevo.");
+                }
+            }
+            catch (Exception ex)
+            {
+              
+                MessageBox.Show("Error al conectar: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();

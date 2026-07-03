@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokedexApp
 {
-    internal class Sesion
+    public static class Sesion
     {
         public static int IdUsuarioActual { get; private set; }
         public static string NombreUsuarioActual { get; private set; }

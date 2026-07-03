@@ -8,17 +8,29 @@ using System.Data.SQLite;
 
 namespace PokedexApp
 {
-   
-        public class PokedexManager
+
+    public class PokedexManager
+    {
+        private List<Pokemon> pokemones;
+        private Database db = new Database(); // Usas tu clase Database aquí
+
+        public PokedexManager()
         {
-            private List<Pokemon> pokemones;
-            private Database db = new Database(); // Usas tu clase Database aquí
+            pokemones = new List<Pokemon>();
+        }
 
-            public PokedexManager()
-            {
-                pokemones = new List<Pokemon>();
-            }
+        private Cartas MapearCarta(SQLiteDataReader reader) => new Cartas(
+        Convert.ToInt32(reader["IdCarta"]),
+        Convert.ToInt32(reader["IdPokemon"]),
+        Convert.ToInt32(reader["HP"]),
+        reader["Rareza"].ToString(),
+        Convert.ToInt32(reader["NumeroColeccion"]),
+        reader["Nombre"].ToString(),
+        reader["DetallesAtaques"]?.ToString() ?? "Sin ataques",
+        reader["Imagen"]?.ToString() ?? "default.png"
 
+         );
+        
             public bool ValidarCredenciales(string usuario, string contraseña)
             {
 
@@ -150,7 +162,12 @@ namespace PokedexApp
                 (p.Tipo1 != null && p.Tipo1.IndexOf(tipo, StringComparison.OrdinalIgnoreCase) >= 0) ||
                 (p.Tipo2 != null && p.Tipo2.IndexOf(tipo, StringComparison.OrdinalIgnoreCase) >= 0));
             }
-
+        public List<Cartas> FiltrarCartasPorRareza(List<Cartas> origen, string rareza)
+        {
+           
+            return origen.Where(c => c.Rareza.Equals(rareza, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+    
             public void MostrarDetalle(int index)
             {
                 if (index >= 0 && index < pokemones.Count)
@@ -168,50 +185,27 @@ namespace PokedexApp
 
 
 
-            public List<Cartas> BuscarCartasPorNombre(string nombre)
+        public List<Cartas> BuscarCartasPorNombre(string nombre)
+        {
+            var lista = new List<Cartas>();
+            using (var conn = db.ObtenerConexion())
             {
-                List<Cartas> lista = new List<Cartas>();
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-                // Agregamos el JOIN para obtener el Nombre y el alias necesario
-                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, C.Imagen, P.Nombre, 
-                        GROUP_CONCAT(A.Nombre ||': '||E.Descripcion, '|') AS DetallesAtaques
-                 FROM Cartas C
-                 LEFT JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
-                 LEFT JOIN PokemonAtaque PA ON P.IdPokemon = PA.IdPokemon
-                 LEFT JOIN Ataques A ON PA.IdAtaque = A.IdAtaque
-                 LEFT JOIN Efectos E ON A.IdEfecto = E.IdEfecto
-                 WHERE P.Nombre LIKE @nombre
-                 GROUP BY C.IdCarta";
-
+                conn.Open();
+                string query = "SELECT * FROM VistaCartasMaestra WHERE Nombre LIKE @nombre";
                 using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", $"%{nombre}%");
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                lista.Add(new Cartas(
-                                    Convert.ToInt32(reader["IdCarta"]),
-                                    Convert.ToInt32(reader["IdPokemon"]),
-                                    Convert.ToInt32(reader["HP"]),
-                                    reader["Rareza"].ToString(),
-                                    Convert.ToInt32(reader["NumeroColeccion"]),
-                                    reader["Nombre"].ToString(),
-                                    reader["DetallesAtaques"] != DBNull.Value ? reader["DetallesAtaques"].ToString() : "Sin ataques",
-                                   
-                                    reader["Imagen"] != DBNull.Value ? reader["Imagen"].ToString() : "default.png"
-                                ));
-                            }
-                        }
+                        while (reader.Read()) lista.Add(MapearCarta(reader));
                     }
                 }
-                return lista;
             }
+            return lista;
+        }
 
 
-            public bool AgregarCartaColeccion(int idPokemon, int hp, string rareza, int numeroDeColeccion)
+        public bool AgregarCartaColeccion(int idPokemon, int hp, string rareza, int numeroDeColeccion)
             {
                 if (!Sesion.HaySesionActiva())
                 {
@@ -254,23 +248,11 @@ namespace PokedexApp
                          LEFT JOIN Efectos E ON A.IdEfecto = E.IdEfecto
                          GROUP BY C.IdCarta";
 
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new Cartas(
-                                Convert.ToInt32(reader["IdCarta"]),
-                                Convert.ToInt32(reader["IdPokemon"]),
-                                Convert.ToInt32(reader["HP"]),
-                                reader["Rareza"].ToString(),
-                                Convert.ToInt32(reader["NumeroColeccion"]),
-                                reader["Nombre"] != DBNull.Value ? reader["Nombre"].ToString() : "Desconocido",
-                                reader["DetallesAtaques"] != DBNull.Value ? reader["DetallesAtaques"].ToString() : "Sin ataques",
-                                reader["Imagen"] != DBNull.Value ? reader["Imagen"].ToString() : "default.png"
-                            ));
-                        }
-                    }
+                using (var cmd = new SQLiteCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read()) lista.Add(MapearCarta(reader));
+                }                       
                 }
                 return lista;
             }
@@ -456,7 +438,7 @@ namespace PokedexApp
             
             return false;
         }
-        public bool EliminarCarta(int idCarta, int idPokemon)
+        public bool EliminarCarta(int idCarta)
         {
             using (var conn = db.ObtenerConexion())
             {
@@ -464,7 +446,7 @@ namespace PokedexApp
                 string query = "DELETE FROM Cartas WHERE IdPokemon = @idPokemon";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                    cmd.Parameters.AddWithValue("@idCarta", idCarta);
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
