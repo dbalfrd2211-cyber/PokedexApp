@@ -174,13 +174,18 @@ namespace PokedexApp
                 using (var conn = db.ObtenerConexion())
                 {
                     conn.Open();
-                    // Agregamos el JOIN para obtener el Nombre y el alias necesario
-                    string query = @"SELECT C.*, P.Nombre 
-                         FROM Cartas C
-                         JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
-                         WHERE P.Nombre LIKE @nombre";
+                // Agregamos el JOIN para obtener el Nombre y el alias necesario
+                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, C.Imagen, P.Nombre, 
+                        GROUP_CONCAT(A.Nombre ||': '||E.Descripcion, '|') AS DetallesAtaques
+                 FROM Cartas C
+                 LEFT JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
+                 LEFT JOIN PokemonAtaque PA ON P.IdPokemon = PA.IdPokemon
+                 LEFT JOIN Ataques A ON PA.IdAtaque = A.IdAtaque
+                 LEFT JOIN Efectos E ON A.IdEfecto = E.IdEfecto
+                 WHERE P.Nombre LIKE @nombre
+                 GROUP BY C.IdCarta";
 
-                    using (var cmd = new SQLiteCommand(query, conn))
+                using (var cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
                         using (var reader = cmd.ExecuteReader())
@@ -194,7 +199,8 @@ namespace PokedexApp
                                     reader["Rareza"].ToString(),
                                     Convert.ToInt32(reader["NumeroColeccion"]),
                                     reader["Nombre"].ToString(),
-                                    "Sin ataques",
+                                    reader["DetallesAtaques"] != DBNull.Value ? reader["DetallesAtaques"].ToString() : "Sin ataques",
+                                   
                                     reader["Imagen"] != DBNull.Value ? reader["Imagen"].ToString() : "default.png"
                                 ));
                             }
