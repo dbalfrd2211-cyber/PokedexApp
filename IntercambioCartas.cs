@@ -7,25 +7,30 @@ namespace PokedexApp
     public partial class IntercambioCartas : Form
     {
         private PokedexManager manager = new PokedexManager();
-        private Usuario usuarioLogueado;
+        public Usuario usuarioLogueado;
 
         private BindingList<Cartas> cartasinteru1 = new BindingList<Cartas>();
         private BindingList<Cartas> cartasinteru2 = new BindingList<Cartas>();
         // lista de cartas temporales para mostrar en el datagridview de cartas por intercambiar
 
         private Usuario usuario2 = null;
-        public IntercambioCartas(Usuario usuarioLogueado)
+        public IntercambioCartas(Usuario usuarioLogueado, Usuario usuario2)
         {
             InitializeComponent();
             this.usuarioLogueado = usuarioLogueado;
+            this.usuario2 = usuario2;
         }
 
         private void IntercambioCartas_Load(object sender, EventArgs e)
         {
-            txtUserInter1.Text = $"Usuario 1: {Sesion.NombreUsuarioActual}";
+            txtUserInter1.Text = $"Anfitrión: {Sesion.NombreUsuarioActual}";
             DGVAgregarU1.DataSource = manager.ObtenerCartasUsuario(usuarioLogueado.IdUsuario);
 
-            ListaComboUsuario2();
+            if (usuario2 != null)
+            {
+                lblUsuario2.Text = $"Usuario 2: {usuario2.NombreUsuario}";
+                DGVAgregarU2.DataSource = manager.ObtenerCartasUsuario(usuario2.IdUsuario);
+            }
 
             DGVIntercambiarU1.DataSource = cartasinteru1;
             DGVIntercambiarU2.DataSource = cartasinteru2;
@@ -37,26 +42,6 @@ namespace PokedexApp
             DGVIntercambiarU2.ResetBindings();
         }
 
-        private void ListaComboUsuario2()
-        {
-            using (var conn = new System.Data.SQLite.SQLiteConnection(new Database().cadenaConexion))
-            {
-                conn.Open();
-                string query = "SELECT NombreUsuario FROM Usuarios WHERE IdUsuario != @idActual";
-                using (var cmd = new System.Data.SQLite.SQLiteCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@idActual", Sesion.IdUsuarioActual);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        cmbUsuarios2.Items.Clear();
-                        while (reader.Read())
-                        {
-                            cmbUsuarios2.Items.Add(reader["NombreUsuario"].ToString());
-                        }
-                    }
-                }
-            }
-        }
 
         private void btnAgregarU1_Click(object sender, EventArgs e)
         {
@@ -114,38 +99,6 @@ namespace PokedexApp
             }
         }
 
-        private void cmbUsuarios2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbUsuarios2.SelectedItem == null || cmbUsuarios2.SelectedIndex == -1) return;
-
-            string nombreSelected = cmbUsuarios2.SelectedItem.ToString();
-
-            using (AutenticadorUsuario2 frmAuth = new AutenticadorUsuario2(nombreSelected))
-            {
-                if (frmAuth.ShowDialog() == DialogResult.OK)
-                {
-                    usuario2 = manager.ObtenerUsuario(nombreSelected);
-                    MessageBox.Show($"¡Autenticación exitosa!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    DGVAgregarU2.DataSource = manager.ObtenerCartasUsuario(usuario2.IdUsuario);
-
-                    cartasinteru2.Clear();
-                    ActualizarDataGridsIntercambio();
-
-                }
-                else
-                {
-
-                    MessageBox.Show("No se pudo autenticar al usuario.", "Error de Permisos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    cmbUsuarios2.SelectedIndex = -1;
-                    DGVAgregarU2.DataSource = null;
-                    usuario2 = null;
-                    cartasinteru2.Clear();
-                    ActualizarDataGridsIntercambio();
-                }
-            }
-        }
 
         private void btnRealizarIntercambio_Click(object sender, EventArgs e)
         {
