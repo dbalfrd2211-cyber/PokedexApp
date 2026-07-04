@@ -24,14 +24,26 @@ namespace PokedexApp
         {
             PokedexManager manager = new PokedexManager();
 
-            // 1. Obtenemos dos cartas de prueba desde tu base de datos (Ej: Bulbasaur #1 y Pikachu #25)
-            VistaCartasMaestra miPokemon = manager.ObtenerDetallesCarta(1);
-            VistaCartasMaestra rivalPokemon = manager.ObtenerDetallesCarta(25);
+            // 1. Obtenemos los detalles
+            VistaCartasMaestra miPokemonInfo = manager.ObtenerDetallesCarta(1);
+            VistaCartasMaestra rivalPokemonInfo = manager.ObtenerDetallesCarta(25);
 
-            // 2. Revisamos que existan y abrimos tu nueva arena
-            if (miPokemon != null && rivalPokemon != null)
+            if (miPokemonInfo != null && rivalPokemonInfo != null)
             {
-                FormFondo arena = new FormFondo(miPokemon, rivalPokemon);
+                // 2. Convertimos los objetos 'VistaCartasMaestra' a 'Cartas'
+                // Esto es necesario porque FormBatalla requiere List<Cartas>
+                Cartas miCarta = new Cartas(0, miPokemonInfo.IdPokemon, miPokemonInfo.HPCarta, miPokemonInfo.Rareza,
+                                            miPokemonInfo.NumeroColeccion, miPokemonInfo.Nombre, "", "");
+
+                Cartas rivalCarta = new Cartas(0, rivalPokemonInfo.IdPokemon, rivalPokemonInfo.HPCarta, rivalPokemonInfo.Rareza,
+                                               rivalPokemonInfo.NumeroColeccion, rivalPokemonInfo.Nombre, "", "");
+
+                // 3. Creamos las listas que espera el constructor de FormBatalla
+                List<Cartas> miEquipo = new List<Cartas> { miCarta };
+                List<Cartas> equipoRival = new List<Cartas> { rivalCarta };
+
+                // 4. Abrimos la batalla enviando las LISTAS
+                FormBatalla arena = new FormBatalla(miEquipo, equipoRival);
                 this.Hide();
                 arena.ShowDialog();
                 this.Show();

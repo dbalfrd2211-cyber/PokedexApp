@@ -15,6 +15,7 @@ namespace PokedexApp
     {
         private PokedexManager manager = new PokedexManager();
 
+        private bool estaBuscando = false;
         private bool mapaAmpliado = false;
         private Size tamañoOriginalMapa;
         private Point ubicacionOriginalMapa;
@@ -51,20 +52,61 @@ namespace PokedexApp
 
         private void txtBuscarPokemon_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBuscarPokemon.Text))
-            {
-                DGVListadoCartas.DataSource = manager.AllDatoPokemon();
+            estaBuscando = true;
 
-            }
+            // Recargamos el origen de datos
+            if (string.IsNullOrEmpty(txtBuscarPokemon.Text))
+                DGVListadoCartas.DataSource = manager.AllDatoPokemon();
             else
-            {
                 DGVListadoCartas.DataSource = manager.BuscarCartasPorNombre(txtBuscarPokemon.Text);
 
+            estaBuscando = false;
+
+            // Solo si hay resultados, seleccionamos el primero y cargamos
+            if (DGVListadoCartas.Rows.Count > 0)
+            {
+                DGVListadoCartas.Rows[0].Selected = true;
+                CargarDetallesDeFilaSeleccionada();
             }
-
-
-
         }
+
+        private void CargarDetallesDeFilaSeleccionada()
+        {
+            if (DGVListadoCartas.SelectedRows.Count > 0)
+            {
+                var fila = DGVListadoCartas.SelectedRows[0];
+
+                // 2. Extraemos el objeto Cartas directamente de esta fila
+                if (fila.DataBoundItem is Cartas c)
+                {
+                    // 3. Usamos 'c.IdPokemon' que es el valor real de ESTA fila
+                    int idPokemonSeleccionado = c.IdPokemon;
+
+                    // Carga de imagen
+                    string nombreArchivo = idPokemonSeleccionado.ToString() + ".jpeg";
+                    string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+
+                    if (picCarta.Image != null) { picCarta.Image.Dispose(); picCarta.Image = null; }
+                    picCarta.Image = File.Exists(ruta) ? Image.FromFile(ruta) : null;
+
+                    // 4. Carga de detalles usando el ID correcto
+                    VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(idPokemonSeleccionado);
+
+                    if (detalle != null)
+                    {
+                        txtDetallesPokemon.Text = $"[ POKÉMON: #{detalle.Pokedex} - {detalle.Nombre.ToUpper()} ]" + Environment.NewLine +
+                                                  $"Tipo: {detalle.Tipo1} / {detalle.Tipo2} | Región: {detalle.Region}" + Environment.NewLine +
+                                                  $"HP Base: {detalle.HPBase} | Rareza: {detalle.Rareza}";
+                    }
+                    else
+                    {
+                        txtDetallesPokemon.Text = "Detalles no disponibles para este Pokémon.";
+                    }
+                }
+            }
+        }
+        
+        
 
         private void ColeccionCartas_Load(object sender, EventArgs e)
         {
@@ -112,8 +154,23 @@ namespace PokedexApp
 
         private void DGVListadoCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && DGVListadoCartas.Rows[e.RowIndex].DataBoundItem is Cartas c)
-            {                //para q salga la imagen
+            if (estaBuscando) return;
+            if (DGVListadoCartas.SelectedRows.Count == 0) return;
+
+            // 2. Obtenemos la fila seleccionada de forma segura
+            var fila = DGVListadoCartas.SelectedRows[0];
+
+            // 3. Verificamos que el DataBoundItem sea del tipo Cartas
+            if (fila.DataBoundItem is Cartas c)
+            {
+                // 4. Liberar imagen anterior de la memoria (CRUCIAL para no alentar el programa)
+                if (picCarta.Image != null)
+                {
+                    picCarta.Image.Dispose();
+                    picCarta.Image = null;
+                }
+
+                // 5. Cargar nueva imagen
                 string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
                 string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
 
@@ -121,41 +178,30 @@ namespace PokedexApp
                 {
                     picCarta.Image = Image.FromFile(ruta);
                 }
-                else
-                {
-                    picCarta.Image = null; 
-                }
+
+                // 6. Obtener detalles del Pokémon
                 VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
-                    if (detalle != null)
-                    {
-                        txtDetallesPokemon.Text =
-                         $"[ POKÉMON: #{detalle.Pokedex} - {detalle.Nombre.ToUpper()} ]" + Environment.NewLine +
+                if (detalle != null)
+                {
+                    txtDetallesPokemon.Text =
+                        $"[ POKÉMON: #{detalle.Pokedex} - {detalle.Nombre.ToUpper()} ]" + Environment.NewLine +
                         $"Tipo: {detalle.Tipo1} / {detalle.Tipo2} | Región: {detalle.Region}" + Environment.NewLine +
-                         $"Altura: {detalle.Altura}m | Peso: {detalle.Peso}kg | HP Base Biológico: {detalle.HPBase}" + Environment.NewLine +
-                         $"--------------------------------------------------" + Environment.NewLine +
+                        $"Altura: {detalle.Altura}m | Peso: {detalle.Peso}kg | HP Base: {detalle.HPBase}" + Environment.NewLine +
+                        $"--------------------------------------------------" + Environment.NewLine +
                         $"[ DATOS DE LA CARTA ]" + Environment.NewLine +
-                         $"Puntos de Vida (HP Carta): {detalle.HPCarta} | Rareza: {detalle.Rareza}" + Environment.NewLine +
-                          $"--------------------------------------------------" + Environment.NewLine +
+                        $"Puntos de Vida (HP Carta): {detalle.HPCarta} | Rareza: {detalle.Rareza}" + Environment.NewLine +
+                        $"--------------------------------------------------" + Environment.NewLine +
                         $"[ ATAQUES Y EFECTOS ]" + Environment.NewLine +
-                      $" - {detalle.DetallesAtaques.Replace(" | ", Environment.NewLine + " - ")}";
+                        $" - {detalle.DetallesAtaques.Replace(" | ", Environment.NewLine + " - ")}";
 
-                        regionActual = detalle.Region;
-                        if (mapaAmpliado == false)
-                        {
-                            ResaltarRegion(regionActual);
+                    regionActual = detalle.Region;
+                    if (!mapaAmpliado) ResaltarRegion(regionActual);
 
-                        }
-
-                        btnAñadirAColeccion.Enabled = true;
-                    }
-                    else
-                    {
-                        txtDetallesPokemon.Text = "No se encontraron detalles completos";
-                    }
+                    btnAñadirAColeccion.Enabled = true;
                 }
-
             }
-              
+        }
+
 
         private void txtDetallesPokemon_TextChanged(object sender, EventArgs e)
         {

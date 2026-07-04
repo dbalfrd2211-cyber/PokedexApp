@@ -24,9 +24,9 @@ namespace PokedexApp
 
             if (seleccionadas > 0)
             {
-                // 1. Mostrar imagen (asegúrate de que el control se llame picCarta)
+               
                 var c = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
-                string ruta = Path.Combine(Application.StartupPath, "Imagenes", c.Imagen);
+                string ruta = Path.Combine(Application.StartupPath, "Imagenes", c.IdPokemon.ToString() + ".jpeg");
                 if (File.Exists(ruta))
                 {
                     picCarta.Image = Image.FromFile(ruta);
@@ -36,7 +36,7 @@ namespace PokedexApp
                     picCarta.Image = null;
                 }
 
-                // 2. Mostrar detalles
+               
                 var detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
                 if (detalle != null)
                 {
@@ -58,8 +58,10 @@ namespace PokedexApp
 
         private void MostrarImagenesEnGrid()
         {
-            if (DGVListMisCartas.Columns["Imagen"] != null) DGVListMisCartas.Columns["Imagen"].Visible = false;
+            if (DGVListMisCartas.Columns["Imagen"] != null)
+                DGVListMisCartas.Columns["Imagen"].Visible = false;
 
+            // 2. Si no existe, agregamos la columna de imagen
             if (!DGVListMisCartas.Columns.Contains("ColumnaFoto"))
             {
                 DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
@@ -69,12 +71,20 @@ namespace PokedexApp
                 DGVListMisCartas.Columns.Add(colFoto);
             }
 
+          
             foreach (DataGridViewRow fila in DGVListMisCartas.Rows)
             {
-                string nombreArchivo = fila.Cells["Imagen"].Value?.ToString();
-                if (!string.IsNullOrEmpty(nombreArchivo))
+                if (fila.IsNewRow) continue;
+
+              
+                var idPokemon = fila.Cells["IdPokemon"].Value;
+
+                if (idPokemon != null)
                 {
+                   
+                    string nombreArchivo = idPokemon.ToString() + ".jpeg";
                     string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+
                     if (File.Exists(ruta))
                     {
                         fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
@@ -86,21 +96,29 @@ namespace PokedexApp
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            EquipoSeleccionado = new List<Cartas>();
+            List<Cartas> equipoSeleccionado = new List<Cartas>();
             foreach (DataGridViewRow fila in DGVListMisCartas.SelectedRows)
             {
-                EquipoSeleccionado.Add((Cartas)fila.DataBoundItem);
+                equipoSeleccionado.Add((Cartas)fila.DataBoundItem);
             }
 
-            this.DialogResult = DialogResult.OK;
+            // 2. Obtén el equipo del rival (asegúrate de que sea una lista, no una sola carta)
+            List<Cartas> equipoRival = manager.ObtenerCartasUsuario(2); // Ejemplo con ID del rival
+
+            // 3. AQUÍ ESTÁ EL CAMBIO: Pasamos las listas, no objetos individuales
+            FormBatalla pantallaBatalla = new FormBatalla(equipoSeleccionado, equipoRival);
+
+            this.Hide();
+            pantallaBatalla.ShowDialog();
             this.Close();
 
         }
 
         private void btnRemover_Click(object sender, EventArgs e)
         {
-
+            DGVListMisCartas.ClearSelection();
         }
+        
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

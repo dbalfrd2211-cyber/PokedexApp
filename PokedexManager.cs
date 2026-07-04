@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,442 +7,293 @@ using System.Data.SQLite;
 
 namespace PokedexApp
 {
-
     public class PokedexManager
     {
         private List<Pokemon> pokemones;
-        private Database db = new Database(); // Usas tu clase Database aquí
+        private Database db = new Database();
 
         public PokedexManager()
         {
             pokemones = new List<Pokemon>();
         }
 
-        private Cartas MapearCarta(SQLiteDataReader reader) => new Cartas(
-        Convert.ToInt32(reader["IdCarta"]),
-        Convert.ToInt32(reader["IdPokemon"]),
-        Convert.ToInt32(reader["HP"]),
-        reader["Rareza"].ToString(),
-        Convert.ToInt32(reader["NumeroColeccion"]),
-        reader["Nombre"].ToString(),
-        reader["DetallesAtaques"]?.ToString() ?? "Sin ataques",
-        reader["Imagen"]?.ToString() ?? "default.png"
-
-         );
-        
-            public bool ValidarCredenciales(string usuario, string contraseña)
-            {
-
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-                    string query = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @usuario AND Contrasena = @contrasena";
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@usuario", usuario);
-                        cmd.Parameters.AddWithValue("@contrasena", contraseña);
-                        return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-
-                    }
-                }
-            }
-            public bool ExisteUsuario(string usuario)
-            {
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-
-                    string queryValidar = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @usuario";
-                    using (var cmdValidar = new SQLiteCommand(queryValidar, conn))
-                    {
-                        cmdValidar.Parameters.AddWithValue("@usuario", usuario);
-                        int conteo = Convert.ToInt32(cmdValidar.ExecuteScalar());
-
-                        if (conteo > 0)
-                        {
-                            return true; // Detiene el método de inmediato porque el usuario ya está ocupado
-                        }
-                    }
-                }
-
-                return false;
-            }
-
-            public bool RegistrarUsuario(string usuario, string contraseña, string confirmar)
-            {
-
-                if (contraseña != confirmar)
-                {
-                    return false;
-                }
-
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-
-                    string query = "INSERT INTO Usuarios (NombreUsuario, Contrasena)VALUES(@usuario, @contrasena)";
-
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@usuario", usuario);
-                        cmd.Parameters.AddWithValue("@contrasena", contraseña);
-                        return cmd.ExecuteNonQuery() > 0;
-
-                    }
-                }
-
-            }
-
-            public Usuario ObtenerUsuario(string nombreUsuario)
-            {
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-                    string query = "SELECT  IdUsuario, NombreUsuario,Contrasena FROM Usuarios WHERE NombreUsuario=@nombre";
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@nombre", nombreUsuario);
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                return new Usuario(
-                                    Convert.ToInt32(reader["IdUsuario"]),
-                                    reader["NombreUsuario"].ToString(),
-                                    reader["Contrasena"].ToString()
-                                //Convert.ToBoolean(reader["EsPublico"])
-                                );
-
-                            }
-                        }
-                    }
-
-                }
-                return null;
-
-            }
-
-            public InfoUsuario ObtenerInfoUsuario(int idUsuario)
-            {
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-                    string query = "SELECT IdInfo, IdUsuario, Nivel, BatallasGanadas, BatallasPerdidas, NumeroCartas FROM InfoUsuario WHERE IdUsuario=@id";
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@id", idUsuario);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                return new InfoUsuario(
-                                    Convert.ToInt32(reader["IdInfo"]),
-                                    Convert.ToInt32(reader["IdUsuario"]),
-                                    Convert.ToInt32(reader["Nivel"]),
-                                    Convert.ToInt32(reader["BatallasGanadas"]),
-                                    Convert.ToInt32(reader["BatallasPerdidas"]),
-                                    Convert.ToInt32(reader["NumeroCartas"])
-                                );
-                            }
-                        }
-                    }
-                }
-                return null;
-            }
-
-            public Pokemon BuscarPokemon(string texto)
-                => pokemones.FirstOrDefault(p =>
-                p.Nombre.IndexOf(texto, StringComparison.OrdinalIgnoreCase) >= 0);
-
-            public List<Pokemon> FindPorTipo(string tipo)
-            {
-                return pokemones.FindAll(p =>
-                (p.Tipo1 != null && p.Tipo1.IndexOf(tipo, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                (p.Tipo2 != null && p.Tipo2.IndexOf(tipo, StringComparison.OrdinalIgnoreCase) >= 0));
-            }
-        public List<Cartas> FiltrarCartasPorRareza(List<Cartas> origen, string rareza)
+        public bool ValidarCredenciales(string usuario, string contraseña)
         {
-           
-            return origen.Where(c => c.Rareza.Equals(rareza, StringComparison.OrdinalIgnoreCase)).ToList();
-        }
-    
-            public void MostrarDetalle(int index)
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
-                if (index >= 0 && index < pokemones.Count)
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @usuario AND Contrasena = @contrasena";
+                using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    Pokemon p = pokemones[index];
-                    Console.WriteLine($"\nDetalles del Pokémon:");
-                    Console.WriteLine($"Tipo:{p.Tipo1}/{p.Tipo2}");
-
-
-
+                    cmd.Parameters.AddWithValue("@usuario", usuario);
+                    cmd.Parameters.AddWithValue("@contrasena", contraseña);
+                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
                 }
             }
+        }
 
+        // Método 1: ObtenerUsuario
+        public Usuario ObtenerUsuario(string nombreUsuario)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "SELECT IdUsuario, NombreUsuario, Contrasena FROM Usuarios WHERE NombreUsuario=@nombre";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", nombreUsuario);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new Usuario(
+                                Convert.ToInt32(reader["IdUsuario"]),
+                                reader["NombreUsuario"].ToString(),
+                                reader["Contrasena"].ToString()
+                            );
+                        }
+                    }
+                }
+            }
+            return null;
+        }
 
+        // Método 2: ObtenerInfoUsuario
+        public InfoUsuario ObtenerInfoUsuario(int idUsuario)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "SELECT IdInfo, IdUsuario, Nivel, BatallasGanadas, BatallasPerdidas, NumeroCartas FROM InfoUsuario WHERE IdUsuario=@id";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", idUsuario);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new InfoUsuario(
+                                Convert.ToInt32(reader["IdInfo"]),
+                                Convert.ToInt32(reader["IdUsuario"]),
+                                Convert.ToInt32(reader["Nivel"]),
+                                Convert.ToInt32(reader["BatallasGanadas"]),
+                                Convert.ToInt32(reader["BatallasPerdidas"]),
+                                Convert.ToInt32(reader["NumeroCartas"])
+                            );
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        public bool ExisteUsuario(string usuario)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string queryValidar = "SELECT COUNT(*) FROM Usuarios WHERE NombreUsuario = @usuario";
+                using (var cmdValidar = new SQLiteCommand(queryValidar, conn))
+                {
+                    cmdValidar.Parameters.AddWithValue("@usuario", usuario);
+                    return Convert.ToInt32(cmdValidar.ExecuteScalar()) > 0;
+                }
+            }
+        }
 
-
+        public bool RegistrarUsuario(string usuario, string contraseña, string confirmar)
+        {
+            if (contraseña != confirmar) return false;
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "INSERT INTO Usuarios (NombreUsuario, Contrasena) VALUES (@usuario, @contrasena)";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@usuario", usuario);
+                    cmd.Parameters.AddWithValue("@contrasena", contraseña);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
 
         public List<Cartas> BuscarCartasPorNombre(string nombre)
         {
             var lista = new List<Cartas>();
-            using (var conn = db.ObtenerConexion())
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = "SELECT * FROM VistaCartasMaestra WHERE Nombre LIKE @nombre";
+                string query = @"SELECT IdPokemon, HP, Rareza, NumeroColeccion, Nombre, DetallesAtaques 
+                                 FROM VistaCartasMaestra 
+                                 WHERE LOWER(Nombre) LIKE LOWER(@nombre)";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@nombre", $"%{nombre}%");
+                    cmd.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
                     using (var reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read()) lista.Add(MapearCarta(reader));
+                        while (reader.Read())
+                        {
+                            lista.Add(new Cartas(
+                                0, // IdCarta (no existe en la vista)
+                                Convert.ToInt32(reader["IdPokemon"]),
+                                Convert.ToInt32(reader["HP"]),
+                                reader["Rareza"].ToString(),
+                                Convert.ToInt32(reader["NumeroColeccion"]),
+                                reader["Nombre"].ToString(),
+                                reader["DetallesAtaques"]?.ToString() ?? "Sin ataques",
+                                "default.png"
+                            ));
+                        }
                     }
                 }
             }
             return lista;
         }
 
-
-        public bool AgregarCartaColeccion(int idPokemon, int hp, string rareza, int numeroDeColeccion)
+        public List<Cartas> AllDatoPokemon()
+        {
+            List<Cartas> lista = new List<Cartas>();
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
-                if (!Sesion.HaySesionActiva())
-                {
-                    return false;
-                }
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-                    string query = "INSERT INTO ColeccionUsuario (IdUsuario, IdPokemon)VALUES(@idUsuario, @idPokemon)"; // string query = "INSERT INTO ColeccionUsuario (IdUsuario, IdPokemon, IdCarta)VALUES(@idUsuario, @idPokemon, @idCarta)";
-
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-                        //cmd.Parameters.AddWithValue("@idCarta", idCarta);
-                        cmd.Parameters.AddWithValue("@idUsuario", Sesion.IdUsuarioActual);
-                        // linea 218 aqui estaba el error, no estaba pasando el idUsuario
-                        //actual asi estaba cmd.Parameters.AddWithValue("@idUsuario", 1);
-                        cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
-                        return cmd.ExecuteNonQuery() > 0;
-
-                    }
-
-
-                }
-            }
-
-
-            public List<Cartas> AllDatoPokemon()
-            {
-                List<Cartas> lista = new List<Cartas>();
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-                    // Usamos LEFT JOIN para no perder ninguna carta, incluso si no tienen ataques asociados
-                    string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, C.Imagen,P.Nombre, 
+                conn.Open();
+                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, C.Imagen, P.Nombre, 
                                 GROUP_CONCAT(A.Nombre ||': '||E.Descripcion, '|') AS DetallesAtaques
-                         FROM Cartas C
-                         LEFT JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
-                         LEFT JOIN PokemonAtaque PA ON P.IdPokemon = PA.IdPokemon
-                         LEFT JOIN Ataques A ON PA.IdAtaque = A.IdAtaque
-                         LEFT JOIN Efectos E ON A.IdEfecto = E.IdEfecto
-                         GROUP BY C.IdCarta";
+                                FROM Cartas C
+                                LEFT JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
+                                LEFT JOIN PokemonAtaque PA ON P.IdPokemon = PA.IdPokemon
+                                LEFT JOIN Ataques A ON PA.IdAtaque = A.IdAtaque
+                                LEFT JOIN Efectos E ON A.IdEfecto = E.IdEfecto
+                                GROUP BY C.IdCarta";
 
                 using (var cmd = new SQLiteCommand(query, conn))
                 using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read()) lista.Add(MapearCarta(reader));
-                }                       
-                }
-                return lista;
-            }
-
-            public VistaCartasMaestra ObtenerDetallesCarta(int idPokemon)
-
-            {
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-                    string query = "SELECT * FROM VistaCartasMaestra WHERE IdPokemon=@id";
-                    using (var cmd = new SQLiteCommand(query, conn))
+                    while (reader.Read())
                     {
-                        cmd.Parameters.AddWithValue("@id", idPokemon);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                return new VistaCartasMaestra(
-                                    reader["Nombre"].ToString(),
-                                    Convert.ToInt32(reader["IdPokemon"]),
-                                    Convert.ToInt32(reader["Pokedex"]),
-                                    reader["Tipo1"].ToString(),
-                                    reader["Tipo2"] != DBNull.Value ? reader["Tipo2"].ToString() : "Ninguno",
-                                    reader["Region"] != DBNull.Value ? reader["Region"].ToString() : "Desconocida",
-                                    reader["Altura"] != DBNull.Value ? Convert.ToDouble(reader["Altura"]) : 0,
-                                    reader["Peso"] != DBNull.Value ? Convert.ToDouble(reader["Peso"]) : 0,
-                                    reader["HPBase"] != DBNull.Value ? Convert.ToInt32(reader["HPBase"]) : 0,
-                                    Convert.ToInt32(reader["HP"]),
-                                    reader["Rareza"].ToString(),
-                                    Convert.ToInt32(reader["NumeroColeccion"]),
-                                     reader["DetallesAtaques"] != DBNull.Value ? reader["DetallesAtaques"].ToString() : "Sin ataques"
-                                     );
-                            }
-                        }
-                    }
-
-                }
-
-                return null;
-            }
-
-
-
-            public List<Cartas> ObtenerCartasUsuario(int idUsuario)
-            {
-                List<Cartas> lista = new List<Cartas>();
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-                    string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, P.Nombre, C.Imagen
-                               FROM ColeccionUsuario CU
-                               JOIN Cartas C ON CU.IdPokemon = C.IdPokemon
-                               JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
-                               WHERE CU.IdUsuario = @idUsuario
-                               ORDER BY C.NumeroColeccion";
-
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-
-
-                        cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                lista.Add(new Cartas(
-                                    Convert.ToInt32(reader["IdCarta"]),
-                                    Convert.ToInt32(reader["IdPokemon"]),
-                                    Convert.ToInt32(reader["HP"]),
-                                    reader["Rareza"].ToString(),
-                                    Convert.ToInt32(reader["NumeroColeccion"]),
-                                    reader["Nombre"].ToString(),
-                                    "Sin ataques",
-                                    reader["Imagen"] != DBNull.Value ? reader["Imagen"].ToString() : "default.png"
-                                ));
-                            }
-                        }
-                    }
-                }
-                return lista;
-            }
-
-
-
-            
-            
-            public bool GuardarResultadoBatalla(Partida partida, BatallasDetalle detalle)
-            {
-
-                using (var conn = db.ObtenerConexion())
-                {
-                    conn.Open();
-
-                    using (var transaction = conn.BeginTransaction())
-                    {
-                        try
-                        {
-                            string queryPartida = @"INSERT INTO Partidas (IdJugador1, IdJugador2, Ganador, Fecha) 
-                                                VALUES (@jugador1, @jugador2, @ganador, @fecha);
-                                                SELECT last_insert_rowid();";
-
-                            int idPartidaGenerado = 0;
-
-                            using (var cmdPartida = new SQLiteCommand(queryPartida, conn, transaction))
-                            {
-                                cmdPartida.Parameters.AddWithValue("@jugador1", partida.IdJugador1);
-                                cmdPartida.Parameters.AddWithValue("@jugador2", partida.IdJugador2);
-                                cmdPartida.Parameters.AddWithValue("@ganador", partida.Ganador);
-                                cmdPartida.Parameters.AddWithValue("@fecha", partida.Fecha);
-
-                                idPartidaGenerado = Convert.ToInt32(cmdPartida.ExecuteScalar());
-                            }
-
-                            string queryDetalle = @"INSERT INTO BatallasDetalle (IdPartida, IdUsuarioGanador, IdPokemonUsado, IdPokemonRival) 
-                                                VALUES (@idPartida, @ganador, @pokeUsado, @pokeRival)";
-
-                            using (var cmdDetalle = new SQLiteCommand(queryDetalle, conn, transaction))
-                            {
-                                cmdDetalle.Parameters.AddWithValue("@idPartida", idPartidaGenerado);
-                                cmdDetalle.Parameters.AddWithValue("@ganador", detalle.IdUsuarioGanador);
-                                cmdDetalle.Parameters.AddWithValue("@pokeUsado", detalle.IdPokemonUsado);
-                                cmdDetalle.Parameters.AddWithValue("@pokeRival", detalle.IdPokemonRival);
-
-                                cmdDetalle.ExecuteNonQuery();
-                            }
-
-                            transaction.Commit();
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback();
-                            Console.WriteLine("Error al guardar la batalla: " + ex.Message);
-                            return false;
-                        }
+                        lista.Add(new Cartas(
+                            Convert.ToInt32(reader["IdCarta"]),
+                            Convert.ToInt32(reader["IdPokemon"]),
+                            Convert.ToInt32(reader["HP"]),
+                            reader["Rareza"].ToString(),
+                            Convert.ToInt32(reader["NumeroColeccion"]),
+                            reader["Nombre"].ToString(),
+                            reader["DetallesAtaques"]?.ToString() ?? "Sin ataques",
+                            reader["Imagen"] != DBNull.Value ? reader["Imagen"].ToString() : "default.png"
+                        ));
                     }
                 }
             }
-        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string tipo1, int pokedex)
+            return lista;
+        }
+
+        public VistaCartasMaestra ObtenerDetallesCarta(int idPokemon)
         {
-            if (idPokemon <= 0) return false;
-
-            using (var conn = db.ObtenerConexion())
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                using (var transaction = conn.BeginTransaction())
+                string query = "SELECT * FROM VistaCartasMaestra WHERE IdPokemon=@id";
+                using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    try
+                    cmd.Parameters.AddWithValue("@id", idPokemon);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        // Insertar Pokemon
-                        string query = "INSERT INTO Pokemon (IdPokemon, Pokedex, Nombre, Tipo1) VALUES (@idPokemon, @pokedex, @nombre, @tipo1)";
-                        using (var cmd = new SQLiteCommand(query, conn, transaction))
+                        if (reader.Read())
                         {
-                            cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
-                            cmd.Parameters.AddWithValue("@pokedex", pokedex);
-                            cmd.Parameters.AddWithValue("@nombre", nombre);
-                            cmd.Parameters.AddWithValue("@tipo1", tipo1);
-                            cmd.ExecuteNonQuery();
+                            return new VistaCartasMaestra(
+                                reader["Nombre"].ToString(),
+                                Convert.ToInt32(reader["IdPokemon"]),
+                                Convert.ToInt32(reader["Pokedex"]),
+                                reader["Tipo1"].ToString(),
+                                reader["Tipo2"] != DBNull.Value ? reader["Tipo2"].ToString() : "Ninguno",
+                                reader["Region"] != DBNull.Value ? reader["Region"].ToString() : "Desconocida",
+                                reader["Altura"] != DBNull.Value ? Convert.ToDouble(reader["Altura"]) : 0,
+                                reader["Peso"] != DBNull.Value ? Convert.ToDouble(reader["Peso"]) : 0,
+                                reader["HPBase"] != DBNull.Value ? Convert.ToInt32(reader["HPBase"]) : 0,
+                                Convert.ToInt32(reader["HP"]),
+                                reader["Rareza"].ToString(),
+                                Convert.ToInt32(reader["NumeroColeccion"]),
+                                reader["DetallesAtaques"]?.ToString() ?? "Sin ataques"
+                            );
                         }
-
-                        // Insertar Carta
-                        string queryCarta = "INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) VALUES (@idPokemon, @hp, @rareza, @numeroDeColeccion)";
-                        using (var cmd = new SQLiteCommand(queryCarta, conn, transaction))
-                        {
-                            cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
-                            cmd.Parameters.AddWithValue("@hp", hp);
-                            cmd.Parameters.AddWithValue("@rareza", rareza);
-                            cmd.Parameters.AddWithValue("@numeroDeColeccion", numeroDeColeccion);
-                            cmd.ExecuteNonQuery();
-                        }
-
-                        transaction.Commit();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw new Exception("Error al guardar en BD: " + ex.Message);
                     }
                 }
             }
-            
-            return false;
+            return null;
         }
+        public bool AgregarCartaColeccion(int idPokemon, int hp, string rareza, int numeroDeColeccion)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "INSERT INTO ColeccionUsuario (IdUsuario, IdPokemon) VALUES (@idUsuario, @idPokemon)";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", Sesion.IdUsuarioActual);
+                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        
+        }
+        public List<Cartas> ObtenerCartasUsuario(int idUsuario)
+        {
+            List<Cartas> lista = new List<Cartas>();
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, P.Nombre, C.Imagen
+                                FROM ColeccionUsuario CU
+                                JOIN Cartas C ON CU.IdPokemon = C.IdPokemon
+                                JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
+                                WHERE CU.IdUsuario = @idUsuario
+                                ORDER BY C.NumeroColeccion";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Cartas(
+                                Convert.ToInt32(reader["IdCarta"]),
+                                Convert.ToInt32(reader["IdPokemon"]),
+                                Convert.ToInt32(reader["HP"]),
+                                reader["Rareza"].ToString(),
+                                Convert.ToInt32(reader["NumeroColeccion"]),
+                                reader["Nombre"].ToString(),
+                                "Sin ataques",
+                                reader["Imagen"] != DBNull.Value ? reader["Imagen"].ToString() : "default.png"
+                            ));
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
+        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) VALUES (@idPokemon, @hp, @rareza, @numeroDeColeccion)";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                    cmd.Parameters.AddWithValue("@hp", hp);
+                    cmd.Parameters.AddWithValue("@rareza", rareza);
+                    cmd.Parameters.AddWithValue("@numeroDeColeccion", numeroDeColeccion);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+
         public bool EliminarCarta(int idCarta)
         {
-            using (var conn = db.ObtenerConexion())
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = "DELETE FROM Cartas WHERE IdPokemon = @idPokemon";
+                // Según tu PDF página 27, el método espera idCarta y idPokemon
+                string query = "DELETE FROM Cartas WHERE IdCarta = @idCarta";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@idCarta", idCarta);
@@ -451,14 +301,7 @@ namespace PokedexApp
                 }
             }
         }
-
-
     }
 }
-
-
-
-
-
 
 

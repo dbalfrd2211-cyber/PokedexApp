@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -11,59 +12,72 @@ using System.Windows.Forms;
 
 namespace PokedexApp
 {
-    public partial class FormFondo : Form
+    public partial class FormBatalla : Form
     {
-        private VistaCartasMaestra miCarta;
-        private VistaCartasMaestra cartaRival;
-        private PokedexManager manager = new PokedexManager();
+        private List<Cartas> miEquipo;
+        private List<Cartas> equipoRival;
+        private int indiceMiCarta = 0;
+        private int indiceRival = 0;
 
+        private PokedexManager manager = new PokedexManager();
         private bool atacandoHaciaAdelante = true;
         private Point posicionOriginalMiCarta;
         private int dañoPendiente = 0;
-
         private int miHpActual;
         private int rivalHpActual;
 
-        public FormFondo(VistaCartasMaestra jugador, VistaCartasMaestra rival)
+        public FormBatalla(List<Cartas> equipoJugador, List<Cartas> equipoRival)
         {
             InitializeComponent();
-            this.miCarta = jugador;
-            this.cartaRival = rival;
+            this.miEquipo = equipoJugador;
+            this.equipoRival = equipoRival;
 
         }
 
-        private void FormBatalla_Load(object sender, EventArgs e)
+        private void FormBatalla_Load(object senderz, EventArgs e)
         {
-            picMiCarta.BackColor = Color.Transparent;
-
-            picCartaRival.BackColor = Color.Transparent;
-
             posicionOriginalMiCarta = picMiCarta.Location;
+            CargarPokemonActual();
+        }
 
-            miHpActual = miCarta.HPCarta;
-            rivalHpActual = cartaRival.HPCarta;
+        private void CargarPokemonActual()
+        {
+            var cartaMia = miEquipo[indiceMiCarta];
+            var cartaRival = equipoRival[indiceRival];
 
-            pbMiHp.Maximum = miCarta.HPCarta;
+            picMiCarta.Image = CargarImagen(cartaMia.Imagen);
+            picCartaRival.Image = CargarImagen(cartaRival.Imagen);
+
+
+            miHpActual = cartaMia.Hp;
+            rivalHpActual = cartaRival.Hp;
+
+            pbMiHp.Maximum = cartaMia.Hp;
             pbMiHp.Value = miHpActual;
 
-            pbHpRival.Maximum=cartaRival.HPCarta;
+            pbHpRival.Maximum = cartaRival.Hp;
             pbHpRival.Value = rivalHpActual;
-
         }
+
+        private Image CargarImagen(string imagen)
+        {
+            string ruta = Path.Combine(Application.StartupPath, "Imagenes", imagen);
+            return File.Exists(ruta) ? Image.FromFile(ruta) : null;
+        }
+
+
 
         private void btnAtacar_Click(object sender, EventArgs e)
         {
             btnAtacar.Enabled = false;
             dañoPendiente = 25;
-
             atacandoHaciaAdelante = true;
             timerAnimacion.Start();
 
-              
         }
 
 
-         private void obMiHp_Click(object sender, EventArgs e)
+        private void obMiHp_Click(object sender, EventArgs e)
         {
 
         }
@@ -98,31 +112,29 @@ namespace PokedexApp
         private void AplicarDañoAlRival()
         {
             rivalHpActual -= dañoPendiente;
-            if (rivalHpActual < 0) rivalHpActual = 0;
-            pbHpRival.Value = rivalHpActual;
+            pbHpRival.Value = Math.Max(0, rivalHpActual);
 
-            if (rivalHpActual == 0)
+            if (rivalHpActual <= 0)
             {
-                MessageBox.Show("¡Victoria! Derrotaste a tu pokemon rival",
-                    "Fin del combate");
-
-                int fechaHoy = Convert.ToInt32(DateTime.Now.ToString("yyyyMdd"));
-                Partida nuevaPartida = new Partida(0, Sesion.IdUsuarioActual, 2,
-                    Sesion.IdUsuarioActual, fechaHoy);
-                BatallasDetalle nuevoDetalle = new BatallasDetalle(0, 0, Sesion.IdUsuarioActual,
-                    miCarta.IdPokemon, cartaRival.IdPokemon);
-
-                manager.GuardarResultadoBatalla(nuevaPartida, nuevoDetalle);
-                this.Close();
-
+                indiceRival++;
+                if (indiceRival < equipoRival.Count)
+                {
+                    MessageBox.Show("¡El rival se debilitó! Entra el siguiente.");
+                    CargarPokemonActual();
+                    btnAtacar.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("¡Victoria total!");
+                    this.Close();
+                }
             }
-            else 
+            else
             {
+               
                 btnAtacar.Enabled = true;
-
             }
         }
+
     }
-
 }
-
