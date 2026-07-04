@@ -58,7 +58,8 @@
             // 
             // DGVListadoCartas
             // 
-            this.DGVListadoCartas.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.DGVListadoCartas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVListadoCartas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGVListadoCartas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListadoCartas.Location = new System.Drawing.Point(31, 119);
@@ -82,6 +83,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(28, 423);
             this.label2.Name = "label2";
@@ -91,7 +93,7 @@
             // 
             // txtDetallesPokemon
             // 
-            this.txtDetallesPokemon.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.txtDetallesPokemon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDetallesPokemon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 442);
             this.txtDetallesPokemon.Multiline = true;
@@ -104,6 +106,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(37, 687);
             this.label3.Name = "label3";
@@ -132,6 +135,7 @@
             // 
             // btnAñadirAColeccion
             // 
+            this.btnAñadirAColeccion.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnAñadirAColeccion.Location = new System.Drawing.Point(31, 617);
             this.btnAñadirAColeccion.Name = "btnAñadirAColeccion";
             this.btnAñadirAColeccion.Size = new System.Drawing.Size(126, 56);
@@ -142,6 +146,7 @@
             // 
             // btnCrearNuevaCarta
             // 
+            this.btnCrearNuevaCarta.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCrearNuevaCarta.Location = new System.Drawing.Point(175, 624);
             this.btnCrearNuevaCarta.Name = "btnCrearNuevaCarta";
             this.btnCrearNuevaCarta.Size = new System.Drawing.Size(170, 43);
@@ -152,9 +157,10 @@
             // 
             // btnVolverCC
             // 
-            this.btnVolverCC.Location = new System.Drawing.Point(1048, 680);
+            this.btnVolverCC.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnVolverCC.Location = new System.Drawing.Point(1253, 738);
             this.btnVolverCC.Name = "btnVolverCC";
-            this.btnVolverCC.Size = new System.Drawing.Size(166, 31);
+            this.btnVolverCC.Size = new System.Drawing.Size(206, 55);
             this.btnVolverCC.TabIndex = 13;
             this.btnVolverCC.Text = "Volver al menu principal";
             this.btnVolverCC.UseVisualStyleBackColor = true;
@@ -244,6 +250,7 @@
             // 
             // btnEliminarCarta
             // 
+            this.btnEliminarCarta.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnEliminarCarta.Location = new System.Drawing.Point(362, 624);
             this.btnEliminarCarta.Name = "btnEliminarCarta";
             this.btnEliminarCarta.Size = new System.Drawing.Size(145, 43);
