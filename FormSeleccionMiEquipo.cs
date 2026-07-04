@@ -22,7 +22,7 @@ namespace PokedexApp
 
         private void DGVListMisCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
 
         }
 
@@ -88,7 +88,7 @@ namespace PokedexApp
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-        
+
         }
         private void btnRemover_Click(object sender, EventArgs e)
         {
@@ -96,7 +96,7 @@ namespace PokedexApp
             txtDetalles.Text = "";
             lblContador.Text = "Cartas seleccionadas: 0/3";
             btnConfirmar.Enabled = false;
-        
+
         }
 
 
@@ -109,8 +109,8 @@ namespace PokedexApp
 
         private void DGVListMisCartas_SelectionChanged(object sender, EventArgs e)
         {
-         
-        
+
+
             if (DGVListMisCartas.SelectedRows.Count > 0)
             {
                 var c = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
@@ -128,7 +128,7 @@ namespace PokedexApp
                 }
             }
         }
-        
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
 
@@ -140,21 +140,18 @@ namespace PokedexApp
                 {
                     _equipoTemporal.Add(carta);
 
-                    // Actualizamos la interfaz, tal como haces en tus otros forms
+
                     lblContador.Text = $"Cartas seleccionadas: {_equipoTemporal.Count}/3";
                     btnConfirmar.Enabled = (_equipoTemporal.Count == 3);
 
-                    // Reflejamos en el TextBox (Estilo "Listado")
+
                     txtDetalles.Text = "Equipo actual:\r\n" + string.Join("\r\n", _equipoTemporal.ConvertAll(c => c.Nombre));
                 }
-                else if (_equipoTemporal.Count >= 3)
-                {
-                    MessageBox.Show("¡Solo puedes llevar 3 cartas!");
-                }
+
             }
+
         }
-        
-     }
+    }
 }
  
 

@@ -31,12 +31,12 @@
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.DGVListMisCartas = new System.Windows.Forms.DataGridView();
             this.lblContador = new System.Windows.Forms.Label();
-            this.picCarta = new System.Windows.Forms.PictureBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDetalles = new System.Windows.Forms.TextBox();
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
+            this.picCarta = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListMisCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +61,7 @@
             this.DGVListMisCartas.RowHeadersWidth = 51;
             this.DGVListMisCartas.RowTemplate.Height = 24;
             this.DGVListMisCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVListMisCartas.Size = new System.Drawing.Size(395, 191);
+            this.DGVListMisCartas.Size = new System.Drawing.Size(549, 215);
             this.DGVListMisCartas.TabIndex = 1;
             this.DGVListMisCartas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListMisCartas_CellContentClick);
             this.DGVListMisCartas.SelectionChanged += new System.EventHandler(this.DGVListMisCartas_SelectionChanged);
@@ -74,15 +74,6 @@
             this.lblContador.Size = new System.Drawing.Size(143, 16);
             this.lblContador.TabIndex = 2;
             this.lblContador.Text = "Cartas Seleccionadas:";
-            // 
-            // picCarta
-            // 
-            this.picCarta.Location = new System.Drawing.Point(470, 44);
-            this.picCarta.Name = "picCarta";
-            this.picCarta.Size = new System.Drawing.Size(318, 254);
-            this.picCarta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picCarta.TabIndex = 3;
-            this.picCarta.TabStop = false;
             // 
             // btnCancelar
             // 
@@ -115,9 +106,9 @@
             // 
             // btnRemover
             // 
-            this.btnRemover.Location = new System.Drawing.Point(165, 288);
+            this.btnRemover.Location = new System.Drawing.Point(156, 297);
             this.btnRemover.Name = "btnRemover";
-            this.btnRemover.Size = new System.Drawing.Size(75, 23);
+            this.btnRemover.Size = new System.Drawing.Size(75, 32);
             this.btnRemover.TabIndex = 7;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
@@ -125,25 +116,34 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(51, 288);
+            this.btnAgregar.Location = new System.Drawing.Point(35, 297);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.Size = new System.Drawing.Size(94, 32);
             this.btnAgregar.TabIndex = 8;
             this.btnAgregar.Text = "Agregar\r\n";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // picCarta
+            // 
+            this.picCarta.Location = new System.Drawing.Point(613, 94);
+            this.picCarta.Name = "picCarta";
+            this.picCarta.Size = new System.Drawing.Size(146, 173);
+            this.picCarta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCarta.TabIndex = 9;
+            this.picCarta.TabStop = false;
             // 
             // FormSeleccionMiEquipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 493);
+            this.Controls.Add(this.picCarta);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnRemover);
             this.Controls.Add(this.txtDetalles);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.picCarta);
             this.Controls.Add(this.lblContador);
             this.Controls.Add(this.DGVListMisCartas);
             this.Controls.Add(this.btnConfirmar);
@@ -162,11 +162,11 @@
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.DataGridView DGVListMisCartas;
         private System.Windows.Forms.Label lblContador;
-        private System.Windows.Forms.PictureBox picCarta;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDetalles;
         private System.Windows.Forms.Button btnRemover;
         private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.PictureBox picCarta;
     }
 }
