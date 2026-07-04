@@ -56,6 +56,7 @@ namespace PokedexApp
             if (manager.CrearNuevaCarta(idPokemon, hp, rareza, numeroColeccion, nombre, tipo1, pokedex, idRegion)) //, nombre, detallesAtaque
             {
                 MessageBox.Show("Carta creada exitosamente.");
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else

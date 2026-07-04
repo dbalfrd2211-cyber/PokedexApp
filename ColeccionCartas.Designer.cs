@@ -257,6 +257,7 @@
             this.btnEliminarCarta.TabIndex = 25;
             this.btnEliminarCarta.Text = "Eliminar Carta";
             this.btnEliminarCarta.UseVisualStyleBackColor = true;
+            this.btnEliminarCarta.Click += new System.EventHandler(this.btnEliminarCarta_Click);
             // 
             // picCarta
             // 
