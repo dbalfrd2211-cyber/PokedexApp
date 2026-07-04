@@ -18,33 +18,34 @@ namespace PokedexApp
 
         private void btnCombate_Click(object sender, EventArgs e)
         {
-            PokedexManager manager = new PokedexManager();
-
-            // 1. Obtenemos los detalles
-            VistaCartasMaestra miPokemonInfo = manager.ObtenerDetallesCarta(1);
-            VistaCartasMaestra rivalPokemonInfo = manager.ObtenerDetallesCarta(25);
-
-            if (miPokemonInfo != null && rivalPokemonInfo != null)
+            List<Cartas> equipo1 = null;
+            using (FormSeleccionMiEquipo sel1 = new FormSeleccionMiEquipo())
             {
-                // 2. Convertimos los objetos 'VistaCartasMaestra' a 'Cartas'
-                // Esto es necesario porque FormBatalla requiere List<Cartas>
-                Cartas miCarta = new Cartas(0, miPokemonInfo.IdPokemon, miPokemonInfo.HPCarta, miPokemonInfo.Rareza,
-                                            miPokemonInfo.NumeroColeccion, miPokemonInfo.Nombre, "", "");
-
-                Cartas rivalCarta = new Cartas(0, rivalPokemonInfo.IdPokemon, rivalPokemonInfo.HPCarta, rivalPokemonInfo.Rareza,
-                                               rivalPokemonInfo.NumeroColeccion, rivalPokemonInfo.Nombre, "", "");
-
-                // 3. Creamos las listas que espera el constructor de FormBatalla
-                List<Cartas> miEquipo = new List<Cartas> { miCarta };
-                List<Cartas> equipoRival = new List<Cartas> { rivalCarta };
-
-                // 4. Abrimos la batalla enviando las LISTAS
-                FormBatalla arena = new FormBatalla(miEquipo, equipoRival);
-                this.Hide();
-                arena.ShowDialog();
-                this.Show();
+                if (sel1.ShowDialog() == DialogResult.OK)
+                    equipo1 = sel1.EquipoSeleccionado;
             }
+
+            if (equipo1 == null) return; // Si canceló, nos detenemos
+
+            // 2. Elegir equipo del Jugador 2 (Rival)
+            // Nota: Aquí podrías abrir otra vez el selector o una lógica diferente
+            List<Cartas> equipo2 = null;
+            using (FormSeleccionMiEquipo sel2 = new FormSeleccionMiEquipo())
+            {
+                sel2.Text = "Selección de equipo - Rival";
+                if (sel2.ShowDialog() == DialogResult.OK)
+                    equipo2 = sel2.EquipoSeleccionado;
+            }
+
+            if (equipo2 == null) return;
+
+            // 3. Si ambos tienen equipo, lanzamos la batalla
+            FormBatalla arena = new FormBatalla(equipo1, equipo2);
+            this.Hide();
+            arena.ShowDialog();
+            this.Show();
         }
+        
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {

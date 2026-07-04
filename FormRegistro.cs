@@ -20,10 +20,9 @@ namespace PokedexApp
         }
         private void ValidarFormulario(object sender, EventArgs e)
         {
-            Action actualizarBoton = () => btnRegistrar.Enabled =
-                !string.IsNullOrWhiteSpace(txtUsuario.Text) &&
-                !string.IsNullOrWhiteSpace(txtContraseña.Text) &&
-                !string.IsNullOrWhiteSpace(txtConfirmar.Text);
+            btnRegistrar.Enabled = !string.IsNullOrWhiteSpace(txtUsuario.Text) &&
+                              !string.IsNullOrWhiteSpace(txtContraseña.Text) &&
+                              !string.IsNullOrWhiteSpace(txtConfirmar.Text);
         }
         private void btnRegistrar_Click(object sender, EventArgs e)
         {

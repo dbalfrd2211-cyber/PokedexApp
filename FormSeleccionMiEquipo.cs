@@ -47,6 +47,15 @@ namespace PokedexApp
 
         private void FormSeleccionEquipoCartas_Load(object sender, EventArgs e)
         {
+            DGVListMisCartas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+     
+            foreach (DataGridViewColumn col in DGVListMisCartas.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
             DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
 
             DGVListMisCartas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -96,24 +105,19 @@ namespace PokedexApp
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            List<Cartas> equipoSeleccionado = new List<Cartas>();
-            foreach (DataGridViewRow fila in DGVListMisCartas.SelectedRows)
+            if (DGVListMisCartas.SelectedRows.Count == 3)
             {
-                equipoSeleccionado.Add((Cartas)fila.DataBoundItem);
+                EquipoSeleccionado = new List<Cartas>();
+                foreach (DataGridViewRow fila in DGVListMisCartas.SelectedRows)
+                {
+                    EquipoSeleccionado.Add((Cartas)fila.DataBoundItem);
+                }
+
+                // Indicamos que todo salió bien y cerramos
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-
-            // 2. Obtén el equipo del rival (asegúrate de que sea una lista, no una sola carta)
-            List<Cartas> equipoRival = manager.ObtenerCartasUsuario(2); // Ejemplo con ID del rival
-
-            // 3. AQUÍ ESTÁ EL CAMBIO: Pasamos las listas, no objetos individuales
-            FormBatalla pantallaBatalla = new FormBatalla(equipoSeleccionado, equipoRival);
-
-            this.Hide();
-            pantallaBatalla.ShowDialog();
-            this.Close();
-
         }
-
         private void btnRemover_Click(object sender, EventArgs e)
         {
             DGVListMisCartas.ClearSelection();

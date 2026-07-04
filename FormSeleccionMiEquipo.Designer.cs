@@ -58,7 +58,7 @@
             this.DGVListMisCartas.ReadOnly = true;
             this.DGVListMisCartas.RowHeadersWidth = 51;
             this.DGVListMisCartas.RowTemplate.Height = 24;
-            this.DGVListMisCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullColumnSelect;
+            this.DGVListMisCartas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVListMisCartas.Size = new System.Drawing.Size(395, 191);
             this.DGVListMisCartas.TabIndex = 1;
             this.DGVListMisCartas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListMisCartas_CellContentClick);
@@ -121,7 +121,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 493);
             this.Controls.Add(this.btnRemover);
             this.Controls.Add(this.txtDetalles);
             this.Controls.Add(this.label2);
