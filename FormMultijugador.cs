@@ -19,33 +19,25 @@ namespace PokedexApp
         private void btnCombate_Click(object sender, EventArgs e)
         {
             List<Cartas> equipo1 = null;
-            using (FormSeleccionMiEquipo sel1 = new FormSeleccionMiEquipo())
+            List<Cartas> equipo2 = null;
+
+            using (FormSeleccionMiEquipo sel1 = new FormSeleccionMiEquipo(Sesion.IdUsuarioActual))
             {
+                sel1.Text = "Selecciona tus cartas (Anfitrión)";
                 if (sel1.ShowDialog() == DialogResult.OK)
                     equipo1 = sel1.EquipoSeleccionado;
             }
 
-            if (equipo1 == null) return; // Si canceló, nos detenemos
-
-            // 2. Elegir equipo del Jugador 2 (Rival)
-            // Nota: Aquí podrías abrir otra vez el selector o una lógica diferente
-            List<Cartas> equipo2 = null;
-            using (FormSeleccionMiEquipo sel2 = new FormSeleccionMiEquipo())
+         
+            using (FormSeleccionMiEquipo sel2 = new FormSeleccionMiEquipo(usuario2.IdUsuario))
             {
-                sel2.Text = "Selección de equipo - Rival";
+                sel2.Text = "Selecciona tus cartas (Rival)";
                 if (sel2.ShowDialog() == DialogResult.OK)
                     equipo2 = sel2.EquipoSeleccionado;
             }
 
-            if (equipo2 == null) return;
-
-            // 3. Si ambos tienen equipo, lanzamos la batalla
-            FormBatalla arena = new FormBatalla(equipo1, equipo2);
-            this.Hide();
-            arena.ShowDialog();
-            this.Show();
         }
-        
+
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {

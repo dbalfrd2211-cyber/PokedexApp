@@ -36,13 +36,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtDetalles = new System.Windows.Forms.TextBox();
             this.btnRemover = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListMisCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConfirmar
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(61, 288);
+            this.btnConfirmar.Location = new System.Drawing.Point(479, 431);
             this.btnConfirmar.Name = "btnConfirmar";
             this.btnConfirmar.Size = new System.Drawing.Size(75, 23);
             this.btnConfirmar.TabIndex = 0;
@@ -53,6 +54,7 @@
             // DGVListMisCartas
             // 
             this.DGVListMisCartas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVListMisCartas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DGVListMisCartas.Location = new System.Drawing.Point(35, 67);
             this.DGVListMisCartas.Name = "DGVListMisCartas";
             this.DGVListMisCartas.ReadOnly = true;
@@ -62,11 +64,12 @@
             this.DGVListMisCartas.Size = new System.Drawing.Size(395, 191);
             this.DGVListMisCartas.TabIndex = 1;
             this.DGVListMisCartas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListMisCartas_CellContentClick);
+            this.DGVListMisCartas.SelectionChanged += new System.EventHandler(this.DGVListMisCartas_SelectionChanged);
             // 
             // lblContador
             // 
             this.lblContador.AutoSize = true;
-            this.lblContador.Location = new System.Drawing.Point(58, 425);
+            this.lblContador.Location = new System.Drawing.Point(32, 468);
             this.lblContador.Name = "lblContador";
             this.lblContador.Size = new System.Drawing.Size(143, 16);
             this.lblContador.TabIndex = 2;
@@ -83,7 +86,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(251, 288);
+            this.btnCancelar.Location = new System.Drawing.Point(479, 389);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 4;
@@ -102,14 +105,17 @@
             // 
             // txtDetalles
             // 
-            this.txtDetalles.Location = new System.Drawing.Point(35, 364);
+            this.txtDetalles.Location = new System.Drawing.Point(35, 335);
+            this.txtDetalles.Multiline = true;
             this.txtDetalles.Name = "txtDetalles";
-            this.txtDetalles.Size = new System.Drawing.Size(413, 22);
+            this.txtDetalles.ReadOnly = true;
+            this.txtDetalles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDetalles.Size = new System.Drawing.Size(413, 119);
             this.txtDetalles.TabIndex = 6;
             // 
             // btnRemover
             // 
-            this.btnRemover.Location = new System.Drawing.Point(159, 288);
+            this.btnRemover.Location = new System.Drawing.Point(165, 288);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(75, 23);
             this.btnRemover.TabIndex = 7;
@@ -117,11 +123,22 @@
             this.btnRemover.UseVisualStyleBackColor = true;
             this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(51, 288);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.TabIndex = 8;
+            this.btnAgregar.Text = "Agregar\r\n";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
             // FormSeleccionMiEquipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 493);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnRemover);
             this.Controls.Add(this.txtDetalles);
             this.Controls.Add(this.label2);
@@ -150,5 +167,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDetalles;
         private System.Windows.Forms.Button btnRemover;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

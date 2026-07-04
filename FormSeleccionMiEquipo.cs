@@ -6,54 +6,31 @@ using System.Windows.Forms;
 
 namespace PokedexApp
 {
+
     public partial class FormSeleccionMiEquipo : Form
+
     {
         private PokedexManager manager = new PokedexManager();
         public List<Cartas> EquipoSeleccionado { get; private set; }
-        public FormSeleccionMiEquipo()
+        private List<Cartas> _equipoTemporal = new List<Cartas>();
+        private int idUsuarioAMostrar;
+        public FormSeleccionMiEquipo(int idUsuario)
         {
             InitializeComponent();
-
+            this.idUsuarioAMostrar = idUsuario;
         }
 
         private void DGVListMisCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int seleccionadas = DGVListMisCartas.SelectedRows.Count;
-            lblContador.Text = $"Cartas seleccionadas: {seleccionadas}/3";
-            btnConfirmar.Enabled = (seleccionadas == 3);
+            
 
-            if (seleccionadas > 0)
-            {
-
-                var c = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
-                string ruta = Path.Combine(Application.StartupPath, "Imagenes", c.IdPokemon.ToString() + ".jpeg");
-                if (File.Exists(ruta))
-                {
-                    picCarta.Image = Image.FromFile(ruta);
-                }
-                else
-                {
-                    picCarta.Image = null;
-                }
-
-
-                var detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
-                if (detalle != null)
-                {
-                    txtDetalles.Text = $"Pokémon: {detalle.Nombre}\nTipo: {detalle.Tipo1}\nHP: {detalle.HPCarta}";
-                }
-            }
         }
 
         private void FormSeleccionEquipoCartas_Load(object sender, EventArgs e)
         {
+            DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(this.idUsuarioAMostrar);
             DGVListMisCartas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-     
-            foreach (DataGridViewColumn col in DGVListMisCartas.Columns)
-            {
-                col.SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
+            DGVListMisCartas.MultiSelect = true;
 
             DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
             DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
@@ -105,22 +82,21 @@ namespace PokedexApp
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (DGVListMisCartas.SelectedRows.Count == 3)
+            if (_equipoTemporal.Count == 3)
             {
-                EquipoSeleccionado = new List<Cartas>();
-                foreach (DataGridViewRow fila in DGVListMisCartas.SelectedRows)
-                {
-                    EquipoSeleccionado.Add((Cartas)fila.DataBoundItem);
-                }
-
-                // Indicamos que todo salió bien y cerramos
+                EquipoSeleccionado = _equipoTemporal; // Pasamos nuestra lista validada
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        
         }
         private void btnRemover_Click(object sender, EventArgs e)
         {
-            DGVListMisCartas.ClearSelection();
+            _equipoTemporal.Clear();
+            txtDetalles.Text = "";
+            lblContador.Text = "Cartas seleccionadas: 0/3";
+            btnConfirmar.Enabled = false;
+        
         }
 
 
@@ -130,5 +106,55 @@ namespace PokedexApp
             this.Close();
 
         }
-    }
+
+        private void DGVListMisCartas_SelectionChanged(object sender, EventArgs e)
+        {
+         
+        
+            if (DGVListMisCartas.SelectedRows.Count > 0)
+            {
+                var c = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
+
+                // Carga de imagen (manteniendo tu lógica)
+                string ruta = Path.Combine(Application.StartupPath, "Imagenes", c.IdPokemon.ToString() + ".jpeg");
+                picCarta.Image = File.Exists(ruta) ? Image.FromFile(ruta) : null;
+
+                // Mostrar detalles (solo de la carta seleccionada)
+                var detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
+                if (detalle != null)
+                {
+                    // Mantenemos tu formato de detalles
+                    txtDetalles.Text = $"Pokémon: {detalle.Nombre}\nTipo: {detalle.Tipo1}\nHP: {detalle.HPCarta}";
+                }
+            }
+        }
+        
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+
+            if (DGVListMisCartas.SelectedRows.Count > 0)
+            {
+                var carta = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
+
+                if (_equipoTemporal.Count < 3 && !_equipoTemporal.Contains(carta))
+                {
+                    _equipoTemporal.Add(carta);
+
+                    // Actualizamos la interfaz, tal como haces en tus otros forms
+                    lblContador.Text = $"Cartas seleccionadas: {_equipoTemporal.Count}/3";
+                    btnConfirmar.Enabled = (_equipoTemporal.Count == 3);
+
+                    // Reflejamos en el TextBox (Estilo "Listado")
+                    txtDetalles.Text = "Equipo actual:\r\n" + string.Join("\r\n", _equipoTemporal.ConvertAll(c => c.Nombre));
+                }
+                else if (_equipoTemporal.Count >= 3)
+                {
+                    MessageBox.Show("¡Solo puedes llevar 3 cartas!");
+                }
+            }
+        }
+        
+     }
 }
+ 
+
