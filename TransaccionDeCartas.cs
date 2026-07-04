@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokedexApp
+﻿namespace PokedexApp
 {
     public class TransaccionDeCartas
     {
-        
+
         public int IdTransaccion { get; set; }
         public int IdUsuarioEmisor { get; set; }
         public int IdUsuarioReceptor { get; set; }

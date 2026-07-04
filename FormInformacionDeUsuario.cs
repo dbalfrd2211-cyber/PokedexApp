@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace PokedexApp
 {
@@ -28,15 +22,15 @@ namespace PokedexApp
             this.Load += FormInformacionDeUsuario_Load;
         }
 
-        public void  FormInformacionDeUsuario_Load(object sender, EventArgs e)
+        public void FormInformacionDeUsuario_Load(object sender, EventArgs e)
         {
 
             InitializeComponent();
             lblNombre.Text = usuario.NombreUsuario;
             lblNivel.Text = $"Nivel: {info.Nivel}";
-                lblGanadas.Text = $"Partidas Ganadas: {info.BatallasGanadas}";
+            lblGanadas.Text = $"Partidas Ganadas: {info.BatallasGanadas}";
             lblPerdidas.Text = $"Partidas Perdidas: {info.BatallasPerdidas}";
-            
+
 
 
             PokedexManager manager = new PokedexManager();
@@ -58,7 +52,7 @@ namespace PokedexApp
                 DGVCartasUsuario.Columns["Imagen"].Visible = false;
             }
 
-            
+
             if (DGVCartasUsuario.Columns["ColumnaFoto"] == null)
             {
                 DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
@@ -78,7 +72,7 @@ namespace PokedexApp
                     string nombreArchivo = valor.ToString();
                     string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
 
-                 
+
                     if (!File.Exists(ruta)) ruta += ".jpeg";
 
                     if (File.Exists(ruta))
@@ -95,7 +89,7 @@ namespace PokedexApp
 
 
 
-        
+
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Close();

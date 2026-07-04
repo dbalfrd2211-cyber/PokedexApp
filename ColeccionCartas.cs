@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PokedexApp
@@ -105,8 +99,8 @@ namespace PokedexApp
                 }
             }
         }
-        
-        
+
+
 
         private void ColeccionCartas_Load(object sender, EventArgs e)
         {
@@ -333,7 +327,7 @@ namespace PokedexApp
                 }
                 mapaAmpliado = true;
 
-               
+
             }
             else
             {
@@ -357,7 +351,7 @@ namespace PokedexApp
                     if (manager.EliminarCarta(c.IdCarta))
                     {
                         MessageBox.Show("Carta eliminada de tu colección");
-                        txtBuscarPokemon_TextChanged(sender, e); 
+                        txtBuscarPokemon_TextChanged(sender, e);
                     }
                     else
                     {

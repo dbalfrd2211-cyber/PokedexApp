@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PokedexApp
@@ -23,7 +15,7 @@ namespace PokedexApp
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-        
+
             Func<bool> sonCamposInvalidos = () =>
                 string.IsNullOrWhiteSpace(txtUsuario.Text) || string.IsNullOrWhiteSpace(txtContraseña.Text);
 
@@ -39,12 +31,12 @@ namespace PokedexApp
                 {
                     Usuario usuarioActual = manager.ObtenerUsuario(txtUsuario.Text);
 
-                    
+
                     if (usuarioActual != null)
                     {
                         InfoUsuario infoActual = manager.ObtenerInfoUsuario(usuarioActual.IdUsuario);
 
-                       
+
                         Sesion.Iniciar(usuarioActual.IdUsuario, usuarioActual.NombreUsuario);
 
                         MessageBox.Show("Inicio de sesión exitoso, BIENVENIDO A LA POKEDEX");
@@ -70,7 +62,7 @@ namespace PokedexApp
             }
             catch (Exception ex)
             {
-              
+
                 MessageBox.Show("Error al conectar: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

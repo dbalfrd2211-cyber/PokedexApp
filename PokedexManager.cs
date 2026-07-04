@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SQLite;
 
 namespace PokedexApp
@@ -232,7 +229,7 @@ namespace PokedexApp
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
-        
+
         }
         public List<Cartas> ObtenerCartasUsuario(int idUsuario)
         {
@@ -269,23 +266,43 @@ namespace PokedexApp
             }
             return lista;
         }
-        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion)
+        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string tipo1, int pokedex)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = "INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) VALUES (@idPokemon, @hp, @rareza, @numeroDeColeccion)";
-                using (var cmd = new SQLiteCommand(query, conn))
+                using (var transaccion = conn.BeginTransaction())
                 {
-                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
-                    cmd.Parameters.AddWithValue("@hp", hp);
-                    cmd.Parameters.AddWithValue("@rareza", rareza);
-                    cmd.Parameters.AddWithValue("@numeroDeColeccion", numeroDeColeccion);
-                    return cmd.ExecuteNonQuery() > 0;
+                    try
+                    {
+                        // 1. Insertar en Pokemon
+                        string queryPokemon = "INSERT INTO Pokemon (IdPokemon, Pokedex, Nombre, Tipo1) VALUES (@id, @dex, @nom, @t1)";
+                        using (var cmd = new SQLiteCommand(queryPokemon, conn, transaccion))
+                        {
+                            cmd.Parameters.AddWithValue("@id", idPokemon);
+                            cmd.Parameters.AddWithValue("@dex", pokedex);
+                            cmd.Parameters.AddWithValue("@nom", nombre);
+                            cmd.Parameters.AddWithValue("@t1", tipo1);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 2. Insertar en Cartas
+                        string queryCarta = "INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) VALUES (@id, @hp, @rar, @num)";
+                        using (var cmd = new SQLiteCommand(queryCarta, conn, transaccion))
+                        {
+                            cmd.Parameters.AddWithValue("@id", idPokemon);
+                            cmd.Parameters.AddWithValue("@hp", hp);
+                            cmd.Parameters.AddWithValue("@rar", rareza);
+                            cmd.Parameters.AddWithValue("@num", numeroDeColeccion);
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaccion.Commit();
+                        return true;
+                    }
+                    catch { transaccion.Rollback(); return false; }
                 }
             }
         }
-
 
         public bool EliminarCarta(int idCarta)
         {

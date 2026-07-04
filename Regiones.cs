@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokedexApp
+﻿namespace PokedexApp
 {
     public class Regiones
     {
-       
+
         public int IdRegion { get; }
         public string NombreRegion { get; }
 

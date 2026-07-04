@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokedexApp
+﻿namespace PokedexApp
 {
-    public class VistaCartasMaestra:PokedexElement
+    public class VistaCartasMaestra : PokedexElement
     {
 
         public int IdPokemon { get; set; }
@@ -26,8 +20,8 @@ namespace PokedexApp
                                   string region, double altura, double peso, int hpBase, int hpCarta,
                                   string rareza, int numColeccion, string detalles)
         {
-            this.Nombre = nombre;      
-            this.Id = idPokemon;       
+            this.Nombre = nombre;
+            this.Id = idPokemon;
 
             this.IdPokemon = idPokemon;
             this.Pokedex = pokedex;

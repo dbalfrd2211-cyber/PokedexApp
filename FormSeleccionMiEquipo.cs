@@ -13,7 +13,7 @@ namespace PokedexApp
         public FormSeleccionMiEquipo()
         {
             InitializeComponent();
-       
+
         }
 
         private void DGVListMisCartas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -24,7 +24,7 @@ namespace PokedexApp
 
             if (seleccionadas > 0)
             {
-               
+
                 var c = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
                 string ruta = Path.Combine(Application.StartupPath, "Imagenes", c.IdPokemon.ToString() + ".jpeg");
                 if (File.Exists(ruta))
@@ -36,7 +36,7 @@ namespace PokedexApp
                     picCarta.Image = null;
                 }
 
-               
+
                 var detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
                 if (detalle != null)
                 {
@@ -71,17 +71,17 @@ namespace PokedexApp
                 DGVListMisCartas.Columns.Add(colFoto);
             }
 
-          
+
             foreach (DataGridViewRow fila in DGVListMisCartas.Rows)
             {
                 if (fila.IsNewRow) continue;
 
-              
+
                 var idPokemon = fila.Cells["IdPokemon"].Value;
 
                 if (idPokemon != null)
                 {
-                   
+
                     string nombreArchivo = idPokemon.ToString() + ".jpeg";
                     string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
 
@@ -118,7 +118,7 @@ namespace PokedexApp
         {
             DGVListMisCartas.ClearSelection();
         }
-        
+
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

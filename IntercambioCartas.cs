@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PokedexApp
@@ -19,7 +13,7 @@ namespace PokedexApp
         private BindingList<Cartas> cartasinteru2 = new BindingList<Cartas>();
         // lista de cartas temporales para mostrar en el datagridview de cartas por intercambiar
 
-        private Usuario usuario2= null;
+        private Usuario usuario2 = null;
         public IntercambioCartas(Usuario usuarioLogueado)
         {
             InitializeComponent();
@@ -184,7 +178,7 @@ namespace PokedexApp
                     ActualizarDataGridsIntercambio();
                 }
 
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     MessageBox.Show("Error al realizar el intercambio" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

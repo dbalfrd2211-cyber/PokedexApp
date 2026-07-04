@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokedexApp
+﻿namespace PokedexApp
 {
     public class InfoUsuario
     {
-        public int IdInfo{get; set; }
+        public int IdInfo { get; set; }
         public int IDUsuario { get; set; }
         public int Nivel { get; set; }
         public int BatallasGanadas { get; set; }

@@ -1,12 +1,4 @@
-﻿using PokedexApp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 
 namespace PokedexApp
@@ -42,7 +34,7 @@ namespace PokedexApp
                 MessageBox.Show("Debes seleccionar una rareza y un tipo");
                 return;
             }
-        
+
 
             int idPokemon = Convert.ToInt32(txtIdPokemon.Text);
             int hp = Convert.ToInt32(txtHP.Text);
@@ -53,15 +45,15 @@ namespace PokedexApp
             string nombre = txtNombre.Text;
             string tipo1 = cmbTipo1.SelectedItem.ToString();
             string rareza = cmbRareza.SelectedItem.ToString();
-        //string detallesAtaque = txtDetallesAtaque.Text;
-
-        
-        
+            //string detallesAtaque = txtDetallesAtaque.Text;
 
 
 
-        PokedexManager manager = new PokedexManager();
-        if (manager.CrearNuevaCarta(idPokemon, hp, rareza, numeroColeccion, nombre, tipo1, pokedex)) //, nombre, detallesAtaque
+
+
+
+            PokedexManager manager = new PokedexManager();
+            if (manager.CrearNuevaCarta(idPokemon, hp, rareza, numeroColeccion, nombre, tipo1, pokedex)) //, nombre, detallesAtaque
             {
                 MessageBox.Show("Carta creada exitosamente.");
                 this.Close();
