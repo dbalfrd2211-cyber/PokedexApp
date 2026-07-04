@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.DGVAgregarU1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblUsuario2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.DGVAgregarU2 = new System.Windows.Forms.DataGridView();
@@ -42,7 +42,6 @@
             this.btnAgregarU2 = new System.Windows.Forms.Button();
             this.btnRetirarU1 = new System.Windows.Forms.Button();
             this.btnRetirarU2 = new System.Windows.Forms.Button();
-            this.cmbUsuarios2 = new System.Windows.Forms.ComboBox();
             this.txtUserInter1 = new System.Windows.Forms.Label();
             this.btnRegresarVM = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU1)).BeginInit();
@@ -63,14 +62,14 @@
             this.DGVAgregarU1.Size = new System.Drawing.Size(313, 104);
             this.DGVAgregarU1.TabIndex = 0;
             // 
-            // label2
+            // lblUsuario2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(421, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Usuario 2:";
+            this.lblUsuario2.AutoSize = true;
+            this.lblUsuario2.Location = new System.Drawing.Point(421, 18);
+            this.lblUsuario2.Name = "lblUsuario2";
+            this.lblUsuario2.Size = new System.Drawing.Size(64, 16);
+            this.lblUsuario2.TabIndex = 2;
+            this.lblUsuario2.Text = "Usuario 2";
             // 
             // label3
             // 
@@ -194,23 +193,14 @@
             this.btnRetirarU2.UseVisualStyleBackColor = true;
             this.btnRetirarU2.Click += new System.EventHandler(this.btnRetirarU2_Click);
             // 
-            // cmbUsuarios2
-            // 
-            this.cmbUsuarios2.FormattingEnabled = true;
-            this.cmbUsuarios2.Location = new System.Drawing.Point(494, 15);
-            this.cmbUsuarios2.Name = "cmbUsuarios2";
-            this.cmbUsuarios2.Size = new System.Drawing.Size(178, 24);
-            this.cmbUsuarios2.TabIndex = 4;
-            this.cmbUsuarios2.SelectedIndexChanged += new System.EventHandler(this.cmbUsuarios2_SelectedIndexChanged);
-            // 
             // txtUserInter1
             // 
             this.txtUserInter1.AutoSize = true;
             this.txtUserInter1.Location = new System.Drawing.Point(12, 18);
             this.txtUserInter1.Name = "txtUserInter1";
-            this.txtUserInter1.Size = new System.Drawing.Size(54, 16);
+            this.txtUserInter1.Size = new System.Drawing.Size(119, 16);
             this.txtUserInter1.TabIndex = 5;
-            this.txtUserInter1.Text = "Usuario";
+            this.txtUserInter1.Text = "Usuario Logueado";
             // 
             // btnRegresarVM
             // 
@@ -228,14 +218,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.txtUserInter1);
-            this.Controls.Add(this.cmbUsuarios2);
             this.Controls.Add(this.btnRetirarU2);
             this.Controls.Add(this.btnRetirarU1);
             this.Controls.Add(this.btnAgregarU2);
             this.Controls.Add(this.btnAgregarU1);
             this.Controls.Add(this.btnRegresarVM);
             this.Controls.Add(this.btnRealizarIntercambio);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblUsuario2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -259,7 +248,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGVAgregarU1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblUsuario2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView DGVAgregarU2;
@@ -272,7 +261,6 @@
         private System.Windows.Forms.Button btnAgregarU2;
         private System.Windows.Forms.Button btnRetirarU1;
         private System.Windows.Forms.Button btnRetirarU2;
-        private System.Windows.Forms.ComboBox cmbUsuarios2;
         private System.Windows.Forms.Label txtUserInter1;
         private System.Windows.Forms.Button btnRegresarVM;
     }
