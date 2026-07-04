@@ -50,6 +50,8 @@
             this.txtPokedex = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cmbRegion = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -138,7 +140,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(38, 289);
+            this.label6.Location = new System.Drawing.Point(12, 318);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 16);
             this.label6.TabIndex = 11;
@@ -146,7 +148,7 @@
             // 
             // txtDetallesAtaque
             // 
-            this.txtDetallesAtaque.Location = new System.Drawing.Point(179, 288);
+            this.txtDetallesAtaque.Location = new System.Drawing.Point(12, 346);
             this.txtDetallesAtaque.Multiline = true;
             this.txtDetallesAtaque.Name = "txtDetallesAtaque";
             this.txtDetallesAtaque.Size = new System.Drawing.Size(174, 92);
@@ -292,11 +294,40 @@
             this.label11.TabIndex = 22;
             this.label11.Text = "Tipo";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(38, 289);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 16);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "Region";
+            // 
+            // cmbRegion
+            // 
+            this.cmbRegion.FormattingEnabled = true;
+            this.cmbRegion.Items.AddRange(new object[] {
+            "Kanto",
+            "Johto",
+            "Hoenn",
+            "Sinnoh,",
+            "Teselia,",
+            "Kalos",
+            "Alola",
+            "Galar,",
+            "Paldea"});
+            this.cmbRegion.Location = new System.Drawing.Point(157, 285);
+            this.cmbRegion.Name = "cmbRegion";
+            this.cmbRegion.Size = new System.Drawing.Size(174, 24);
+            this.cmbRegion.TabIndex = 24;
+            // 
             // FormNuevaCarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cmbRegion);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtPokedex);
@@ -350,5 +381,7 @@
         private System.Windows.Forms.TextBox txtPokedex;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cmbRegion;
     }
 }

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+//using static System.Net.WebRequestMethods;
 
 namespace PokedexApp
 {
@@ -57,7 +58,7 @@ namespace PokedexApp
             {
                 DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
                 colFoto.Name = "ColumnaFoto";
-                colFoto.HeaderText = "Foto";
+                colFoto.HeaderText = "Carta";
                 colFoto.ImageLayout = DataGridViewImageCellLayout.Zoom;
                 DGVCartasUsuario.Columns.Add(colFoto);
             }
@@ -65,25 +66,48 @@ namespace PokedexApp
             foreach (DataGridViewRow fila in DGVCartasUsuario.Rows)
             {
                 if (fila.IsNewRow) continue;
-
-                var valor = fila.Cells["Imagen"].Value;
-                if (valor != null)
+                if (fila.DataBoundItem is Cartas c) 
+            {
+                string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
+                string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+                if (File.Exists(ruta))
                 {
-                    string nombreArchivo = valor.ToString();
-                    string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
-
-
-                    if (!File.Exists(ruta)) ruta += ".jpeg";
-
-                    if (File.Exists(ruta))
-                    {
-                        fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
-                    }
+                    fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
                 }
-            }
+                else
+                {
+                    string rutaDefault = Path.Combine(Application.StartupPath, "Imagenes", "default.jpeg");
+                    if(File.Exists(rutaDefault))
+                        fila.Cells["ColumnaFoto"].Value = Image.FromFile(rutaDefault);
 
-
+                }
+            } //filaa.cells["ColumnaFoto"].Value = Image.FromFile(rutaDefault);
+            
         }
+        }
+
+        //foreach (DataGridViewRow fila in DGVCartasUsuario.Rows)
+        //{
+        //    if (fila.IsNewRow) continue;
+        //
+        //    var valor = fila.Cells["Imagen"].Value;
+        //    if (valor != null)
+        //    {
+        //        string nombreArchivo = valor.ToString();
+        //        string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+        //
+        //
+        //        if (!File.Exists(ruta)) ruta += ".jpeg";
+        //
+        //        if (File.Exists(ruta))
+        //        {
+        //            fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
+        //        }
+        //    }
+        //}
+
+
+
 
 
 
@@ -105,5 +129,30 @@ namespace PokedexApp
                 }
             }
         }
+
+        private void btnEliminarCartaUsuario_Click(object sender, EventArgs e)
+        {
+            if (DGVCartasUsuario.CurrentRow?.DataBoundItem is Cartas c)
+            {
+                var confirmResult = MessageBox.Show($"¿Está seguro de que desea eliminar la carta {c.IdCarta} del usuario {usuario.NombreUsuario}?", "Confirmar eliminación", MessageBoxButtons.YesNo);
+
+                if (confirmResult == DialogResult.Yes)
+                {
+                    PokedexManager manager = new PokedexManager();
+                    if (manager.EliminarCartaUsuario(usuario.IdUsuario, c.IdPokemon))
+                    {
+                        MessageBox.Show("Carta eliminada correctamente.");
+                        DGVCartasUsuario.DataSource = manager.ObtenerCartasUsuario(usuario.IdUsuario);
+                        var cartasUsuario = manager.ObtenerCartasUsuario(usuario.IdUsuario);
+                        lblCartas.Text = $"Cartas Obtenidas: {cartasUsuario.Count}";
+                        MostrarImagenesEnGrid();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al eliminar la carta.");
+                    }
+                }
+            } 
     }
+}
 }

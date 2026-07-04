@@ -36,6 +36,7 @@
             this.lblPerdidas = new System.Windows.Forms.Label();
             this.lblCartas = new System.Windows.Forms.Label();
             this.DGVCartasUsuario = new System.Windows.Forms.DataGridView();
+            this.btnEliminarCartaUsuario = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVCartasUsuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,11 +117,22 @@
             this.DGVCartasUsuario.Size = new System.Drawing.Size(776, 150);
             this.DGVCartasUsuario.TabIndex = 8;
             // 
+            // btnEliminarCartaUsuario
+            // 
+            this.btnEliminarCartaUsuario.Location = new System.Drawing.Point(75, 378);
+            this.btnEliminarCartaUsuario.Name = "btnEliminarCartaUsuario";
+            this.btnEliminarCartaUsuario.Size = new System.Drawing.Size(124, 23);
+            this.btnEliminarCartaUsuario.TabIndex = 9;
+            this.btnEliminarCartaUsuario.Text = "Eliminar carta";
+            this.btnEliminarCartaUsuario.UseVisualStyleBackColor = true;
+            this.btnEliminarCartaUsuario.Click += new System.EventHandler(this.btnEliminarCartaUsuario_Click);
+            // 
             // FormInformacionDeUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnEliminarCartaUsuario);
             this.Controls.Add(this.DGVCartasUsuario);
             this.Controls.Add(this.lblCartas);
             this.Controls.Add(this.lblPerdidas);
@@ -147,5 +159,6 @@
         private System.Windows.Forms.Label lblPerdidas;
         private System.Windows.Forms.Label lblCartas;
         private System.Windows.Forms.DataGridView DGVCartasUsuario;
+        private System.Windows.Forms.Button btnEliminarCartaUsuario;
     }
 }

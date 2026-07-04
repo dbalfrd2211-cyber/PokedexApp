@@ -266,7 +266,7 @@ namespace PokedexApp
             }
             return lista;
         }
-        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string tipo1, int pokedex)
+        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string tipo1, int pokedex, int idRegion)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
@@ -276,9 +276,10 @@ namespace PokedexApp
                     try
                     {
                         // 1. Insertar en Pokemon
-                        string queryPokemon = "INSERT INTO Pokemon (IdPokemon, Pokedex, Nombre, Tipo1) VALUES (@id, @dex, @nom, @t1)";
+                        string queryPokemon = "INSERT INTO Pokemon (IdPokemon, Pokedex, Nombre, Tipo1, IdRegion) VALUES (@id, @dex, @nom, @t1, @region)";
                         using (var cmd = new SQLiteCommand(queryPokemon, conn, transaccion))
                         {
+                            cmd.Parameters.AddWithValue("@region", idRegion);
                             cmd.Parameters.AddWithValue("@id", idPokemon);
                             cmd.Parameters.AddWithValue("@dex", pokedex);
                             cmd.Parameters.AddWithValue("@nom", nombre);
@@ -299,23 +300,53 @@ namespace PokedexApp
                         transaccion.Commit();
                         return true;
                     }
-                    catch { transaccion.Rollback(); return false; }
+                    catch(Exception ex){ transaccion.Rollback();
+                        System.Windows.Forms.MessageBox.Show("Erro SQL : " + ex.Message);
+                        return false; }
                 }
             }
         }
-
-        public bool EliminarCarta(int idCarta)
+        public bool EliminarCartaUsuario(int idUsuario, int idPokemon)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "DELETE FROM ColeccionUsuario WHERE IdUsuario = @idUsuario AND IdPokemon = @idPokemon";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", Sesion.IdUsuarioActual);
+                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+        public bool EliminarCarta(int idPokemon)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
                 // Según tu PDF página 27, el método espera idCarta y idPokemon
-                string query = "DELETE FROM Cartas WHERE IdCarta = @idCarta";
-                using (var cmd = new SQLiteCommand(query, conn))
+                
+                using (var cmd = new SQLiteCommand("DELETE FROM ColeccionUsuario WHERE IdPokemon = @idPokemon", conn))
                 {
-                    cmd.Parameters.AddWithValue("@idCarta", idCarta);
+                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                    cmd.ExecuteNonQuery();
+                }
+
+                //string query = "DELETE FROM Cartas WHERE IdPokemon = @idPokemon";
+                using (var cmd = new SQLiteCommand("DELETE FROM Cartas WHERE IdPokemon = @idPokemon", conn))
+                {
+                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
+                    cmd.ExecuteNonQuery();
+                }
+                
+                //string query = "DELETE FROM Pokemon WHERE IdPokemon = @idPokemon";
+                using (var cmd = new SQLiteCommand("DELETE FROM Pokemon WHERE IdPokemon = @idPokemon", conn))
+                {
+                    cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
                     return cmd.ExecuteNonQuery() > 0;
                 }
+
             }
         }
     }

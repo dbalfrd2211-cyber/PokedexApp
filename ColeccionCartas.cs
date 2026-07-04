@@ -192,6 +192,7 @@ namespace PokedexApp
                     if (!mapaAmpliado) ResaltarRegion(regionActual);
 
                     btnAñadirAColeccion.Enabled = true;
+                    btnEliminarCarta.Enabled = (c.IdPokemon > 151);
                 }
             }
         }
@@ -348,17 +349,35 @@ namespace PokedexApp
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    if (manager.EliminarCarta(c.IdCarta))
+                    if (c.IdPokemon > 151)
                     {
-                        MessageBox.Show("Carta eliminada de tu colección");
-                        txtBuscarPokemon_TextChanged(sender, e);
+                        if (manager.EliminarCarta(c.IdPokemon))
+                        {
+                            MessageBox.Show("Carta eliminada de tu colección");
+                            txtBuscarPokemon_TextChanged(sender, e);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error: No puedes eliminar cartas originales del sistema.");
+                        }
+
                     }
                     else
                     {
-                        MessageBox.Show("Error: No puedes eliminar cartas originales del sistema.");
+                        MessageBox.Show("No puedes eliminar cartas de Pokémon originales del sistema.");
+
+
+                        //if (manager.EliminarCarta(c.IdCarta))
+                        //{
+                        //    MessageBox.Show("Carta eliminada de tu colección");
+                        //    txtBuscarPokemon_TextChanged(sender, e);
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show("Error: No puedes eliminar cartas originales del sistema.");
+                        //}
                     }
                 }
-
             }
         }
 

@@ -41,7 +41,7 @@ namespace PokedexApp
             //string rareza = cmbRareza.SelectedItem.ToString();
             int numeroColeccion = Convert.ToInt32(txtNumeroColeccion.Text);
             int pokedex = Convert.ToInt32(txtPokedex.Text);
-
+            int idRegion = cmbRegion.SelectedIndex + 1; // Assuming regions are indexed from 1
             string nombre = txtNombre.Text;
             string tipo1 = cmbTipo1.SelectedItem.ToString();
             string rareza = cmbRareza.SelectedItem.ToString();
@@ -53,7 +53,7 @@ namespace PokedexApp
 
 
             PokedexManager manager = new PokedexManager();
-            if (manager.CrearNuevaCarta(idPokemon, hp, rareza, numeroColeccion, nombre, tipo1, pokedex)) //, nombre, detallesAtaque
+            if (manager.CrearNuevaCarta(idPokemon, hp, rareza, numeroColeccion, nombre, tipo1, pokedex, idRegion)) //, nombre, detallesAtaque
             {
                 MessageBox.Show("Carta creada exitosamente.");
                 this.Close();
