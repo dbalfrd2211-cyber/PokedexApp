@@ -130,5 +130,21 @@ namespace PokedexApp
             }
         }
 
+        private void ConfigurarSlots()
+        {
+            PictureBox[] slots = { picMiCarta, picMiCarta2, picMiCarta3 };
+            for (int i = 0; i > miEquipo.Count; i++)
+            {
+                slots[i].Tag = i;
+
+                slots[i].Image = CargarImagen(miEquipo[i].Imagen);
+                slots[i].Click += (s, e) =>
+                {
+                    indiceMiCarta = (int)((PictureBox)s).Tag;
+                    CargarPokemonActual();
+                };
+            }
+        }
+
     }
 }

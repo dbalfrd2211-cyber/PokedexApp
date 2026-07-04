@@ -21,6 +21,15 @@ namespace PokedexApp
             List<Cartas> equipo1 = null;
             List<Cartas> equipo2 = null;
 
+            if (usuario2 == null)
+            {
+                MessageBox.Show("Por favor, selecciona y autentica al rival antes de iniciar el combate.");
+                return;
+            }
+
+          
+
+         
             using (FormSeleccionMiEquipo sel1 = new FormSeleccionMiEquipo(Sesion.IdUsuarioActual))
             {
                 sel1.Text = "Selecciona tus cartas (Anfitrión)";
@@ -28,7 +37,10 @@ namespace PokedexApp
                     equipo1 = sel1.EquipoSeleccionado;
             }
 
-         
+          
+            if (equipo1 == null || equipo1.Count != 3) return;
+
+        
             using (FormSeleccionMiEquipo sel2 = new FormSeleccionMiEquipo(usuario2.IdUsuario))
             {
                 sel2.Text = "Selecciona tus cartas (Rival)";
@@ -36,8 +48,16 @@ namespace PokedexApp
                     equipo2 = sel2.EquipoSeleccionado;
             }
 
-        }
 
+            if (equipo2 == null || equipo2.Count != 3) return;
+
+
+            FormBatalla arena = new FormBatalla(equipo1, equipo2);
+
+            this.Hide();
+            arena.ShowDialog();
+            this.Show();
+        }
 
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
