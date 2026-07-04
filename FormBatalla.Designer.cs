@@ -58,6 +58,7 @@
             this.picMiCarta.Location = new System.Drawing.Point(96, 38);
             this.picMiCarta.Name = "picMiCarta";
             this.picMiCarta.Size = new System.Drawing.Size(140, 200);
+            this.picMiCarta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picMiCarta.TabIndex = 0;
             this.picMiCarta.TabStop = false;
             // 
@@ -67,6 +68,7 @@
             this.picCartaRival.Location = new System.Drawing.Point(552, 38);
             this.picCartaRival.Name = "picCartaRival";
             this.picCartaRival.Size = new System.Drawing.Size(140, 200);
+            this.picCartaRival.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCartaRival.TabIndex = 1;
             this.picCartaRival.TabStop = false;
             // 
