@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using static System.Console;
 
 namespace PokedexApp
 {
@@ -32,28 +33,42 @@ namespace PokedexApp
         {
             posicionOriginalMiCarta = picMiCarta.Location;
 
-            if (miEquipo == null || miEquipo.Count == 0) 
-            {
-                MessageBox.Show("¡Error! El equipo llegó vacio al combate");
-                return;
-            }
 
             PictureBox[] slotsMisCartas = { picMiCarta1, picMiCarta2, picMiCarta3 };
+
             for (int i = 0; i < miEquipo.Count; i++)
             {
                 if (i < slotsMisCartas.Length)
                 {
-                    Image img = CargarImagen(miEquipo[i].Imagen);
+
+                    Image img = CargarImagen(miEquipo[i].IdPokemon);
                     if (img != null)
                     {
                         slotsMisCartas[i].Image = img;
                         slotsMisCartas[i].SizeMode = PictureBoxSizeMode.StretchImage;
                     }
-                    slotsMisCartas[i].Tag=i;
+
+                    slotsMisCartas[i].Tag = i;
                     slotsMisCartas[i].Click += Slot_Click;
                 }
             }
-            CargarPokemonActual();
+
+                PictureBox[] slotsRival = { picRCarta1, picRCarta2, picRCarta3 };
+            for (int i = 0; i < equipoRival.Count; i++)
+            {
+                if (i < slotsRival.Length)
+                {
+                    Image img = CargarImagen(equipoRival[i].IdPokemon);
+                    if (img != null)
+                    {
+                        slotsRival[i].Image = img;
+                        slotsRival[i].SizeMode = PictureBoxSizeMode.StretchImage;
+                    }
+                    slotsRival[i].Tag = i;
+                    slotsRival[i].Click += SlotRival_Click;
+                }
+                CargarPokemonActual();
+            }
         }
 
         private void Slot_Click(object sender, EventArgs e)
@@ -70,14 +85,35 @@ namespace PokedexApp
 
 
         }
+        private void SlotRival_Click(object sender, EventArgs e)
+        {
+            PictureBox clickedSlot = (PictureBox)sender;
+            indiceRival = (int)clickedSlot.Tag;
+
+            // Limpiar bordes del rival
+            foreach (var slot in new PictureBox[] { picRCarta1, picRCarta2, picRCarta3 })
+            {
+                slot.BorderStyle = BorderStyle.None;
+            }
+            clickedSlot.BorderStyle = BorderStyle.Fixed3D;
+
+            CargarPokemonActual();
+        }
 
         private void CargarPokemonActual()
         {
+            if (miEquipo == null || equipoRival == null) return;
+            if (indiceMiCarta < 0 || indiceMiCarta >= miEquipo.Count) return;
+            if (indiceRival < 0 || indiceRival >= equipoRival.Count) return;
+
             var cartaMia = miEquipo[indiceMiCarta];
             var cartaRival = equipoRival[indiceRival];
-
-            picMiCarta.Image = CargarImagen(cartaMia.Imagen);
-            picCartaRival.Image = CargarImagen(cartaRival.Imagen);
+            if (cartaMia != null && picMiCarta != null)
+            {
+                picMiCarta.Image = CargarImagen(cartaMia.IdPokemon);
+            }
+            picMiCarta.Image = CargarImagen(cartaMia.IdPokemon);
+            picCartaRival.Image = CargarImagen(cartaRival.IdPokemon);
 
 
             miHpActual = cartaMia.Hp;
@@ -90,18 +126,20 @@ namespace PokedexApp
             pbHpRival.Value = rivalHpActual;
         }
 
-        private Image CargarImagen(string imagen)
+        private Image CargarImagen(int idPokemon)
         {
-            if (string.IsNullOrEmpty(imagen) )return null;
-            
-            string ruta = Path.Combine(Application.StartupPath, "Imagenes", imagen);
+            string nombreArchivo = idPokemon.ToString() + ".jpeg";
+            string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
 
-            if (!File.Exists(ruta))
+            if (File.Exists(ruta))
             {
-                return null; 
+                return Image.FromFile(ruta);
             }
-            return Image.FromFile(ruta);
-
+            else
+            {
+                // Si no existe, puedes devolver null o una imagen por defecto
+                return null;
+            }
         }
 
 
@@ -175,21 +213,7 @@ namespace PokedexApp
             }
         }
 
-        private void ConfigurarSlots()
-        {
-            PictureBox[] slots = { picMiCarta, picMiCarta2, picMiCarta3 };
-            for (int i = 0; i < miEquipo.Count; i++)
-            {
-                slots[i].Tag = i;
-
-                slots[i].Image = CargarImagen(miEquipo[i].Imagen);
-                slots[i].Click += (s, e) =>
-                {
-                    indiceMiCarta = (int)((PictureBox)s).Tag;
-                    CargarPokemonActual();
-                };
-            }
-        }
+      
 
     }
 }
