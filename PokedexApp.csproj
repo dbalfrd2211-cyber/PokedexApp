@@ -271,6 +271,8 @@
     <Content Include="Imagenes\2.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Imagenes\76.jpeg" />
+    <Content Include="Imagenes\77.jpeg" />
     <Content Include="Imagenes\81.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
