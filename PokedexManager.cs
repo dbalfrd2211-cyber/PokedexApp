@@ -266,7 +266,7 @@ namespace PokedexApp
             }
             return lista;
         }
-        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string tipo1, int pokedex, int idRegion)
+        public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string tipo1, int pokedex, int idRegion, double altura, double peso, int hpBase)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
@@ -284,9 +284,20 @@ namespace PokedexApp
                             cmd.Parameters.AddWithValue("@dex", pokedex);
                             cmd.Parameters.AddWithValue("@nom", nombre);
                             cmd.Parameters.AddWithValue("@t1", tipo1);
+                           //cmd.Parameters.AddWithValue("@altura", altura);
+                           //cmd.Parameters.AddWithValue("@peso", peso);
+                           //cmd.Parameters.AddWithValue("@hpbase", hpBase);
                             cmd.ExecuteNonQuery();
                         }
-
+                        string queryEstadisticas = "INSERT INTO EstadisticasPokemon (IdPokemon, Altura, Peso,HPBase) VALUES (@id, @altura, @peso, @hpbase)";
+                        using (var cmd = new SQLiteCommand(queryEstadisticas, conn, transaccion))
+                        {
+                            cmd.Parameters.AddWithValue("@id", idPokemon);
+                            cmd.Parameters.AddWithValue("@altura", altura);
+                            cmd.Parameters.AddWithValue("@peso", peso);
+                            cmd.Parameters.AddWithValue("@hpbase", hpBase);
+                            cmd.ExecuteNonQuery();
+                        }
                         // 2. Insertar en Cartas
                         string queryCarta = "INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) VALUES (@id, @hp, @rar, @num)";
                         using (var cmd = new SQLiteCommand(queryCarta, conn, transaccion))
