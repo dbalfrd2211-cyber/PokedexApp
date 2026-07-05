@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SQLite;
 
 namespace PokedexApp
@@ -360,7 +361,41 @@ namespace PokedexApp
 
             }
         }
-    }
+
+        public List<Ataques> ObtenerAtaquesDePokemon(int idPokemon)
+        {
+            List<Ataques> lista = new List<Ataques>();
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = @"SELECT A.IdAtaque, A.Nombre, A.Tipo, A.Danio, A.IdEfecto
+                                 FROM PokemonAtaque PA
+                                 JOIN Ataques A ON PA.IdAtaque = A.IdAtaque
+                                 
+                                 WHERE PA.IdPokemon = @id";
+                using (var cmd = new SQLiteCommand(query, conn)) //JOIN Efectos E ON A.IdEfecto = E.IdEfecto
+                {
+                    cmd.Parameters.AddWithValue("@id", idPokemon);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Ataques(
+                                Convert.ToInt32(reader["IdAtaque"]),
+                                reader["Nombre"].ToString(),
+                                reader["Tipo"].ToString(),
+                                Convert.ToInt32(reader["Danio"]),
+                                //Convert.ToInt32(reader["Precision"]),
+                                //reader["Descripcion"].ToString()
+                                reader["IdEfecto"] != DBNull.Value ? Convert.ToInt32(reader["IdEfecto"]) : 0
+                            ));
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
+}
 }
 
 

@@ -20,7 +20,7 @@ namespace PokedexApp
         private int dañoPendiente = 0;
         private int miHpActual;
         private int rivalHpActual;
-
+        private Point posicionOriginalRival;
         public FormBatalla(List<Cartas> equipoJugador, List<Cartas> equipoRival)
         {
             InitializeComponent();
@@ -32,6 +32,7 @@ namespace PokedexApp
         private void FormBatalla_Load(object senderz, EventArgs e)
         {
             posicionOriginalMiCarta = picMiCarta.Location;
+            posicionOriginalRival = picCartaRival.Location;
 
 
             PictureBox[] slotsMisCartas = { picMiCarta1, picMiCarta2, picMiCarta3 };
@@ -124,7 +125,51 @@ namespace PokedexApp
 
             pbHpRival.Maximum = cartaRival.Hp;
             pbHpRival.Value = rivalHpActual;
+
+            Button[] botonesAtaque = { btnAtaque1, btnAtaque2, btnAtaque3, btnAtaque4 };
+            for(int i = 0; i < botonesAtaque.Length; i++)
+            {
+                if (i < cartaMia.Ataques.Count)
+                {
+                    botonesAtaque[i].Text = cartaMia.Ataques[i].Nombre;
+                    botonesAtaque[i].Tag = cartaMia.Ataques[i];
+                    botonesAtaque[i].Enabled = true;
+                    botonesAtaque[i].Click -= BotonAtaque_Click; // Evitar múltiples suscripciones
+                    botonesAtaque[i].Click += BotonAtaque_Click;
+                }
+                else
+                {
+                    botonesAtaque[i].Text = "N/A";
+                    botonesAtaque[i].Enabled = false;
+                }
+            }
+            Button[] botonesRAtaque = { btnRAtaque1, btnRAtaque2, btnRAtaque3, btnRAtaque4 };
+            
+
+            for (int i = 0; i < botonesRAtaque.Length; i++)
+            {
+                if (i < cartaRival.Ataques.Count)
+                {
+                    botonesRAtaque[i].Text = cartaRival.Ataques[i].Nombre;
+                    botonesRAtaque[i].Tag = cartaRival.Ataques[i];
+                    botonesRAtaque[i].Enabled = true;
+                    botonesRAtaque[i].Click -= BotonRAtaque_Click; // Evitar múltiples suscripciones
+                    botonesRAtaque[i].Click += BotonRAtaque_Click;
+                }
+                else
+                {
+                    botonesRAtaque[i].Text = "N/A";
+                    botonesRAtaque[i].Enabled = false;
+                }
+            }
+
+
+
         }
+
+
+
+        
 
         private Image CargarImagen(int idPokemon)
         {
@@ -146,10 +191,10 @@ namespace PokedexApp
 
         private void btnAtacar_Click(object sender, EventArgs e)
         {
-            btnAtacar.Enabled = false;
-            dañoPendiente = 25;
-            atacandoHaciaAdelante = true;
-            timerAnimacion.Start();
+           //btnAtacar.Enabled = false;
+           //dañoPendiente = 25;
+           //atacandoHaciaAdelante = true;
+           //timerAnimacion.Start();
 
         }
 
@@ -168,23 +213,37 @@ namespace PokedexApp
                 picMiCarta.Left += velocidad;
                 if (picMiCarta.Right >= picCartaRival.Left)
                 {
-                    atacandoHaciaAdelante = false;
-
+                    timerAnimacion.Stop();
+                    picMiCarta.Location = posicionOriginalMiCarta;
+                    //atacandoHaciaAdelante = false;
+                    AplicarDañoAlRival();   
                 }
             }
             else
             {
-                picMiCarta.Left -= velocidad;
-                if (picMiCarta.Left <= posicionOriginalMiCarta.X)
+                picCartaRival.Left -= velocidad;
+                if (picCartaRival.Left <= picMiCarta.Right)
                 {
+                    //atacandoHaciaAdelante = true;
                     timerAnimacion.Stop();
-                    picMiCarta.Location = posicionOriginalMiCarta;
+                    picCartaRival.Location = posicionOriginalRival;
 
-                    AplicarDañoAlRival();
+
+                    AplicarDañoAMiCarta();  
                 }
-            }
 
+                //AplicarDañoAlRival();
+                
+            }
+           //if(!atacandoHaciaAdelante && picMiCarta.Left <= posicionOriginalMiCarta.X)
+           //{
+           //    timerAnimacion.Stop();
+           //    picMiCarta.Location = posicionOriginalMiCarta;
+           //    AplicarDañoAlRival();
+           //}
         }
+
+        
 
         private void AplicarDañoAlRival()
         {
@@ -213,7 +272,55 @@ namespace PokedexApp
             }
         }
 
-      
 
+
+        private void BotonAtaque_Click(object sender, EventArgs e)
+        {
+            Button boton = (Button)sender;
+            Ataques ataqueSeleccionado = (Ataques)boton.Tag;
+
+            dañoPendiente = ataqueSeleccionado.Danio;
+            MostrarNarrador($"¡{miEquipo[indiceMiCarta].Nombre} usó {ataqueSeleccionado.Nombre}!");
+            atacandoHaciaAdelante = true;
+            timerAnimacion.Start();
+        }
+        private void BotonRAtaque_Click(object sender, EventArgs e)
+        {
+            Button boton = (Button)sender;
+            Ataques ataqueSeleccionado = (Ataques)boton.Tag;
+            dañoPendiente = ataqueSeleccionado.Danio;
+            MostrarNarrador($"¡{equipoRival[indiceRival].Nombre} usó {ataqueSeleccionado.Nombre}!");
+            atacandoHaciaAdelante = false;
+            timerAnimacion.Start();
+        }
+
+        private void AplicarDañoAMiCarta()
+        {
+            miHpActual -= dañoPendiente;
+            pbMiHp.Value = Math.Max(0, miHpActual);
+            if (miHpActual <= 0)
+            {
+                indiceMiCarta++;
+                if (indiceMiCarta < miEquipo.Count)
+                {
+                    MessageBox.Show("¡Tu Pokémon se debilitó! Entra el siguiente.");
+                    CargarPokemonActual();
+                    btnAtacar.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("¡Has perdido la batalla!");
+                    this.Close();
+                }
+            }
+        }
+
+        private void MostrarNarrador(string mensaje)
+        {
+            lblNarrador.Text = mensaje;
+
+
+            lblNarrador.Refresh();
+        }
     }
 }

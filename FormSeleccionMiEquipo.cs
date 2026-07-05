@@ -32,8 +32,8 @@ namespace PokedexApp
             DGVListMisCartas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DGVListMisCartas.MultiSelect = true;
 
-            DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
-            DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
+            //DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
+            //DGVListMisCartas.DataSource = manager.ObtenerCartasUsuario(Sesion.IdUsuarioActual);
 
             DGVListMisCartas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVListMisCartas.MultiSelect = true;
@@ -135,6 +135,8 @@ namespace PokedexApp
             if (DGVListMisCartas.SelectedRows.Count > 0)
             {
                 var carta = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
+
+                carta.Ataques = manager.ObtenerAtaquesDePokemon(carta.IdPokemon); // Asegúrate de que este método esté definido y funcione correctamente)
 
                 if (_equipoTemporal.Count < 3 && !_equipoTemporal.Contains(carta))
                 {

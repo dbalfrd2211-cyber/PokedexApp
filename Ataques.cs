@@ -1,6 +1,6 @@
 ﻿namespace PokedexApp
 {
-    internal class Ataques
+    public class Ataques
     {
 
         public int IdAtaque { get; set; }
