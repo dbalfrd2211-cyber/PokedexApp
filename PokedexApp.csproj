@@ -59,6 +59,10 @@
     <Compile Include="AutenticadorUsuario2.Designer.cs">
       <DependentUpon>AutenticadorUsuario2.cs</DependentUpon>
     </Compile>
+    <Compile Include="EleccionCartaCombate.cs" />
+    <Compile Include="EleccionCartaCombate.Designer.cs">
+      <DependentUpon>EleccionCartaCombate.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormBatalla.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +161,9 @@
     <EmbeddedResource Include="ColeccionCartas.resx">
       <DependentUpon>ColeccionCartas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EleccionCartaCombate.resx">
+      <DependentUpon>EleccionCartaCombate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormBatalla.resx">
       <DependentUpon>FormBatalla.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,8 +211,6 @@
     <None Include="PokemonTCGI.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Properties\DataSources\ColeccionCartas.datasource" />
-    <None Include="Properties\DataSources\FormSeleccionMiEquipo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
