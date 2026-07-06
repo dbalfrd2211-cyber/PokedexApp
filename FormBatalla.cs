@@ -975,7 +975,7 @@ namespace PokedexApp
                     break;
 
                 case 38: // DanoNivel
-                    int danioNivel = 50; // Ajustable o configurable según el nivel asignado
+                    int danioNivel = 50; 
                     objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - danioNivel);
                     string msgDanioNivel = $"¡Causó {danioNivel} puntos de daño por su nivel!";
                     MostrarNarrador(msgDanioNivel);
