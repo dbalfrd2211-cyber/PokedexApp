@@ -7,10 +7,15 @@ namespace PokedexApp
         public int IdCarta { get; set; }
         public int IdPokemon { get; set; }
         public int Hp { get; set; }
+        public int HpCombate { get; set; }
         public string Rareza { get; set; }
         public int NumeroDeColeccion { get; set; }
         public string DetallesAtaque { get; set; }
         public string Imagen { get; set; }
+
+        
+
+
 
         public List<Ataques> Ataques { get; set; }
         public Cartas(int idCarta, int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string detallesAtaque, string imagen)
