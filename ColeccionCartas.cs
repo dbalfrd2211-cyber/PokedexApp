@@ -167,6 +167,7 @@ namespace PokedexApp
                 // 5. Cargar nueva imagen
                 string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
                 string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+                MessageBox.Show($"Cargando imagen desde: {ruta}"); // Mensaje de depuración
 
                 if (File.Exists(ruta))
                 {
