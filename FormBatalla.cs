@@ -192,7 +192,6 @@ namespace PokedexApp
 
             indiceMi = nuevoIndice;
 
-            // Resaltar visualmente la miniatura activa usando los bordes del control
             foreach (var slot in slotsMisCartas) slot.BorderStyle = BorderStyle.None;
             slotClickeado.BorderStyle = BorderStyle.Fixed3D;
 
@@ -339,14 +338,13 @@ namespace PokedexApp
             var miPokemon = miEquipo[indiceMi];
             var rivalPokemon = equipoRival[indiceRival];
 
-            // 1. Renderizar imágenes principales en los templos de combate
+
             picMiCarta.Image = ObtenerImagen(miPokemon.IdPokemon);
             picCartaRival.Image = ObtenerImagen(rivalPokemon.IdPokemon);
 
 
             ActualizarBarrasVida();
 
-            // 4. Mapear y actualizar los paneles de comandos/botones de ataque
             ActualizarBotonesAtaque(miPokemon, botonesMiAtaque, BotonAtaque_Click);
             ActualizarBotonesAtaque(rivalPokemon, botonesRivalAtaque, BotonRAtaque_Click);
 
@@ -407,14 +405,13 @@ namespace PokedexApp
         {
             for (int i = 0; i < botones.Length; i++)
             {
-                // Remover suscripciones previas para evitar llamadas duplicadas en memoria
+
                 botones[i].Click -= eventoClick;
 
                 if (i < pokemon.Ataques.Count)
                 {
                     var ataque = pokemon.Ataques[i];
 
-                    // Diseñar el texto en dos líneas limpias: Nombre arriba, daño abajo
                     botones[i].Text = $"{ataque.Nombre}\n{ataque.Danio} Pts Daño";
                     botones[i].Tag = ataque;
                     botones[i].Enabled = true;
@@ -436,7 +433,6 @@ namespace PokedexApp
             string ruta = Path.Combine(Application.StartupPath, "Imagenes", $"{id}.jpeg");
             if (File.Exists(ruta))
             {
-                // Almacenar en el diccionario para no volver a leer del disco duro
                 cacheImagenes[id] = Image.FromFile(ruta);
                 return cacheImagenes[id];
             }
@@ -455,7 +451,6 @@ namespace PokedexApp
             Cartas usuario = esRivalAfirmado ? miEquipo[indiceMi] : equipoRival[indiceRival];
             Cartas objetivo = esRivalAfirmado ? equipoRival[indiceRival] : miEquipo[indiceMi];
 
-            // 1. Reducir vida por el daño base del ataque
             int danioCalculado = ataque.Danio;
 
             int modAtaque = ObtenerModificador(modificadoresAtaque, usuario);
@@ -477,7 +472,7 @@ namespace PokedexApp
 
             hpCombatePokemon[objetivo] -= danioCalculado;
 
-            // 2. Ejecutar el efecto asignado desde la base de datos (si existe)
+            // 2. Ejecutar el efecto asignado desde la base de datos
             if (ataque.IdEfecto > 0)
             {
                 AplicarEfectoAtaque(ataque.IdEfecto, usuario, objetivo);
@@ -516,7 +511,6 @@ namespace PokedexApp
                 buscados++;
             }
 
-            // Si salió del bucle, todas las cartas del rival cayeron
             MessageBox.Show("¡Felicidades, has derrotado a todos los Pokémon del rival!\n¡VICTORIA!", "Fin de la Batalla", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
@@ -528,7 +522,6 @@ namespace PokedexApp
             Cartas pokemonBanquillo = miTurno ? equipoRival[indiceRival] : miEquipo[indiceMi];
 
             // EFECTO: CONTROL DE ESTADO DORMIDO
-            // Verificamos si el Pokémon tiene un estado registrado en el diccionario
             string estadoActual = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
 
             if (estadoActual == "Dormido")
@@ -542,7 +535,7 @@ namespace PokedexApp
 
                 if (turnosDormido[pokemonActivo] <= 0)
                 {
-                    estadoPokemon[pokemonActivo] = "Normal"; // Despierta en el diccionario
+                    estadoPokemon[pokemonActivo] = "Normal";
                     turnosDormido[pokemonActivo] = 0;
                     MostrarNarrador($"¡{pokemonActivo.Nombre} se ha despertado!");
                 }
@@ -556,7 +549,6 @@ namespace PokedexApp
             }
 
             // EFECTO: DRENADORAS
-            // Validamos usando el diccionario de drenadoras
             if (tieneDrenadoras.ContainsKey(pokemonActivo) && tieneDrenadoras[pokemonActivo] && hpCombatePokemon[pokemonActivo] > 0)
             {
                 int danioDrenadoras = (int)(pokemonActivo.Hp * 0.125M); // 1/8 de la vida máxima
@@ -570,7 +562,6 @@ namespace PokedexApp
             }
 
             // EFECTO: ENVENENAMIENTO
-            // Obtenemos el estado actual del diccionario de forma segura
             string estadoFinTurno = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
 
             if (estadoFinTurno == "Envenenado" && hpCombatePokemon[pokemonActivo] > 0)
@@ -759,7 +750,6 @@ namespace PokedexApp
             var miPokemon = miEquipo[indiceMi];
             var rivalPokemon = equipoRival[indiceRival];
 
-            //Definimos un factor de escala
             double escalaMi = 1.5;
             pnlMiVidaFondo.Width = Math.Max(100, (int)(miPokemon.Hp * escalaMi));
             double miPorcentaje = (double)hpCombatePokemon[miPokemon] / miPokemon.Hp;
@@ -772,8 +762,6 @@ namespace PokedexApp
             pnlRivalVidaBarra.Width = (int)(rivalPorcentaje * pnlRivalVidaFondo.Width);
             lblHpRival.Text = $"{hpCombatePokemon[rivalPokemon]} / {rivalPokemon.Hp} HP";
 
-
-            // Forzar actualización visual inmediata en la interfaz
             pnlMiVidaFondo.Refresh();
             pnlMiVidaBarra.Refresh();
             pnlRivalVidaFondo.Refresh();
@@ -836,7 +824,7 @@ namespace PokedexApp
                 case 9: // Descanso
                     hpCombatePokemon[usuario] = usuario.Hp; // Cura la totalidad de los puntos de salud
                     estadoPokemon[usuario] = "Dormido";
-                    turnosDormido[usuario] = 2; // Registramos la duración en el diccionario
+                    turnosDormido[usuario] = 2; 
                     MostrarNarrador($"¡{usuario.Nombre} recuperó todos sus PS y se durmió para descansar!");
                     break;
 
@@ -845,7 +833,6 @@ namespace PokedexApp
                     break;
 
                 case 11: // Precision -1
-                         // Si necesitas activarlo en el futuro, puedes declarar: private Dictionary<Cartas, int> modificadoresPrecision = new Dictionary<Cartas, int>();
                     MostrarNarrador($"¡La precisión de {objetivo.Nombre} cayó!");
                     break;
 
@@ -876,7 +863,7 @@ namespace PokedexApp
 
                 case 16: // Dormir
                     estadoPokemon[objetivo] = "Dormido";
-                    turnosDormido[objetivo] = 2; // Inicializamos contador de turnos dormido
+                    turnosDormido[objetivo] = 2;
                     MostrarNarrador($"¡{objetivo.Nombre} se ha quedado dormido!");
                     break;
 
@@ -903,7 +890,7 @@ namespace PokedexApp
                     break;
 
                 case 21: // Drenadoras
-                    tieneDrenadoras[objetivo] = true; // El diccionario activará el efecto en FinalizarTurno()
+                    tieneDrenadoras[objetivo] = true; 
                     MostrarNarrador($"¡{objetivo.Nombre} fue infestado por drenadoras!");
                     break;
 
@@ -932,7 +919,6 @@ namespace PokedexApp
                     break;
 
                 case 28: // ReiniciarEstadisticas
-                         // Si deseas reiniciar los diccionarios de estadísticas del combate:
                     modificadoresAtaque[usuario] = 0;
                     modificadoresDefensa[usuario] = 0;
                     modificadoresVelocidad[usuario] = 0;
@@ -959,7 +945,6 @@ namespace PokedexApp
                     break;
 
                 case 32: // Evasion +1
-                         // Si necesitas activarlo en el futuro, puedes declarar: private Dictionary<Cartas, int> modificadoresEvasion = new Dictionary<Cartas, int>();
                     MostrarNarrador($"¡La evasión de {usuario.Nombre} subió!");
                     break;
 
