@@ -813,9 +813,21 @@ namespace PokedexApp
                     MostrarNarrador($"¡La Defensa de {usuario.Nombre} aumentó drásticamente!");
                     break;
 
-                case 32: // Evasion +1
-                         // Si necesitas activarlo en el futuro, puedes declarar: private Dictionary<Cartas, int> modificadoresEvasion = new Dictionary<Cartas, int>();
-                    MostrarNarrador($"¡La evasión de {usuario.Nombre} subió!");
+                case 8: // Curar50
+                    int saludACurar50 = (int)(usuario.Hp * 0.5M);
+                    usuario.HpCombate = Math.Min(usuario.Hp, usuario.HpCombate + saludACurar50);
+                    MostrarNarrador($"¡{usuario.Nombre} restauró el 50% de sus PS!");
+                    break;
+
+                case 9: // Descanso
+                    usuario.HpCombate = usuario.Hp; // Cura la totalidad de los puntos de salud
+                    estadoPokemon[usuario] = "Dormido";
+                    turnosDormido[usuario] = 2; // Registramos la duración en el diccionario
+                    MostrarNarrador($"¡{usuario.Nombre} recuperó todos sus PS y se durmió para descansar!");
+                    break;
+
+                case 10: // Inhabilitar
+                    MostrarNarrador($"¡El último movimiento de {objetivo.Nombre} ha sido inhabilitado!");
                     break;
 
                 case 11: // Precision -1
@@ -847,18 +859,6 @@ namespace PokedexApp
                     MostrarNarrador($"¡La Velocidad de {objetivo.Nombre} bajó!");
                     break;
 
-                case 8: // Curar50
-                    int saludACurar50 = (int)(usuario.Hp * 0.5M);
-                    usuario.HpCombate = Math.Min(usuario.Hp, usuario.HpCombate + saludACurar50);
-                    MostrarNarrador($"¡{usuario.Nombre} restauró el 50% de sus PS!");
-                    break;
-
-                case 9: // Descanso
-                    usuario.HpCombate = usuario.Hp; // Cura la totalidad de los puntos de salud
-                    estadoPokemon[usuario] = "Dormido";
-                    turnosDormido[usuario] = 2; // Registramos la duración en el diccionario
-                    MostrarNarrador($"¡{usuario.Nombre} recuperó todos sus PS y se durmió para descansar!");
-                    break;
 
                 case 16: // Dormir
                     estadoPokemon[objetivo] = "Dormido";
@@ -886,32 +886,6 @@ namespace PokedexApp
                     estadoPokemon[objetivo] = "Confundido";
                     string nombreEstConfundido = objetivo.Nombre;
                     MostrarNarrador($"¡{nombreEstConfundido} empezó a sentirse confundido!");
-                    break;
-
-                case 37: // DanoFijo40
-                    objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - 40);
-                    MostrarNarrador($"¡Causó un daño fijo de 40 PS!");
-                    break;
-
-                case 38: // DanoNivel
-                    int danioNivel = 50; // Ajustable o configurable según el nivel asignado
-                    objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - danioNivel);
-                    string msgDanioNivel = $"¡Causó {danioNivel} puntos de daño por su nivel!";
-                    MostrarNarrador(msgDanioNivel);
-                    break;
-
-                case 39: // MitadPS
-                    objetivo.HpCombate = Math.Max(1, (int)(objetivo.HpCombate / 2M));
-                    MostrarNarrador($"¡Los PS de {objetivo.Nombre} se redujeron a la mitad!");
-                    break;
-
-                case 42: // AutoDebilitacion (Autodestrucción / Mismodestino)
-                    usuario.HpCombate = 0;
-                    MostrarNarrador($"¡{usuario.Nombre} se sacrificó y se ha debilitado!");
-                    break;
-
-                case 10: // Inhabilitar
-                    MostrarNarrador($"¡El último movimiento de {objetivo.Nombre} ha sido inhabilitado!");
                     break;
 
                 case 21: // Drenadoras
@@ -970,6 +944,11 @@ namespace PokedexApp
                     MostrarNarrador($"¡Se intentó forzar el final del combate!");
                     break;
 
+                case 32: // Evasion +1
+                         // Si necesitas activarlo en el futuro, puedes declarar: private Dictionary<Cartas, int> modificadoresEvasion = new Dictionary<Cartas, int>();
+                    MostrarNarrador($"¡La evasión de {usuario.Nombre} subió!");
+                    break;
+
                 case 33: // SinEfecto
                          // Caso intencionalmente vacío
                     break;
@@ -990,6 +969,23 @@ namespace PokedexApp
                     MostrarNarrador($"¡Es un golpe fulminante! ¡KO instantáneo!");
                     break;
 
+                case 37: // DanoFijo40
+                    objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - 40);
+                    MostrarNarrador($"¡Causó un daño fijo de 40 PS!");
+                    break;
+
+                case 38: // DanoNivel
+                    int danioNivel = 50; // Ajustable o configurable según el nivel asignado
+                    objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - danioNivel);
+                    string msgDanioNivel = $"¡Causó {danioNivel} puntos de daño por su nivel!";
+                    MostrarNarrador(msgDanioNivel);
+                    break;
+
+                case 39: // MitadPS
+                    objetivo.HpCombate = Math.Max(1, (int)(objetivo.HpCombate / 2M));
+                    MostrarNarrador($"¡Los PS de {objetivo.Nombre} se redujeron a la mitad!");
+                    break;
+
                 case 40: // Contraataque
                     MostrarNarrador($"¡{usuario.Nombre} está preparando un contraataque!");
                     break;
@@ -999,6 +995,11 @@ namespace PokedexApp
                     int multiplicador = rnd.Next(1, 11);
                     objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - multiplicador);
                     MostrarNarrador($"¡Causó daño aleatorio basado en el nivel!");
+                    break;
+
+                case 42: // AutoDebilitacion (Autodestrucción / Mismodestino)
+                    usuario.HpCombate = 0;
+                    MostrarNarrador($"¡{usuario.Nombre} se sacrificó y se ha debilitado!");
                     break;
 
                 default:
