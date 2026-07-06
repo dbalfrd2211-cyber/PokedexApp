@@ -256,8 +256,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Imagenes\100.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Imagenes\100.jpeg" />
+    <Content Include="Imagenes\101.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Imagenes\151.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

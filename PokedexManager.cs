@@ -395,7 +395,7 @@ namespace PokedexApp
             }
             return lista;
         }
-}
+    }
 }
 
 

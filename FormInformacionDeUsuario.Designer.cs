@@ -31,7 +31,6 @@
             this.btnRegresar = new System.Windows.Forms.Button();
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblNivel = new System.Windows.Forms.Label();
-            this.btnGuardarCambios = new System.Windows.Forms.Button();
             this.lblGanadas = new System.Windows.Forms.Label();
             this.lblPerdidas = new System.Windows.Forms.Label();
             this.lblCartas = new System.Windows.Forms.Label();
@@ -67,15 +66,6 @@
             this.lblNivel.Size = new System.Drawing.Size(44, 16);
             this.lblNivel.TabIndex = 3;
             this.lblNivel.Text = "label2";
-            // 
-            // btnGuardarCambios
-            // 
-            this.btnGuardarCambios.Location = new System.Drawing.Point(538, 369);
-            this.btnGuardarCambios.Name = "btnGuardarCambios";
-            this.btnGuardarCambios.Size = new System.Drawing.Size(141, 23);
-            this.btnGuardarCambios.TabIndex = 4;
-            this.btnGuardarCambios.Text = "Guardar cambios";
-            this.btnGuardarCambios.UseVisualStyleBackColor = true;
             // 
             // lblGanadas
             // 
@@ -137,7 +127,6 @@
             this.Controls.Add(this.lblCartas);
             this.Controls.Add(this.lblPerdidas);
             this.Controls.Add(this.lblGanadas);
-            this.Controls.Add(this.btnGuardarCambios);
             this.Controls.Add(this.lblNivel);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.btnRegresar);
@@ -154,7 +143,6 @@
         private System.Windows.Forms.Button btnRegresar;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblNivel;
-        private System.Windows.Forms.Button btnGuardarCambios;
         private System.Windows.Forms.Label lblGanadas;
         private System.Windows.Forms.Label lblPerdidas;
         private System.Windows.Forms.Label lblCartas;
