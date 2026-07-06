@@ -204,6 +204,8 @@
     <None Include="PokemonTCGI.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\DataSources\ColeccionCartas.datasource" />
+    <None Include="Properties\DataSources\FormSeleccionMiEquipo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

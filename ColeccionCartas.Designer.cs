@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ColeccionCartas));
             this.DGVListadoCartas = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,9 +52,11 @@
             this.btnEliminarCarta = new System.Windows.Forms.Button();
             this.picCarta = new System.Windows.Forms.PictureBox();
             this.picMapa = new System.Windows.Forms.PictureBox();
+            this.coleccionCartasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coleccionCartasBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // DGVListadoCartas
@@ -283,6 +286,10 @@
             this.picMapa.TabStop = false;
             this.picMapa.Click += new System.EventHandler(this.picMapa_Click);
             // 
+            // coleccionCartasBindingSource
+            // 
+            this.coleccionCartasBindingSource.DataSource = typeof(PokedexApp.ColeccionCartas);
+            // 
             // ColeccionCartas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -317,6 +324,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coleccionCartasBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,5 +354,6 @@
         private System.Windows.Forms.Button btnUnova;
         private System.Windows.Forms.Button btnEliminarCarta;
         private System.Windows.Forms.PictureBox picCarta;
+        private System.Windows.Forms.BindingSource coleccionCartasBindingSource;
     }
 }

@@ -10,6 +10,7 @@ namespace PokedexApp
 {
     public partial class FormBatalla : Form
     {
+        private Dictionary<Cartas, int> hpCombatePokemon = new Dictionary<Cartas, int>();
         private Dictionary<Cartas, int> modificadoresAtaque = new Dictionary<Cartas, int>();
         private Dictionary<Cartas, int> modificadoresDefensa = new Dictionary<Cartas, int>();
         private Dictionary<Cartas, int> modificadoresVelocidad = new Dictionary<Cartas, int>();
@@ -66,8 +67,15 @@ namespace PokedexApp
         private void FormBatalla_Load(object senderz, EventArgs e)
         {
 
-            foreach (var carta in miEquipo) carta.HpCombate = carta.Hp;
-            foreach (var carta in equipoRival) carta.HpCombate = carta.Hp;
+            foreach (var carta in miEquipo)
+            {
+                hpCombatePokemon[carta] = carta.Hp;
+            }
+
+            foreach (var carta in equipoRival)
+            {
+                hpCombatePokemon[carta] = carta.Hp;
+            }
 
             CargarMiniaturasEquipos();
             CargarPokemonActual();
@@ -174,8 +182,9 @@ namespace PokedexApp
             PictureBox slotClickeado = (PictureBox)sender;
             int nuevoIndice = (int)slotClickeado.Tag;
 
+            Cartas pokemonSeleccionado = miEquipo[nuevoIndice];
             // Validar que el Pokémon seleccionado no esté debilitado antes de cambiarlo
-            if (miEquipo[nuevoIndice].HpCombate <= 0)
+            if (hpCombatePokemon[pokemonSeleccionado] <= 0)
             {
                 MessageBox.Show($"¡{miEquipo[nuevoIndice].Nombre} no tiene energías para combatir!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -197,7 +206,8 @@ namespace PokedexApp
             PictureBox slotClickeado = (PictureBox)sender;
             int nuevoIndice = (int)slotClickeado.Tag;
 
-            if (equipoRival[nuevoIndice].HpCombate <= 0)
+            Cartas rivalSeleccionado = equipoRival[nuevoIndice];
+            if (hpCombatePokemon[rivalSeleccionado] <= 0)
             {
                 MessageBox.Show($"¡El rival {equipoRival[nuevoIndice].Nombre} ya está debilitado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -465,7 +475,7 @@ namespace PokedexApp
             if (danioCalculado < 0) danioCalculado = 0;
             if (ataque.Danio > 0 && danioCalculado == 0) danioCalculado = 1; // Al menos causa 1 de daño si el ataque genera golpe
 
-            objetivo.HpCombate -= danioCalculado;
+            hpCombatePokemon[objetivo] -= danioCalculado;
 
             // 2. Ejecutar el efecto asignado desde la base de datos (si existe)
             if (ataque.IdEfecto > 0)
@@ -476,9 +486,9 @@ namespace PokedexApp
             ActualizarBarrasVida();
 
             // 3. Validar si el objetivo sobrevivió o cayó debilitado tras recibir daño + efectos
-            if (objetivo.HpCombate <= 0)
+            if (hpCombatePokemon[objetivo] <= 0)
             {
-                objetivo.HpCombate = 0;
+                hpCombatePokemon[objetivo] = 0;
                 MessageBox.Show($"¡{objetivo.Nombre} se ha debilitado!", "Combate", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (esRivalAfirmado)
@@ -496,7 +506,9 @@ namespace PokedexApp
             while (buscados < equipoRival.Count)
             {
                 indiceRival = (indiceRival + 1) % equipoRival.Count;
-                if (equipoRival[indiceRival].HpCombate > 0)
+                Cartas rivalEvaluado = equipoRival[indiceRival];
+
+                if (hpCombatePokemon[rivalEvaluado] > 0)
                 {
                     CargarPokemonActual();
                     return;
@@ -545,13 +557,13 @@ namespace PokedexApp
 
             // EFECTO: DRENADORAS
             // Validamos usando el diccionario de drenadoras
-            if (tieneDrenadoras.ContainsKey(pokemonActivo) && tieneDrenadoras[pokemonActivo] && pokemonActivo.HpCombate > 0)
+            if (tieneDrenadoras.ContainsKey(pokemonActivo) && tieneDrenadoras[pokemonActivo] && hpCombatePokemon[pokemonActivo] > 0)
             {
                 int danioDrenadoras = (int)(pokemonActivo.Hp * 0.125M); // 1/8 de la vida máxima
-                pokemonActivo.HpCombate = Math.Max(0, pokemonActivo.HpCombate - danioDrenadoras);
+                hpCombatePokemon[pokemonActivo] = Math.Max(0, hpCombatePokemon[pokemonActivo] - danioDrenadoras);
 
                 // El rival se cura el daño infligido
-                pokemonBanquillo.HpCombate = Math.Min(pokemonBanquillo.Hp, pokemonBanquillo.HpCombate + danioDrenadoras);
+                hpCombatePokemon[pokemonBanquillo] = Math.Min(pokemonBanquillo.Hp, hpCombatePokemon[pokemonBanquillo] + danioDrenadoras);
 
                 MostrarNarrador($"¡Las drenadoras restan salud a {pokemonActivo.Nombre} y curan a {pokemonBanquillo.Nombre}!");
                 ActualizarBarrasVida();
@@ -561,10 +573,10 @@ namespace PokedexApp
             // Obtenemos el estado actual del diccionario de forma segura
             string estadoFinTurno = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
 
-            if (estadoFinTurno == "Envenenado" && pokemonActivo.HpCombate > 0)
+            if (estadoFinTurno == "Envenenado" && hpCombatePokemon[pokemonActivo] > 0)
             {
                 int danioVeneno = (int)(pokemonActivo.Hp * 0.0625M); // 1/16 de la vida
-                pokemonActivo.HpCombate = Math.Max(0, pokemonActivo.HpCombate - danioVeneno);
+                hpCombatePokemon[pokemonActivo] = Math.Max(0, hpCombatePokemon[pokemonActivo] - danioVeneno);
 
                 MostrarNarrador($"¡El veneno resta salud a {pokemonActivo.Nombre}!");
                 ActualizarBarrasVida();
@@ -590,9 +602,9 @@ namespace PokedexApp
             }
 
             // Validar si algún Pokémon se debilitó por efectos secundarios de fin de turno
-            if (pokemonActivo.HpCombate <= 0)
+            if (hpCombatePokemon[pokemonActivo] <= 0)
             {
-                pokemonActivo.HpCombate = 0;
+                hpCombatePokemon[pokemonActivo] = 0;
                 ActualizarBarrasVida();
                 MessageBox.Show($"¡{pokemonActivo.Nombre} se ha debilitado por daño secundario!", "Combate");
 
@@ -613,7 +625,9 @@ namespace PokedexApp
             while (buscados < miEquipo.Count)
             {
                 indiceMi = (indiceMi + 1) % miEquipo.Count;
-                if (miEquipo[indiceMi].HpCombate > 0)
+                Cartas pokemonEvaluado = miEquipo[indiceMi];
+
+                if (hpCombatePokemon[pokemonEvaluado] > 0)
                 {
                     // Resaltar visualmente la nueva miniatura activa de tu equipo
                     foreach (var slot in slotsMisCartas) slot.BorderStyle = BorderStyle.None;
@@ -748,15 +762,15 @@ namespace PokedexApp
             //Definimos un factor de escala
             double escalaMi = 1.5;
             pnlMiVidaFondo.Width = Math.Max(100, (int)(miPokemon.Hp * escalaMi));
-            double miPorcentaje = (double)miPokemon.HpCombate / miPokemon.Hp;
+            double miPorcentaje = (double)hpCombatePokemon[miPokemon] / miPokemon.Hp;
             pnlMiVidaBarra.Width = (int)(miPorcentaje * pnlMiVidaFondo.Width);
-            lblHpAnfitrion.Text = $"{miPokemon.HpCombate} / {miPokemon.Hp} HP";
+            lblHpAnfitrion.Text = $"{hpCombatePokemon[miPokemon]} / {miPokemon.Hp} HP";
 
             double escalaRival = 1.5;
             pnlRivalVidaFondo.Width = Math.Max(100, (int)(rivalPokemon.Hp * escalaRival));
-            double rivalPorcentaje = (double)rivalPokemon.HpCombate / rivalPokemon.Hp;
+            double rivalPorcentaje = (double)hpCombatePokemon[rivalPokemon] / rivalPokemon.Hp;
             pnlRivalVidaBarra.Width = (int)(rivalPorcentaje * pnlRivalVidaFondo.Width);
-            lblHpRival.Text = $"{rivalPokemon.HpCombate} / {rivalPokemon.Hp} HP";
+            lblHpRival.Text = $"{hpCombatePokemon[rivalPokemon]} / {rivalPokemon.Hp} HP";
 
 
             // Forzar actualización visual inmediata en la interfaz
@@ -815,12 +829,12 @@ namespace PokedexApp
 
                 case 8: // Curar50
                     int saludACurar50 = (int)(usuario.Hp * 0.5M);
-                    usuario.HpCombate = Math.Min(usuario.Hp, usuario.HpCombate + saludACurar50);
+                    hpCombatePokemon[usuario] = Math.Min(usuario.Hp, hpCombatePokemon[usuario] + saludACurar50);
                     MostrarNarrador($"¡{usuario.Nombre} restauró el 50% de sus PS!");
                     break;
 
                 case 9: // Descanso
-                    usuario.HpCombate = usuario.Hp; // Cura la totalidad de los puntos de salud
+                    hpCombatePokemon[usuario] = usuario.Hp; // Cura la totalidad de los puntos de salud
                     estadoPokemon[usuario] = "Dormido";
                     turnosDormido[usuario] = 2; // Registramos la duración en el diccionario
                     MostrarNarrador($"¡{usuario.Nombre} recuperó todos sus PS y se durmió para descansar!");
@@ -955,7 +969,7 @@ namespace PokedexApp
 
                 case 34: // Sustituto
                     int costoSustituto = (int)(usuario.Hp * 0.25M);
-                    usuario.HpCombate = Math.Max(1, usuario.HpCombate - costoSustituto);
+                    hpCombatePokemon[usuario] = Math.Max(1, hpCombatePokemon[usuario] - costoSustituto);
                     string msgSustituto = $"¡{usuario.Nombre} creó un sustituto sacrificando PS!";
                     MostrarNarrador(msgSustituto);
                     break;
@@ -965,24 +979,24 @@ namespace PokedexApp
                     break;
 
                 case 36: // KOInstantaneo
-                    objetivo.HpCombate = 0;
+                    hpCombatePokemon[objetivo] = 0;
                     MostrarNarrador($"¡Es un golpe fulminante! ¡KO instantáneo!");
                     break;
 
                 case 37: // DanoFijo40
-                    objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - 40);
+                    hpCombatePokemon[objetivo] = Math.Max(0, hpCombatePokemon[objetivo] - 40);
                     MostrarNarrador($"¡Causó un daño fijo de 40 PS!");
                     break;
 
                 case 38: // DanoNivel
                     int danioNivel = 50; 
-                    objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - danioNivel);
+                    hpCombatePokemon[objetivo] = Math.Max(0, hpCombatePokemon[objetivo] - danioNivel);
                     string msgDanioNivel = $"¡Causó {danioNivel} puntos de daño por su nivel!";
                     MostrarNarrador(msgDanioNivel);
                     break;
 
                 case 39: // MitadPS
-                    objetivo.HpCombate = Math.Max(1, (int)(objetivo.HpCombate / 2M));
+                    hpCombatePokemon[objetivo] = Math.Max(1, (int)(hpCombatePokemon[objetivo] / 2M));
                     MostrarNarrador($"¡Los PS de {objetivo.Nombre} se redujeron a la mitad!");
                     break;
 
@@ -993,12 +1007,12 @@ namespace PokedexApp
                 case 41: // DanoAleatorioNivel
                     Random rnd = new Random();
                     int multiplicador = rnd.Next(1, 11);
-                    objetivo.HpCombate = Math.Max(0, objetivo.HpCombate - multiplicador);
+                    hpCombatePokemon[objetivo] = Math.Max(0, hpCombatePokemon[objetivo] - multiplicador);
                     MostrarNarrador($"¡Causó daño aleatorio basado en el nivel!");
                     break;
 
                 case 42: // AutoDebilitacion (Autodestrucción / Mismodestino)
-                    usuario.HpCombate = 0;
+                    hpCombatePokemon[usuario] = 0;
                     MostrarNarrador($"¡{usuario.Nombre} se sacrificó y se ha debilitado!");
                     break;
 

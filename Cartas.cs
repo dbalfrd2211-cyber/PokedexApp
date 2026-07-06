@@ -7,7 +7,6 @@ namespace PokedexApp
         public int IdCarta { get; set; }
         public int IdPokemon { get; set; }
         public int Hp { get; set; }
-        public int HpCombate { get; set; }
         public string Rareza { get; set; }
         public int NumeroDeColeccion { get; set; }
         public string DetallesAtaque { get; set; }

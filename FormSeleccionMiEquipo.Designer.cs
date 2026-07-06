@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.DGVListMisCartas = new System.Windows.Forms.DataGridView();
             this.lblContador = new System.Windows.Forms.Label();
@@ -37,8 +38,12 @@
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.picCarta = new System.Windows.Forms.PictureBox();
+            this.formSeleccionMiEquipoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.formSeleccionMiEquipoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListMisCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formSeleccionMiEquipoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formSeleccionMiEquipoBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConfirmar
@@ -133,6 +138,14 @@
             this.picCarta.TabIndex = 9;
             this.picCarta.TabStop = false;
             // 
+            // formSeleccionMiEquipoBindingSource
+            // 
+            this.formSeleccionMiEquipoBindingSource.DataSource = typeof(PokedexApp.FormSeleccionMiEquipo);
+            // 
+            // formSeleccionMiEquipoBindingSource1
+            // 
+            this.formSeleccionMiEquipoBindingSource1.DataSource = typeof(PokedexApp.FormSeleccionMiEquipo);
+            // 
             // FormSeleccionMiEquipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -152,6 +165,8 @@
             this.Load += new System.EventHandler(this.FormSeleccionEquipoCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListMisCartas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formSeleccionMiEquipoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formSeleccionMiEquipoBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,5 +183,7 @@
         private System.Windows.Forms.Button btnRemover;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.PictureBox picCarta;
+        private System.Windows.Forms.BindingSource formSeleccionMiEquipoBindingSource;
+        private System.Windows.Forms.BindingSource formSeleccionMiEquipoBindingSource1;
     }
 }
