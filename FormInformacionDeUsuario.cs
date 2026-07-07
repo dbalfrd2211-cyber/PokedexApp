@@ -10,7 +10,6 @@ namespace PokedexApp
     {
         private PokedexManager pokedexManager = new PokedexManager();
         private Usuario usuario;
-
         private InfoUsuario info;
 
         public FormInformacionDeUsuario(Usuario usuario, InfoUsuario info)
@@ -18,38 +17,29 @@ namespace PokedexApp
             InitializeComponent();
             this.usuario = usuario;
             this.info = info;
-            //this.Load += FormInformacionDeUsuario_Load;
+            this.Load += FormInformacionDeUsuario_Load;
         }
 
         public void FormInformacionDeUsuario_Load(object sender, EventArgs e)
         {
             ActualizarDatoPartidas();
-            InitializeComponent();
-            lblNombre.Text = usuario.NombreUsuario;
-            lblNivel.Text = $"Nivel: {info.Nivel}";
-            lblGanadas.Text = $"Partidas Ganadas: {info.BatallasGanadas}";
-            lblPerdidas.Text = $"Partidas Perdidas: {info.BatallasPerdidas}";
-
-
-
-            PokedexManager manager = new PokedexManager();
-            DGVCartasUsuario.DataSource = manager.ObtenerCartasUsuario(usuario.IdUsuario);
-            var cartasUsuario = manager.ObtenerCartasUsuario(usuario.IdUsuario);
-            lblCartas.Text = $"Cartas Obtenidas: {cartasUsuario.Count}";
-
-
-            DGVCartasUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            DGVCartasUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            MostrarImagenesEnGrid();
+            
         }
 
         private void ActualizarDatoPartidas()
         {
-            // 1. Consultar BD directamente para tener los datos frescos
+            if (usuario == null) return;
+
+            // 1. Consultar la Base de Datos directamente para traer los datos más recientes
             InfoUsuario infoActualizada = pokedexManager.ObtenerInfoUsuario(usuario.IdUsuario);
 
-            // 2. Actualizar etiquetas con los datos recién traídos de la BD
+            // Si por alguna razón falla la consulta, usamos el 'info' que llegó por el constructor
+            if (infoActualizada == null)
+            {
+                infoActualizada = this.info;
+            }
+
+            // 2. Asignar las etiquetas de texto
             if (infoActualizada != null)
             {
                 lblNombre.Text = usuario.NombreUsuario;
@@ -58,25 +48,28 @@ namespace PokedexApp
                 lblPerdidas.Text = $"Partidas Perdidas: {infoActualizada.BatallasPerdidas}";
             }
 
-            // 3. Cargar cartas
-            DGVCartasUsuario.DataSource = pokedexManager.ObtenerCartasUsuario(usuario.IdUsuario);
+            // 3. Cargar y enlazar las cartas al DataGridView
             var cartasUsuario = pokedexManager.ObtenerCartasUsuario(usuario.IdUsuario);
+            DGVCartasUsuario.DataSource = cartasUsuario;
             lblCartas.Text = $"Cartas Obtenidas: {cartasUsuario.Count}";
 
+            // 4. Ajustar el diseño del DataGridView para que se adapte al contenido
             DGVCartasUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVCartasUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
+            // 5. Renderizar las imágenes en la columna correspondiente
             MostrarImagenesEnGrid();
         }
 
         private void MostrarImagenesEnGrid()
         {
+            // Ocultamos la columna de texto original si existe
             if (DGVCartasUsuario.Columns["Imagen"] != null)
             {
                 DGVCartasUsuario.Columns["Imagen"].Visible = false;
             }
 
-
+            // Creamos la columna de imágenes si no ha sido agregada aún
             if (DGVCartasUsuario.Columns["ColumnaFoto"] == null)
             {
                 DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
@@ -86,30 +79,30 @@ namespace PokedexApp
                 DGVCartasUsuario.Columns.Add(colFoto);
             }
 
+            // Recorremos cada fila para cargar su respectiva imagen
             foreach (DataGridViewRow fila in DGVCartasUsuario.Rows)
             {
                 if (fila.IsNewRow) continue;
-                if (fila.DataBoundItem is Cartas c) 
-            {
-                string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
-                string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
-                if (File.Exists(ruta))
+                if (fila.DataBoundItem is Cartas c)
                 {
-                    fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
-                }
-                else
-                {
-                    string rutaDefault = Path.Combine(Application.StartupPath, "Imagenes", "default.jpeg");
-                    if(File.Exists(rutaDefault))
-                        fila.Cells["ColumnaFoto"].Value = Image.FromFile(rutaDefault);
+                    string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
+                    string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
 
+                    if (File.Exists(ruta))
+                    {
+                        fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
+                    }
+                    else
+                    {
+                        string rutaDefault = Path.Combine(Application.StartupPath, "Imagenes", "default.jpeg");
+                        if (File.Exists(rutaDefault))
+                            fila.Cells["ColumnaFoto"].Value = Image.FromFile(rutaDefault);
+                    }
                 }
-            } //filaa.cells["ColumnaFoto"].Value = Image.FromFile(rutaDefault);
-            
-        }
+            }
         }
 
-        //foreach (DataGridViewRow fila in DGVCartasUsuario.Rows)
+        /*//foreach (DataGridViewRow fila in DGVCartasUsuario.Rows)
         //{
         //    if (fila.IsNewRow) continue;
         //
@@ -128,15 +121,7 @@ namespace PokedexApp
         //        }
         //    }
         //}
-
-
-
-
-
-
-
-
-
+        */
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -165,17 +150,16 @@ namespace PokedexApp
                     if (manager.EliminarCartaUsuario(usuario.IdUsuario, c.IdPokemon))
                     {
                         MessageBox.Show("Carta eliminada correctamente.");
-                        DGVCartasUsuario.DataSource = manager.ObtenerCartasUsuario(usuario.IdUsuario);
-                        var cartasUsuario = manager.ObtenerCartasUsuario(usuario.IdUsuario);
-                        lblCartas.Text = $"Cartas Obtenidas: {cartasUsuario.Count}";
-                        MostrarImagenesEnGrid();
+
+                        // Refrescamos todo automáticamente usando nuestra función centralizada
+                        ActualizarDatoPartidas();
                     }
                     else
                     {
                         MessageBox.Show("Error al eliminar la carta.");
                     }
                 }
-            } 
+            }
+        }
     }
-}
 }
