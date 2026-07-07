@@ -59,6 +59,7 @@
     <Compile Include="AutenticadorUsuario2.Designer.cs">
       <DependentUpon>AutenticadorUsuario2.cs</DependentUpon>
     </Compile>
+    <Compile Include="CartaBatalla.cs" />
     <Compile Include="FormBatalla.cs">
       <SubType>Form</SubType>
     </Compile>

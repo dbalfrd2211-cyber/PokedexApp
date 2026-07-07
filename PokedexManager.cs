@@ -238,12 +238,20 @@ namespace PokedexApp
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, P.Nombre, C.Imagen
-                                FROM ColeccionUsuario CU
-                                JOIN Cartas C ON CU.IdPokemon = C.IdPokemon
-                                JOIN Pokemon P ON C.IdPokemon = P.IdPokemon
-                                WHERE CU.IdUsuario = @idUsuario
-                                ORDER BY C.NumeroColeccion";
+
+                // Traemos la lógica del GROUP_CONCAT y los JOINs correctos agregando el filtro del usuario
+                string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, C.Imagen, P.Nombre, 
+                                GROUP_CONCAT(A.Nombre ||': '||E.Descripcion, '|') AS DetallesAtaques 
+                        FROM ColeccionUsuario CU 
+                        JOIN Cartas C ON CU.IdPokemon = C.IdPokemon 
+                        LEFT JOIN Pokemon P ON C.IdPokemon = P.IdPokemon 
+                        LEFT JOIN PokemonAtaque PA ON P.IdPokemon = PA.IdPokemon 
+                        LEFT JOIN Ataques A ON PA.IdAtaque = A.IdAtaque 
+                        LEFT JOIN Efectos E ON A.IdEfecto = E.IdEfecto 
+                        WHERE CU.IdUsuario = @idUsuario 
+                        GROUP BY C.IdCarta
+                        ORDER BY C.NumeroColeccion";
+
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
@@ -252,13 +260,15 @@ namespace PokedexApp
                         while (reader.Read())
                         {
                             lista.Add(new Cartas(
-                                Convert.ToInt32(reader["IdCarta"]),
-                                Convert.ToInt32(reader["IdPokemon"]),
-                                Convert.ToInt32(reader["HP"]),
-                                reader["Rareza"].ToString(),
-                                Convert.ToInt32(reader["NumeroColeccion"]),
-                                reader["Nombre"].ToString(),
-                                "Sin ataques",
+                                Convert.ToInt32(reader["IdCarta"]),           
+                                Convert.ToInt32(reader["IdPokemon"]),         
+                                Convert.ToInt32(reader["HP"]),                
+                                reader["Rareza"].ToString(),                  
+                                Convert.ToInt32(reader["NumeroColeccion"]),   
+                                reader["Nombre"].ToString(),                  
+                                                                              
+                                reader["DetallesAtaques"]?.ToString() ?? "Sin ataques",
+                                // 8. imagen
                                 reader["Imagen"] != DBNull.Value ? reader["Imagen"].ToString() : "default.png"
                             ));
                         }
@@ -337,8 +347,6 @@ namespace PokedexApp
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                // Según tu PDF página 27, el método espera idCarta y idPokemon
-                
                 using (var cmd = new SQLiteCommand("DELETE FROM ColeccionUsuario WHERE IdPokemon = @idPokemon", conn))
                 {
                     cmd.Parameters.AddWithValue("@idPokemon", idPokemon);

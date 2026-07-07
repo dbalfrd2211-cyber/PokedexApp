@@ -8,12 +8,16 @@
         public string Contraseña { get; set; }
         //public bool EsPublico { get; set; }
 
-        public Usuario(int idUsuario, string nombreUsuario, string contraseña)
+        public int Nivel { get; set; }
+        public int Experiencia { get; set; }
+
+        public Usuario(int idUsuario, string nombreUsuario, string contraseña, int nivel = 1, int experiencia = 0)
         {
             IdUsuario = idUsuario;
             NombreUsuario = nombreUsuario;
             Contraseña = contraseña;
-            //EsPublico = esPublico;
+            Nivel = nivel;
+            Experiencia = experiencia;
         }
     }
 }

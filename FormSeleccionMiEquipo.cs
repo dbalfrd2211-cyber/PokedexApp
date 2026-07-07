@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PokedexApp
@@ -11,8 +12,8 @@ namespace PokedexApp
 
     {
         private PokedexManager manager = new PokedexManager();
-        public List<Cartas> EquipoSeleccionado { get; private set; }
-        private List<Cartas> _equipoTemporal = new List<Cartas>();
+        public List<CartaBatalla> EquipoSeleccionado { get; private set; }
+        private List<CartaBatalla> _equipoTemporal = new List<CartaBatalla>();
         private int idUsuarioAMostrar;
         public FormSeleccionMiEquipo(int idUsuario)
         {
@@ -47,7 +48,6 @@ namespace PokedexApp
             if (DGVListMisCartas.Columns["Imagen"] != null)
                 DGVListMisCartas.Columns["Imagen"].Visible = false;
 
-            // 2. Si no existe, agregamos la columna de imagen
             if (!DGVListMisCartas.Columns.Contains("ColumnaFoto"))
             {
                 DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
@@ -84,9 +84,15 @@ namespace PokedexApp
         {
             if (_equipoTemporal.Count == 3)
             {
-                EquipoSeleccionado = _equipoTemporal; // Pasamos nuestra lista validada
+
+                EquipoSeleccionado = _equipoTemporal;
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Debes seleccionar exactamente 3 cartas para poder iniciar la batalla.", "Equipo Incompleto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }
@@ -110,44 +116,58 @@ namespace PokedexApp
         private void DGVListMisCartas_SelectionChanged(object sender, EventArgs e)
         {
 
-
             if (DGVListMisCartas.SelectedRows.Count > 0)
             {
                 var c = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
 
-                // Carga de imagen (manteniendo tu lógica)
                 string ruta = Path.Combine(Application.StartupPath, "Imagenes", c.IdPokemon.ToString() + ".jpeg");
                 picCarta.Image = File.Exists(ruta) ? Image.FromFile(ruta) : null;
 
-                // Mostrar detalles (solo de la carta seleccionada)
                 var detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
                 if (detalle != null)
                 {
-                    // Mantenemos tu formato de detalles
-                    txtDetalles.Text = $"Pokémon: {detalle.Nombre}\nTipo: {detalle.Tipo1}\nHP: {detalle.HPCarta}";
+
+                    string textoAmostrar = $"Pokémon: {detalle.Nombre}\r\nTipo: {detalle.Tipo1}\r\nHP: {detalle.HPCarta}";
+
+                    var listaAtaques = manager.ObtenerAtaquesDePokemon(c.IdPokemon);
+
+                    if (listaAtaques != null && listaAtaques.Count > 0)
+                    {
+                        textoAmostrar += "\r\n\r\nAtaques:";
+                        foreach (var atq in listaAtaques)
+                        {
+                            textoAmostrar += $"\r\n- {atq.Nombre}";
+                        }
+                    }
+                    else
+                    {
+                        textoAmostrar += "\r\n\r\nAtaques: (No se encontraron ataques en la base de datos)";
+                    }
+
+                    txtDetalles.Text = textoAmostrar;
                 }
             }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
             if (DGVListMisCartas.SelectedRows.Count > 0)
             {
-                var carta = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
+                var cartaBase = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
 
-                carta.Ataques = manager.ObtenerAtaquesDePokemon(carta.IdPokemon); // Asegúrate de que este método esté definido y funcione correctamente)
+                cartaBase.Ataques = manager.ObtenerAtaquesDePokemon(cartaBase.IdPokemon);
 
-                if (_equipoTemporal.Count < 3 && !_equipoTemporal.Contains(carta))
+                CartaBatalla cartaBatalla = new CartaBatalla(cartaBase);
+
+                bool yaExiste = _equipoTemporal.Any(c => c.IdPokemon == cartaBatalla.IdPokemon);
+
+                if (_equipoTemporal.Count < 3 && !yaExiste)
                 {
-                    _equipoTemporal.Add(carta);
-
+                    _equipoTemporal.Add(cartaBatalla);
 
                     lblContador.Text = $"Cartas seleccionadas: {_equipoTemporal.Count}/3";
                     btnConfirmar.Enabled = (_equipoTemporal.Count == 3);
 
-
-                    txtDetalles.Text = "Equipo actual:\r\n" + string.Join("\r\n", _equipoTemporal.ConvertAll(c => c.Nombre));
                 }
             }
         }

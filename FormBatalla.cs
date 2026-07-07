@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Console;
@@ -10,24 +11,11 @@ namespace PokedexApp
 {
     public partial class FormBatalla : Form 
     {
-        private Dictionary<Cartas, int> hpCombatePokemon = new Dictionary<Cartas, int>();
-        private Dictionary<Cartas, int> modificadoresAtaque = new Dictionary<Cartas, int>();
-        private Dictionary<Cartas, int> modificadoresDefensa = new Dictionary<Cartas, int>();
-        private Dictionary<Cartas, int> modificadoresVelocidad = new Dictionary<Cartas, int>();
-        private Dictionary<Cartas, int> modificadoresEspecial = new Dictionary<Cartas, int>();
-
-        private Dictionary<Cartas, int> turnosDormido = new Dictionary<Cartas, int>();
-        private Dictionary<Cartas, bool> tieneReflejo = new Dictionary<Cartas, bool>();
-        private Dictionary<Cartas, int> turnosReflejo = new Dictionary<Cartas, int>();
-
-        private Dictionary<Cartas, string> estadoPokemon = new Dictionary<Cartas, string>();
-        private Dictionary<Cartas, bool> tieneDrenadoras = new Dictionary<Cartas, bool>();
+        private List<CartaBatalla> miEquipo;
+        private List<CartaBatalla> equipoRival;
 
         private string jugadorLogueado;
         private string jugadorRival;
-
-        private List<Cartas> miEquipo;
-        private List<Cartas> equipoRival;
 
         private int indiceMi = 0;
         private int indiceRival = 0;
@@ -46,18 +34,19 @@ namespace PokedexApp
 
         private Dictionary<int, Image> cacheImagenes = new Dictionary<int, Image>();
 
-        public FormBatalla(List<Cartas> equipoJugador, List<Cartas> equipoRival, string jugador, string rival)
+        public FormBatalla(List<CartaBatalla> equipoAnfitrion, List<CartaBatalla> equipoRival, string nombreAnfitrion, string nombreRival)
         {
             InitializeComponent();
 
-            this.miEquipo = equipoJugador;
+            this.miEquipo = equipoAnfitrion;
             this.equipoRival = equipoRival;
 
-            this.jugadorLogueado = jugador;
-            this.jugadorRival = rival;
+            this.jugadorLogueado = nombreAnfitrion;
+            this.jugadorRival = nombreRival;
 
             this.DoubleBuffered = true;
 
+            // Asignar posiciones iniciales de diseño
             posicionOriginalMiCarta = picMiCarta.Location;
             posicionOriginalRival = picCartaRival.Location;
 
@@ -66,68 +55,13 @@ namespace PokedexApp
 
         private void FormBatalla_Load(object senderz, EventArgs e)
         {
-
-            foreach (var carta in miEquipo)
-            {
-                hpCombatePokemon[carta] = carta.Hp;
-            }
-
-            foreach (var carta in equipoRival)
-            {
-                hpCombatePokemon[carta] = carta.Hp;
-            }
-
-            CargarMiniaturasEquipos();
+            CargarImagenesEquipos();
             CargarPokemonActual();
 
             miTurno = true;
             ActualizarIndicadoresTurno();
             ConfigurarTurno(true);
             MostrarNarrador("¡La batalla ha comenzado! Elige un ataque.");
-            /*MiTurno = true;
-            ActualizarIndicadoresTurno();
-            posicionOriginalMiCarta = picMiCarta.Location;
-            posicionOriginalRival = picCartaRival.Location;
-
-
-            PictureBox[] slotsMisCartas = { picMiCarta1, picMiCarta2, picMiCarta3 };
-
-            for (int i = 0; i < miEquipo.Count; i++)
-            {
-                if (i < slotsMisCartas.Length)
-                {
-
-                    Image img = CargarImagen(miEquipo[i].IdPokemon);
-                    if (img != null)
-                    {
-                        slotsMisCartas[i].Image = img;
-                        slotsMisCartas[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                    }
-
-                    slotsMisCartas[i].Tag = i;
-                    slotsMisCartas[i].Click += Slot_Click;
-                }
-            }
-
-                PictureBox[] slotsRival = { picRCarta1, picRCarta2, picRCarta3 };
-            for (int i = 0; i < equipoRival.Count; i++)
-            {
-                if (i < slotsRival.Length)
-                {
-                    Image img = CargarImagen(equipoRival[i].IdPokemon);
-                    if (img != null)
-                    {
-                        slotsRival[i].Image = img;
-                        slotsRival[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                    }
-                    slotsRival[i].Tag = i;
-                    slotsRival[i].Click += SlotRival_Click;
-                }
-
-                foreach (var carta in miEquipo) carta.HpCombate = carta.Hp;
-                foreach (var carta in equipoRival) carta.HpCombate = carta.Hp;
-                //CargarPokemonActual();
-            }*/
         }
 
         private void InicializarArreglosControles()
@@ -139,8 +73,9 @@ namespace PokedexApp
             botonesRivalAtaque = new Button[] { btnRAtaque1, btnRAtaque2, btnRAtaque3, btnRAtaque4 };
         }
 
-        private void CargarMiniaturasEquipos()
+        private void CargarImagenesEquipos()
         {
+
             for (int i = 0; i < miEquipo.Count; i++)
             {
                 if (i >= slotsMisCartas.Length) break;
@@ -166,23 +101,24 @@ namespace PokedexApp
                     slotsRival[i].SizeMode = PictureBoxSizeMode.StretchImage;
                 }
                 slotsRival[i].Tag = i;
-                slotsRival[i].Click += SlotRival_Click; 
+                slotsRival[i].Click += SlotRival_Click;
             }
         }
+        
 
         //Eventos
         private void Slot_Click(object sender, EventArgs e)
         {
-            if (atacando) return; 
+            if (atacando || !miTurno) return; 
 
             PictureBox slotClickeado = (PictureBox)sender;
             int nuevoIndice = (int)slotClickeado.Tag;
 
-            Cartas pokemonSeleccionado = miEquipo[nuevoIndice];
+            CartaBatalla pokemonSeleccionado = miEquipo[nuevoIndice];
 
-            if (hpCombatePokemon[pokemonSeleccionado] <= 0)
+            if (pokemonSeleccionado.HpActual <= 0)
             {
-                MessageBox.Show($"¡{miEquipo[nuevoIndice].Nombre} no tiene energías para combatir!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"¡{pokemonSeleccionado.Nombre} no tiene energías para combatir!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -196,15 +132,15 @@ namespace PokedexApp
 
         private void SlotRival_Click(object sender, EventArgs e)
         {
-            if (atacando) return;
+            if (atacando || miTurno) return;
 
             PictureBox slotClickeado = (PictureBox)sender;
             int nuevoIndice = (int)slotClickeado.Tag;
 
-            Cartas rivalSeleccionado = equipoRival[nuevoIndice];
-            if (hpCombatePokemon[rivalSeleccionado] <= 0)
+            CartaBatalla rivalSeleccionado = equipoRival[nuevoIndice];
+            if (rivalSeleccionado.HpActual <= 0)
             {
-                MessageBox.Show($"¡El rival {equipoRival[nuevoIndice].Nombre} ya está debilitado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"¡El rival {rivalSeleccionado.Nombre} ya está debilitado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -230,40 +166,14 @@ namespace PokedexApp
             int velocidad = 25;
             bool haciaAdelante = (bool)timerAnimacion.Tag;
 
-            if (haciaAdelante) 
-            {
-                picMiCarta.Left += velocidad;
-                if (picMiCarta.Right >= picCartaRival.Left)
-                {
-                    timerAnimacion.Stop();
-                    picMiCarta.Location = posicionOriginalMiCarta; 
-                    AplicarDaño(ataquePendiente, esRivalAfirmado: true);
-                    FinalizarTurno();
-                }
-            }
-            else 
-            {
-                picCartaRival.Left -= velocidad;
-                if (picCartaRival.Left <= picMiCarta.Right)
-                {
-                    timerAnimacion.Stop();
-                    picCartaRival.Location = posicionOriginalRival; 
-                    AplicarDaño(ataquePendiente, esRivalAfirmado: false);
-                    FinalizarTurno();
-                }
-            }
-            /*int velocidad = 20;
-
-            if (atacandoHaciaAdelante)
+            if (haciaAdelante)
             {
                 picMiCarta.Left += velocidad;
                 if (picMiCarta.Right >= picCartaRival.Left)
                 {
                     timerAnimacion.Stop();
                     picMiCarta.Location = posicionOriginalMiCarta;
-                    //atacandoHaciaAdelante = false;
-                    AplicarDañoAlRival();
-
+                    AplicarDaño(ataquePendiente, esRivalAfirmado: true);
                     FinalizarTurno();
                 }
             }
@@ -272,24 +182,12 @@ namespace PokedexApp
                 picCartaRival.Left -= velocidad;
                 if (picCartaRival.Left <= picMiCarta.Right)
                 {
-                    //atacandoHaciaAdelante = true;
                     timerAnimacion.Stop();
                     picCartaRival.Location = posicionOriginalRival;
-
-
-                    AplicarDañoAMiCarta();
+                    AplicarDaño(ataquePendiente, esRivalAfirmado: false);
                     FinalizarTurno();
                 }
-
-                //AplicarDañoAlRival();
-                
             }
-           //if(!atacandoHaciaAdelante && picMiCarta.Left <= posicionOriginalMiCarta.X)
-           //{
-           //    timerAnimacion.Stop();
-           //    picMiCarta.Location = posicionOriginalMiCarta;
-           //    AplicarDañoAlRival();
-           //}*/
         }
 
         private void BotonAtaque_Click(object sender, EventArgs e)
@@ -315,7 +213,7 @@ namespace PokedexApp
         private void PrepararEjecucionAtaque(Ataques ataque, string nombrePokemon, bool haciaAdelante)
         {
             atacando = true;
-            ConfigurarTurno(false); 
+            ConfigurarTurno(false);
 
             ataquePendiente = ataque;
             MostrarNarrador($"¡{nombrePokemon} usó {ataque.Nombre}!");
@@ -327,85 +225,45 @@ namespace PokedexApp
         //Metodos
         private void CargarPokemonActual()
         {
+            if (miEquipo == null || equipoRival == null || miEquipo.Count == 0 || equipoRival.Count == 0)
+            {
+                MessageBox.Show("Los equipos no han sido inicializados o están vacíos.", "Error de Equipos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (indiceMi >= miEquipo.Count || indiceRival >= equipoRival.Count) return;
 
             var miPokemon = miEquipo[indiceMi];
             var rivalPokemon = equipoRival[indiceRival];
 
-
-            picMiCarta.Image = ObtenerImagen(miPokemon.IdPokemon);
-            picCartaRival.Image = ObtenerImagen(rivalPokemon.IdPokemon);
-
+            picMiCarta.Image = ObtenerImagen(miPokemon?.IdPokemon ?? 0);
+            picCartaRival.Image = ObtenerImagen(rivalPokemon?.IdPokemon ?? 0);
 
             ActualizarBarrasVida();
 
             ActualizarBotonesAtaque(miPokemon, botonesMiAtaque, BotonAtaque_Click);
             ActualizarBotonesAtaque(rivalPokemon, botonesRivalAtaque, BotonRAtaque_Click);
-
-            /*if (miEquipo == null || equipoRival == null) return;
-            var cartaMia = miEquipo[indiceMiCarta];
-            var cartaRival = equipoRival[indiceRival];
-
-            // Carga de imágenes
-            picMiCarta.Image = CargarImagen(cartaMia.IdPokemon);
-            picCartaRival.Image = CargarImagen(cartaRival.IdPokemon);
-
-            // Configuración inicial de barras
-            pbMiHp.Maximum = cartaMia.Hp;
-            pbMiHp.Value = Math.Max(0, Math.Min(cartaMia.HpCombate, cartaMia.Hp));
-
-            pbHpRival.Maximum = cartaRival.Hp;
-            pbHpRival.Value = Math.Max(0, Math.Min(cartaRival.HpCombate, cartaRival.Hp));
-
-            Button[] botonesAtaque = { btnAtaque1, btnAtaque2, btnAtaque3, btnAtaque4 };
-            for(int i = 0; i < botonesAtaque.Length; i++)
-            {
-                if (i < cartaMia.Ataques.Count)
-                {
-                    botonesAtaque[i].Text = cartaMia.Ataques[i].Nombre;
-                    botonesAtaque[i].Tag = cartaMia.Ataques[i];
-                    botonesAtaque[i].Enabled = true;
-                    botonesAtaque[i].Click -= BotonAtaque_Click; // Evitar múltiples suscripciones
-                    botonesAtaque[i].Click += BotonAtaque_Click;
-                }
-                else
-                {
-                    botonesAtaque[i].Text = "N/A";
-                    botonesAtaque[i].Enabled = false;
-                }
-            }
-            Button[] botonesRAtaque = { btnRAtaque1, btnRAtaque2, btnRAtaque3, btnRAtaque4 };
-            
-
-            for (int i = 0; i < botonesRAtaque.Length; i++)
-            {
-                if (i < cartaRival.Ataques.Count)
-                {
-                    botonesRAtaque[i].Text = cartaRival.Ataques[i].Nombre;
-                    botonesRAtaque[i].Tag = cartaRival.Ataques[i];
-                    botonesRAtaque[i].Enabled = true;
-                    botonesRAtaque[i].Click -= BotonRAtaque_Click; // Evitar múltiples suscripciones
-                    botonesRAtaque[i].Click += BotonRAtaque_Click;
-                }
-                else
-                {
-                    botonesRAtaque[i].Text = "N/A";
-                    botonesRAtaque[i].Enabled = false;
-                }
-            }*/
         }
 
-        private void ActualizarBotonesAtaque(Cartas pokemon, Button[] botones, EventHandler eventoClick)
+        private void ActualizarBotonesAtaque(CartaBatalla pokemon, Button[] botones, EventHandler eventoClick)
         {
+            if (pokemon == null || pokemon.Ataques == null)
+            {
+                MessageBox.Show("¡Alerta! Se intentó cargar un Pokémon o lista de ataques vacía.", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (botones == null) return;
+
             for (int i = 0; i < botones.Length; i++)
             {
+                if (botones[i] == null) continue;
 
                 botones[i].Click -= eventoClick;
 
                 if (i < pokemon.Ataques.Count)
                 {
                     var ataque = pokemon.Ataques[i];
-
                     botones[i].Text = $"{ataque.Nombre}\n{ataque.Danio} Pts Daño";
                     botones[i].Tag = ataque;
                     botones[i].Enabled = true;
@@ -433,38 +291,31 @@ namespace PokedexApp
             return null;
         }
 
-        private int ObtenerModificador(Dictionary<Cartas, int> diccionario, Cartas pokemon)
-        {
-            return diccionario.ContainsKey(pokemon) ? diccionario[pokemon] : 0;
-        }
-
         private void AplicarDaño(Ataques ataque, bool esRivalAfirmado)
         {
             if (ataque == null) return;
 
-            Cartas usuario = esRivalAfirmado ? miEquipo[indiceMi] : equipoRival[indiceRival];
-            Cartas objetivo = esRivalAfirmado ? equipoRival[indiceRival] : miEquipo[indiceMi];
+            CartaBatalla usuario = esRivalAfirmado ? miEquipo[indiceMi] : equipoRival[indiceRival];
+            CartaBatalla objetivo = esRivalAfirmado ? equipoRival[indiceRival] : miEquipo[indiceMi];
 
             int danioCalculado = ataque.Danio;
 
-            int modAtaque = ObtenerModificador(modificadoresAtaque, usuario);
-            if (modAtaque > 0)
+            // Aplicar modificador de daño del atacante
+            if (usuario.ModificadorAtaque > 0)
             {
-                danioCalculado += modAtaque; 
+                danioCalculado += usuario.ModificadorAtaque;
             }
 
-            if (tieneReflejo.ContainsKey(objetivo) && tieneReflejo[objetivo])
+            // Mitigación por reflejo del defensor
+            if (objetivo.TieneReflejo && ataque.Danio > 0)
             {
-                if (ataque.Danio > 0)
-                {
-                    danioCalculado /= 2; 
-                }
+                danioCalculado /= 2;
             }
 
             if (danioCalculado < 0) danioCalculado = 0;
-            if (ataque.Danio > 0 && danioCalculado == 0) danioCalculado = 1; 
+            if (ataque.Danio > 0 && danioCalculado == 0) danioCalculado = 1;
 
-            hpCombatePokemon[objetivo] -= danioCalculado;
+            objetivo.HpActual -= danioCalculado;
 
             if (ataque.IdEfecto > 0)
             {
@@ -473,10 +324,9 @@ namespace PokedexApp
 
             ActualizarBarrasVida();
 
-
-            if (hpCombatePokemon[objetivo] <= 0)
+            if (objetivo.HpActual <= 0)
             {
-                hpCombatePokemon[objetivo] = 0;
+                objetivo.HpActual = 0;
                 MessageBox.Show($"¡{objetivo.Nombre} se ha debilitado!", "Combate", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (esRivalAfirmado)
@@ -484,19 +334,15 @@ namespace PokedexApp
                 else
                     BuscarSiguientePokemonVivoMio();
             }
-
         }
 
         private void BuscarSiguientePokemonVivoRival()
         {
-
             int buscados = 0;
             while (buscados < equipoRival.Count)
             {
                 indiceRival = (indiceRival + 1) % equipoRival.Count;
-                Cartas rivalEvaluado = equipoRival[indiceRival];
-
-                if (hpCombatePokemon[rivalEvaluado] > 0)
+                if (equipoRival[indiceRival].HpActual > 0)
                 {
                     CargarPokemonActual();
                     return;
@@ -510,91 +356,32 @@ namespace PokedexApp
 
         private void FinalizarTurno()
         {
+            CartaBatalla pokemonActivo = miTurno ? miEquipo[indiceMi] : equipoRival[indiceRival];
 
-            Cartas pokemonActivo = miTurno ? miEquipo[indiceMi] : equipoRival[indiceRival];
-            Cartas pokemonBanquillo = miTurno ? equipoRival[indiceRival] : miEquipo[indiceMi];
-
-            // EFECTO DORMIDO
-            string estadoActual = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
-
-            if (estadoActual == "Dormido")
+            // Control de Estado: Dormido
+            if (pokemonActivo.Estado == "Dormido")
             {
-                if (!turnosDormido.ContainsKey(pokemonActivo))
-                {
-                    turnosDormido[pokemonActivo] = 2;
-                }
+                pokemonActivo.TurnosDormido--;
 
-                turnosDormido[pokemonActivo]--;
-
-                if (turnosDormido[pokemonActivo] <= 0)
+                if (pokemonActivo.TurnosDormido <= 0)
                 {
-                    estadoPokemon[pokemonActivo] = "Normal";
-                    turnosDormido[pokemonActivo] = 0;
+                    pokemonActivo.Estado = "Normal";
+                    pokemonActivo.TurnosDormido = 0;
                     MostrarNarrador($"¡{pokemonActivo.Nombre} se ha despertado!");
                 }
                 else
                 {
-                    MostrarNarrador($"¡{pokemonActivo.Nombre} está profundamente dormido!");
-                    ConfigurarTurno(false);
-                    Task.Delay(1500).ContinueWith(t => this.Invoke((MethodInvoker)FinalizarTurno));
+                    MostrarNarrador($"¡{pokemonActivo.Nombre} está profundamente dormido y pierde el turno!");
+
+                    // Cambiamos de turno sin permitir atacar
+                    miTurno = !miTurno;
+                    ActualizarIndicadoresTurno();
+                    FinalizarTurno();
                     return;
                 }
             }
 
-            // EFECTO DRENADORAS
-            if (tieneDrenadoras.ContainsKey(pokemonActivo) && tieneDrenadoras[pokemonActivo] && hpCombatePokemon[pokemonActivo] > 0)
-            {
-                int danioDrenadoras = (int)(pokemonActivo.Hp * 0.125M); // 1/8 de la vida máxima
-                hpCombatePokemon[pokemonActivo] = Math.Max(0, hpCombatePokemon[pokemonActivo] - danioDrenadoras);
-
-                // El rival se cura el daño infligido
-                hpCombatePokemon[pokemonBanquillo] = Math.Min(pokemonBanquillo.Hp, hpCombatePokemon[pokemonBanquillo] + danioDrenadoras);
-
-                MostrarNarrador($"¡Las drenadoras restan salud a {pokemonActivo.Nombre} y curan a {pokemonBanquillo.Nombre}!");
-                ActualizarBarrasVida();
-            }
-
-            // EFECTO ENVENENAMIENTO
-            string estadoFinTurno = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
-
-            if (estadoFinTurno == "Envenenado" && hpCombatePokemon[pokemonActivo] > 0)
-            {
-                int danioVeneno = (int)(pokemonActivo.Hp * 0.0625M); // 1/16 de la vida
-                hpCombatePokemon[pokemonActivo] = Math.Max(0, hpCombatePokemon[pokemonActivo] - danioVeneno);
-
-                MostrarNarrador($"¡El veneno resta salud a {pokemonActivo.Nombre}!");
-                ActualizarBarrasVida();
-            }
-
-            // EFECTO REDUCCIÓN DE TURNOS DE REFLEJO
-            if (tieneReflejo.ContainsKey(pokemonActivo) && tieneReflejo[pokemonActivo])
-            {
-                if (!turnosReflejo.ContainsKey(pokemonActivo))
-                {
-                    turnosReflejo[pokemonActivo] = 5;
-                }
-
-                turnosReflejo[pokemonActivo]--;
-
-                if (turnosReflejo[pokemonActivo] <= 0)
-                {
-                    tieneReflejo[pokemonActivo] = false;
-                    turnosReflejo[pokemonActivo] = 0;
-                    MostrarNarrador($"¡El Reflejo de {pokemonActivo.Nombre} se ha desvanecido!");
-                }
-            }
-
-
-            if (hpCombatePokemon[pokemonActivo] <= 0)
-            {
-                hpCombatePokemon[pokemonActivo] = 0;
-                ActualizarBarrasVida();
-                MessageBox.Show($"¡{pokemonActivo.Nombre} se ha debilitado por daño secundario!", "Combate");
-
-                if (miTurno) BuscarSiguientePokemonVivoMio();
-                else BuscarSiguientePokemonVivoRival();
-            }
-
+            // Flujo normal: Intercambiar turnos y liberar candado de ataque
             atacando = false;
             miTurno = !miTurno;
 
@@ -608,18 +395,14 @@ namespace PokedexApp
             while (buscados < miEquipo.Count)
             {
                 indiceMi = (indiceMi + 1) % miEquipo.Count;
-                Cartas pokemonEvaluado = miEquipo[indiceMi];
-
-                if (hpCombatePokemon[pokemonEvaluado] > 0)
+                if (miEquipo[indiceMi].HpActual > 0)
                 {
-                    foreach (var slot in slotsMisCartas) slot.BorderStyle = BorderStyle.None;
-                    slotsMisCartas[indiceMi].BorderStyle = BorderStyle.Fixed3D;
-
                     CargarPokemonActual();
                     return;
                 }
                 buscados++;
             }
+
             MessageBox.Show("Todos tus Pokémon se han debilitado...\n¡HAS PERDIDO!", "Fin de la Batalla", MessageBoxButtons.OK, MessageBoxIcon.Error);
             this.Close();
         }
@@ -677,38 +460,18 @@ namespace PokedexApp
         {
             bool seActivaMio = habilitar && miTurno;
             bool seActivaRival = habilitar && !miTurno;
+            CartaBatalla pokemonActivo = miTurno ? miEquipo[indiceMi] : equipoRival[indiceRival];
 
-            Cartas pokemonActivo = miTurno ? miEquipo[indiceMi] : equipoRival[indiceRival];
-
-
-            string estadoActualTurno = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
-
-            if (habilitar && estadoActualTurno == "Dormido")
+            if (habilitar && pokemonActivo.Estado == "Dormido")
             {
-
-                if (!turnosDormido.ContainsKey(pokemonActivo))
-                {
-                    turnosDormido[pokemonActivo] = 2;
-                }
-
-                turnosDormido[pokemonActivo]--;
-
-                if (turnosDormido[pokemonActivo] <= 0)
-                {
-                    estadoPokemon[pokemonActivo] = "Normal"; 
-                    turnosDormido[pokemonActivo] = 0;
-                    MostrarNarrador($"¡{pokemonActivo.Nombre} se ha despertado!");
-                }
-                else
-                {
-                    MostrarNarrador($"¡{pokemonActivo.Nombre} está profundamente dormido!");
-                    ConfigurarTurno(false);
-                    Task.Delay(1500).ContinueWith(t => this.Invoke((MethodInvoker)FinalizarTurno));
-                    return;
-                }
+                MostrarNarrador($"¡{pokemonActivo.Nombre} está profundamente dormido y no puede actuar!");
+                ConfigurarTurno(false);
+                Task.Delay(1500).ContinueWith(t => this.Invoke((MethodInvoker)FinalizarTurno));
+                return;
             }
 
-            if (habilitar && estadoActualTurno == "Paralizado")
+            // EFECTO PARALIZADO 
+            if (habilitar && pokemonActivo.Estado == "Paralizado")
             {
                 Random rand = new Random();
                 if (rand.Next(0, 2) == 0)
@@ -738,15 +501,18 @@ namespace PokedexApp
 
             double escalaMi = 1.5;
             pnlMiVidaFondo.Width = Math.Max(100, (int)(miPokemon.Hp * escalaMi));
-            double miPorcentaje = (double)hpCombatePokemon[miPokemon] / miPokemon.Hp;
+
+            double miPorcentaje = (double)miPokemon.HpActual / miPokemon.Hp;
             pnlMiVidaBarra.Width = (int)(miPorcentaje * pnlMiVidaFondo.Width);
-            lblHpAnfitrion.Text = $"{hpCombatePokemon[miPokemon]} / {miPokemon.Hp} HP";
+            lblHpAnfitrion.Text = $"{miPokemon.HpActual} / {miPokemon.Hp} HP";
+
 
             double escalaRival = 1.5;
             pnlRivalVidaFondo.Width = Math.Max(100, (int)(rivalPokemon.Hp * escalaRival));
-            double rivalPorcentaje = (double)hpCombatePokemon[rivalPokemon] / rivalPokemon.Hp;
+
+            double rivalPorcentaje = (double)rivalPokemon.HpActual / rivalPokemon.Hp;
             pnlRivalVidaBarra.Width = (int)(rivalPorcentaje * pnlRivalVidaFondo.Width);
-            lblHpRival.Text = $"{hpCombatePokemon[rivalPokemon]} / {rivalPokemon.Hp} HP";
+            lblHpRival.Text = $"{rivalPokemon.HpActual} / {rivalPokemon.Hp} HP";
 
             pnlMiVidaFondo.Refresh();
             pnlMiVidaBarra.Refresh();
@@ -754,235 +520,152 @@ namespace PokedexApp
             pnlRivalVidaBarra.Refresh();
         }
 
-        private void AplicarEfectoAtaque(int idEfecto, Cartas usuario, Cartas objetivo)
+        private void AplicarEfectoAtaque(int idEfecto, CartaBatalla usuario, CartaBatalla objetivo)
         {
-
             switch (idEfecto)
             {
                 case 1: // Ataque +1
-                    if (!modificadoresAtaque.ContainsKey(usuario)) modificadoresAtaque[usuario] = 0;
-                    modificadoresAtaque[usuario] += 1;
+                    usuario.ModificadorAtaque += 1;
                     MostrarNarrador($"¡El Ataque de {usuario.Nombre} aumentó!");
                     break;
 
                 case 2: // Ataque +2
-                    if (!modificadoresAtaque.ContainsKey(usuario)) modificadoresAtaque[usuario] = 0;
-                    modificadoresAtaque[usuario] += 2;
+                    usuario.ModificadorAtaque += 2;
                     MostrarNarrador($"¡El Ataque de {usuario.Nombre} aumentó drásticamente!");
                     break;
 
                 case 3: // Velocidad +2
-                    if (!modificadoresVelocidad.ContainsKey(usuario)) modificadoresVelocidad[usuario] = 0;
-                    modificadoresVelocidad[usuario] += 2;
+                    usuario.ModificadorVelocidad += 2;
                     MostrarNarrador($"¡La Velocidad de {usuario.Nombre} aumentó muchísimo!");
                     break;
 
                 case 4: // Especial +1
-                    if (!modificadoresEspecial.ContainsKey(usuario)) modificadoresEspecial[usuario] = 0;
-                    modificadoresEspecial[usuario] += 1;
+                    usuario.ModificadorEspecial += 1;
                     MostrarNarrador($"¡El Ataque Especial de {usuario.Nombre} aumentó!");
                     break;
 
                 case 5: // Especial +2
-                    if (!modificadoresEspecial.ContainsKey(usuario)) modificadoresEspecial[usuario] = 0;
-                    modificadoresEspecial[usuario] += 2;
+                    usuario.ModificadorEspecial += 2;
                     MostrarNarrador($"¡El Ataque Especial de {usuario.Nombre} aumentó drásticamente!");
                     break;
 
                 case 6: // Defensa +1
-                    if (!modificadoresDefensa.ContainsKey(usuario)) modificadoresDefensa[usuario] = 0;
-                    modificadoresDefensa[usuario] += 1;
+                    usuario.ModificadorDefensa += 1;
                     MostrarNarrador($"¡La Defensa de {usuario.Nombre} aumentó!");
                     break;
 
                 case 7: // Defensa +2
-                    if (!modificadoresDefensa.ContainsKey(usuario)) modificadoresDefensa[usuario] = 0;
-                    modificadoresDefensa[usuario] += 2;
+                    usuario.ModificadorDefensa += 2;
                     MostrarNarrador($"¡La Defensa de {usuario.Nombre} aumentó drásticamente!");
                     break;
 
                 case 8: // Curar50
-                    int saludACurar50 = (int)(usuario.Hp * 0.5M);
-                    hpCombatePokemon[usuario] = Math.Min(usuario.Hp, hpCombatePokemon[usuario] + saludACurar50);
+                    int saludACurar50 = (int)(usuario.Hp * 0.5);
+                    usuario.HpActual = Math.Min(usuario.Hp, usuario.HpActual + saludACurar50);
                     MostrarNarrador($"¡{usuario.Nombre} restauró el 50% de sus PS!");
                     break;
 
                 case 9: // Descanso
-                    hpCombatePokemon[usuario] = usuario.Hp; // Cura la totalidad de los puntos de salud
-                    estadoPokemon[usuario] = "Dormido";
-                    turnosDormido[usuario] = 2; 
+                    usuario.HpActual = usuario.Hp; 
+                    usuario.Estado = "Dormido";
+                    usuario.TurnosDormido = 2;
                     MostrarNarrador($"¡{usuario.Nombre} recuperó todos sus PS y se durmió para descansar!");
                     break;
 
-                case 10: // Inhabilitar
-                    MostrarNarrador($"¡El último movimiento de {objetivo.Nombre} ha sido inhabilitado!");
-                    break;
-
-                case 11: // Precision -1
-                    MostrarNarrador($"¡La precisión de {objetivo.Nombre} cayó!");
-                    break;
-
-                case 12: // DefensaRival -1
-                    if (!modificadoresDefensa.ContainsKey(objetivo)) modificadoresDefensa[objetivo] = 0;
-                    modificadoresDefensa[objetivo] -= 1;
+                case 12: // DefensaRival -1 
+                    objetivo.ModificadorDefensa -= 1;
                     MostrarNarrador($"¡La Defensa de {objetivo.Nombre} bajó!");
                     break;
 
                 case 13: // DefensaRival -2
-                    if (!modificadoresDefensa.ContainsKey(objetivo)) modificadoresDefensa[objetivo] = 0;
-                    modificadoresDefensa[objetivo] -= 2;
+                    objetivo.ModificadorDefensa -= 2;
                     MostrarNarrador($"¡La Defensa de {objetivo.Nombre} cayó drásticamente!");
                     break;
 
                 case 14: // AtaqueRival -1
-                    if (!modificadoresAtaque.ContainsKey(objetivo)) modificadoresAtaque[objetivo] = 0;
-                    modificadoresAtaque[objetivo] -= 1;
+                    objetivo.ModificadorAtaque -= 1;
                     MostrarNarrador($"¡El Ataque de {objetivo.Nombre} bajó!");
                     break;
 
                 case 15: // VelocidadRival -1
-                    if (!modificadoresVelocidad.ContainsKey(objetivo)) modificadoresVelocidad[objetivo] = 0;
-                    modificadoresVelocidad[objetivo] -= 1;
+                    objetivo.ModificadorVelocidad -= 1;
                     MostrarNarrador($"¡La Velocidad de {objetivo.Nombre} bajó!");
                     break;
 
-
-                case 16: // Dormir
-                    estadoPokemon[objetivo] = "Dormido";
-                    turnosDormido[objetivo] = 2;
+                case 16: // Dormir 
+                    objetivo.Estado = "Dormido";
+                    objetivo.TurnosDormido = 2;
                     MostrarNarrador($"¡{objetivo.Nombre} se ha quedado dormido!");
                     break;
 
                 case 17: // Paralizar
-                    estadoPokemon[objetivo] = "Paralizado";
-                    string nombreEstParalizado = objetivo.Nombre;
-                    MostrarNarrador($"¡{nombreEstParalizado} ha sido paralizado!");
+                    objetivo.Estado = "Paralizado";
+                    MostrarNarrador($"¡{objetivo.Nombre} ha sido paralizado!");
                     break;
 
-                case 18: // Envenenar
-                    estadoPokemon[objetivo] = "Envenenado";
+                case 18: // Envenenar 
+                    objetivo.Estado = "Envenenado";
                     MostrarNarrador($"¡{objetivo.Nombre} ha sido envenenado!");
                     break;
 
                 case 19: // EnvenenamientoGrave
-                    estadoPokemon[objetivo] = "EnvenenadoGrave";
+                    objetivo.Estado = "EnvenenadoGrave";
                     MostrarNarrador($"¡{objetivo.Nombre} fue envenenado gravemente!");
                     break;
 
                 case 20: // Confundir
-                    estadoPokemon[objetivo] = "Confundido";
-                    string nombreEstConfundido = objetivo.Nombre;
-                    MostrarNarrador($"¡{nombreEstConfundido} empezó a sentirse confundido!");
-                    break;
-
-                case 21: // Drenadoras
-                    tieneDrenadoras[objetivo] = true; 
-                    MostrarNarrador($"¡{objetivo.Nombre} fue infestado por drenadoras!");
-                    break;
-
-                case 22: // Critico
-                    MostrarNarrador($"¡La probabilidad de golpe crítico de {usuario.Nombre} aumentó!");
-                    break;
-
-                case 23: // CambiarTipo
-                    MostrarNarrador($"¡{usuario.Nombre} cambió su tipo para igualar al rival!");
-                    break;
-
-                case 24: // CopiarMovimiento
-                    MostrarNarrador($"¡{usuario.Nombre} copió el último movimiento!");
-                    break;
-
-                case 25: // MovimientoAleatorio
-                    MostrarNarrador($"¡{usuario.Nombre} está invocando un movimiento al azar!");
-                    break;
-
-                case 26: // MovimientoEspejo
-                    MostrarNarrador($"¡{usuario.Nombre} usó Movimiento Espejo!");
-                    break;
-
-                case 27: // ProteccionEstadisticas
-                    MostrarNarrador($"¡El bando de {usuario.Nombre} está protegido contra reducción de estadísticas!");
+                    objetivo.Estado = "Confundido";
+                    MostrarNarrador($"¡¡{objetivo.Nombre} empezó a sentirse confundido!");
                     break;
 
                 case 28: // ReiniciarEstadisticas
-                    modificadoresAtaque[usuario] = 0;
-                    modificadoresDefensa[usuario] = 0;
-                    modificadoresVelocidad[usuario] = 0;
-                    modificadoresEspecial[usuario] = 0;
-                    modificadoresAtaque[objetivo] = 0;
-                    modificadoresDefensa[objetivo] = 0;
-                    modificadoresVelocidad[objetivo] = 0;
-                    modificadoresEspecial[objetivo] = 0;
+                    usuario.ModificadorAtaque = 0;
+                    usuario.ModificadorDefensa = 0;
+                    usuario.ModificadorVelocidad = 0;
+                    usuario.ModificadorEspecial = 0;
+                    objetivo.ModificadorAtaque = 0;
+                    objetivo.ModificadorDefensa = 0;
+                    objetivo.ModificadorVelocidad = 0;
+                    objetivo.ModificadorEspecial = 0;
                     MostrarNarrador($"¡Todas las alteraciones de estadísticas volvieron a la normalidad!");
                     break;
 
-                case 29: // PantallaLuz
-                    MostrarNarrador($"¡Pantalla de Luz redujo el daño especial entrante!");
-                    break;
-
-                case 30: // Reflejo
-                    tieneReflejo[usuario] = true;     // Se registra el estado de Reflejo en el diccionario
-                    turnosReflejo[usuario] = 5;       // Duración estándar del efecto protector
-                    MostrarNarrador($"¡Reflejo redujo el daño físico entrante de {usuario.Nombre}!");
-                    break;
-
-                case 31: // HuidaSalvaje
-                    MostrarNarrador($"¡Se intentó forzar el final del combate!");
-                    break;
-
-                case 32: // Evasion +1
-                    MostrarNarrador($"¡La evasión de {usuario.Nombre} subió!");
-                    break;
-
-                case 33: // SinEfecto aun
-                    break;
-
                 case 34: // Sustituto
-                    int costoSustituto = (int)(usuario.Hp * 0.25M);
-                    hpCombatePokemon[usuario] = Math.Max(1, hpCombatePokemon[usuario] - costoSustituto);
-                    string msgSustituto = $"¡{usuario.Nombre} creó un sustituto sacrificando PS!";
-                    MostrarNarrador(msgSustituto);
+                    int costoSustituto = (int)(usuario.Hp * 0.25);
+                    usuario.HpActual = Math.Max(1, usuario.HpActual - costoSustituto);
+                    MostrarNarrador($"¡{usuario.Nombre} creó un sustituto sacrificando PS!");
                     break;
 
-                case 35: // Transformacion
-                    MostrarNarrador($"¡{usuario.Nombre} se transformó en el rival!");
-                    break;
-
-                case 36: // KOInstantaneo
-                    hpCombatePokemon[objetivo] = 0;
+                case 36: // KOInstantaneo 
+                    objetivo.HpActual = 0;
                     MostrarNarrador($"¡Es un golpe fulminante! ¡KO instantáneo!");
                     break;
 
                 case 37: // DanoFijo40
-                    hpCombatePokemon[objetivo] = Math.Max(0, hpCombatePokemon[objetivo] - 40);
+                    objetivo.HpActual = Math.Max(0, objetivo.HpActual - 40);
                     MostrarNarrador($"¡Causó un daño fijo de 40 PS!");
                     break;
 
-                case 38: // DanoNivel
-                    int danioNivel = 50; 
-                    hpCombatePokemon[objetivo] = Math.Max(0, hpCombatePokemon[objetivo] - danioNivel);
-                    string msgDanioNivel = $"¡Causó {danioNivel} puntos de daño por su nivel!";
-                    MostrarNarrador(msgDanioNivel);
+                case 38: // DanoNivel 
+                    int danioNivel = 50;
+                    objetivo.HpActual = Math.Max(0, objetivo.HpActual - danioNivel);
+                    MostrarNarrador($"¡Causó {danioNivel} puntos de daño por su nivel!");
                     break;
 
-                case 39: // MitadPS
-                    hpCombatePokemon[objetivo] = Math.Max(1, (int)(hpCombatePokemon[objetivo] / 2M));
+                case 39: // MitadPS 
+                    objetivo.HpActual = Math.Max(1, (int)(objetivo.HpActual / 2));
                     MostrarNarrador($"¡Los PS de {objetivo.Nombre} se redujeron a la mitad!");
                     break;
 
-                case 40: // Contraataque
-                    MostrarNarrador($"¡{usuario.Nombre} está preparando un contraataque!");
-                    break;
-
-                case 41: // DanoAleatorioNivel
+                case 41: // DanoAleatorioNivel 
                     Random rnd = new Random();
                     int multiplicador = rnd.Next(1, 11);
-                    hpCombatePokemon[objetivo] = Math.Max(0, hpCombatePokemon[objetivo] - multiplicador);
+                    objetivo.HpActual = Math.Max(0, objetivo.HpActual - multiplicador);
                     MostrarNarrador($"¡Causó daño aleatorio basado en el nivel!");
                     break;
 
-                case 42: // AutoDebilitacion (Autodestrucción / Mismodestino)
-                    hpCombatePokemon[usuario] = 0;
+                case 42: // AutoDebilitacion 
+                    usuario.HpActual = 0;
                     MostrarNarrador($"¡{usuario.Nombre} se sacrificó y se ha debilitado!");
                     break;
 

@@ -70,20 +70,16 @@ namespace PokedexApp
             {
                 var fila = DGVListadoCartas.SelectedRows[0];
 
-                // 2. Extraemos el objeto Cartas directamente de esta fila
                 if (fila.DataBoundItem is Cartas c)
                 {
-                    // 3. Usamos 'c.IdPokemon' que es el valor real de ESTA fila
                     int idPokemonSeleccionado = c.IdPokemon;
 
-                    // Carga de imagen
                     string nombreArchivo = idPokemonSeleccionado.ToString() + ".jpeg";
                     string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
 
                     if (picCarta.Image != null) { picCarta.Image.Dispose(); picCarta.Image = null; }
                     picCarta.Image = File.Exists(ruta) ? Image.FromFile(ruta) : null;
 
-                    // 4. Carga de detalles usando el ID correcto
                     VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(idPokemonSeleccionado);
 
                     if (detalle != null)
@@ -151,30 +147,24 @@ namespace PokedexApp
             if (estaBuscando) return;
             if (DGVListadoCartas.SelectedRows.Count == 0) return;
 
-            // 2. Obtenemos la fila seleccionada de forma segura
             var fila = DGVListadoCartas.SelectedRows[0];
 
-            // 3. Verificamos que el DataBoundItem sea del tipo Cartas
             if (fila.DataBoundItem is Cartas c)
             {
-                // 4. Liberar imagen anterior de la memoria (CRUCIAL para no alentar el programa)
                 if (picCarta.Image != null)
                 {
                     picCarta.Image.Dispose();
                     picCarta.Image = null;
                 }
 
-                // 5. Cargar nueva imagen
                 string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
                 string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
-                //MessageBox.Show($"Cargando imagen desde: {ruta}"); // Mensaje de depuración
 
                 if (File.Exists(ruta))
                 {
                     picCarta.Image = Image.FromFile(ruta);
                 }
 
-                // 6. Obtener detalles del Pokémon
                 VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
                 if (detalle != null)
                 {
@@ -202,7 +192,6 @@ namespace PokedexApp
         private void txtDetallesPokemon_TextChanged(object sender, EventArgs e)
         {
             //elimnar evento
-
         }
 
         private void ResaltarRegion(string region)
