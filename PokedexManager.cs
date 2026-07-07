@@ -143,7 +143,7 @@ namespace PokedexApp
                         while (reader.Read())
                         {
                             lista.Add(new Cartas(
-                                0, // IdCarta (no existe en la vista)
+                                0, 
                                 Convert.ToInt32(reader["IdPokemon"]),
                                 Convert.ToInt32(reader["HP"]),
                                 reader["Rareza"].ToString(),
@@ -253,7 +253,7 @@ namespace PokedexApp
             {
                 conn.Open();
 
-                // Traemos la lógica del GROUP_CONCAT y los JOINs correctos agregando el filtro del usuario
+               
                 string query = @"SELECT C.IdCarta, C.IdPokemon, C.HP, C.Rareza, C.NumeroColeccion, C.Imagen, P.Nombre, 
                                 GROUP_CONCAT(A.Nombre ||': '||E.Descripcion, '|') AS DetallesAtaques 
                         FROM ColeccionUsuario CU 
@@ -301,7 +301,6 @@ namespace PokedexApp
                 {
                     try
                     {
-                        // 1. Insertar en Pokemon
                         string queryPokemon = "INSERT INTO Pokemon (IdPokemon, Pokedex, Nombre, Tipo1, IdRegion) VALUES (@id, @dex, @nom, @t1, @region)";
                         using (var cmd = new SQLiteCommand(queryPokemon, conn, transaccion))
                         {
@@ -324,7 +323,7 @@ namespace PokedexApp
                             cmd.Parameters.AddWithValue("@hpbase", hpBase);
                             cmd.ExecuteNonQuery();
                         }
-                        // 2. Insertar en Cartas
+                     
                         string queryCarta = "INSERT INTO Cartas (IdPokemon, HP, Rareza, NumeroColeccion) VALUES (@id, @hp, @rar, @num)";
                         using (var cmd = new SQLiteCommand(queryCarta, conn, transaccion))
                         {
@@ -370,14 +369,13 @@ namespace PokedexApp
                     cmd.ExecuteNonQuery();
                 }
 
-                //string query = "DELETE FROM Cartas WHERE IdPokemon = @idPokemon";
                 using (var cmd = new SQLiteCommand("DELETE FROM Cartas WHERE IdPokemon = @idPokemon", conn))
                 {
                     cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
                     cmd.ExecuteNonQuery();
                 }
                 
-                //string query = "DELETE FROM Pokemon WHERE IdPokemon = @idPokemon";
+            
                 using (var cmd = new SQLiteCommand("DELETE FROM Pokemon WHERE IdPokemon = @idPokemon", conn))
                 {
                     cmd.Parameters.AddWithValue("@idPokemon", idPokemon);
