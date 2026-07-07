@@ -18,7 +18,7 @@ namespace PokedexApp
             InitializeComponent();
             this.usuario = usuario;
             this.info = info;
-            this.Load += FormInformacionDeUsuario_Load;
+            //this.Load += FormInformacionDeUsuario_Load;
         }
 
         public void FormInformacionDeUsuario_Load(object sender, EventArgs e)

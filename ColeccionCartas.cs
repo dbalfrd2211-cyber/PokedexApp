@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -14,7 +15,8 @@ namespace PokedexApp
         private Size tamañoOriginalMapa;
         private Point ubicacionOriginalMapa;
         private string regionActual = "";
-
+        private int faseAnimacion = 0;
+        private List<Cartas> cartasObtenidas = new List<Cartas>();
         public ColeccionCartas()
         {
             InitializeComponent();
@@ -379,6 +381,70 @@ namespace PokedexApp
                 visor.ShowDialog();
             }
 
+        }
+
+        private void timersobre_Tick(object sender, EventArgs e)
+        {
+
+            faseAnimacion++;
+            if (faseAnimacion <= 3)
+            {
+                string nombreArchivo = "sobre_" + faseAnimacion + ".PNG";
+                string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+                if (File.Exists(ruta)) picSobre.Image = Image.FromFile(ruta);
+            }
+            else
+            {
+                timerSobre.Stop();
+                //picSobre.Visible = false;
+                MostrarCartasObtenidas();
+            }
+
+        }
+        private void MostrarCartasObtenidas()
+        {
+            if (cartasObtenidas != null && cartasObtenidas.Count > 0)
+            {
+                FormResultadosSobre frmResultados = new FormResultadosSobre(cartasObtenidas);
+                frmResultados.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Error: No se obtuvieron cartas para mostrar.");
+            }
+
+        }
+
+        private void btnSobre_Click(object sender, EventArgs e)
+        {
+            DateTime ultimaApertura = manager.ObtenerFechaUltimoSobre(Sesion.IdUsuarioActual);
+
+            if (ultimaApertura.Date == DateTime.Today)
+            {
+                MessageBox.Show("Ya has abierto tu sobre hoy. ¡Vuelve mañana!");
+                return;
+            }
+
+            string rutaInicial = Path.Combine(Application.StartupPath, "Imagenes", "sobre_1.PNG");
+            if (File.Exists(rutaInicial))
+            {
+                picSobre.Image = Image.FromFile(rutaInicial);
+            }
+            picSobre.Visible = true;
+            cartasObtenidas = manager.AbrirSobreDiario(Sesion.IdUsuarioActual);
+
+            if (cartasObtenidas != null && cartasObtenidas.Count > 0)
+            {
+                faseAnimacion = 0;
+
+                picSobre.Visible = true;
+                picSobre.BringToFront();
+
+
+              
+            
+                timerSobre.Start();
+            }
         }
     }
 }

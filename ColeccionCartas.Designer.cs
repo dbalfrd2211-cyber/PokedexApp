@@ -53,10 +53,14 @@
             this.picCarta = new System.Windows.Forms.PictureBox();
             this.picMapa = new System.Windows.Forms.PictureBox();
             this.coleccionCartasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.picSobre = new System.Windows.Forms.PictureBox();
+            this.btnSobre = new System.Windows.Forms.Button();
+            this.timerSobre = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coleccionCartasBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSobre)).BeginInit();
             this.SuspendLayout();
             // 
             // DGVListadoCartas
@@ -290,11 +294,39 @@
             // 
             this.coleccionCartasBindingSource.DataSource = typeof(PokedexApp.ColeccionCartas);
             // 
+            // picSobre
+            // 
+            this.picSobre.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.picSobre.Location = new System.Drawing.Point(564, 430);
+            this.picSobre.Name = "picSobre";
+            this.picSobre.Size = new System.Drawing.Size(204, 287);
+            this.picSobre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picSobre.TabIndex = 27;
+            this.picSobre.TabStop = false;
+            // 
+            // btnSobre
+            // 
+            this.btnSobre.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSobre.Location = new System.Drawing.Point(584, 660);
+            this.btnSobre.Name = "btnSobre";
+            this.btnSobre.Size = new System.Drawing.Size(170, 43);
+            this.btnSobre.TabIndex = 28;
+            this.btnSobre.Text = "Abrir Mi Sobre Diario";
+            this.btnSobre.UseVisualStyleBackColor = true;
+            this.btnSobre.Click += new System.EventHandler(this.btnSobre_Click);
+            // 
+            // timerSobre
+            // 
+            this.timerSobre.Interval = 1200;
+            this.timerSobre.Tick += new System.EventHandler(this.timersobre_Tick);
+            // 
             // ColeccionCartas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1493, 815);
+            this.Controls.Add(this.btnSobre);
+            this.Controls.Add(this.picSobre);
             this.Controls.Add(this.picCarta);
             this.Controls.Add(this.btnEliminarCarta);
             this.Controls.Add(this.btnUnova);
@@ -325,6 +357,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coleccionCartasBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSobre)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,5 +388,8 @@
         private System.Windows.Forms.Button btnEliminarCarta;
         private System.Windows.Forms.PictureBox picCarta;
         private System.Windows.Forms.BindingSource coleccionCartasBindingSource;
+        private System.Windows.Forms.PictureBox picSobre;
+        private System.Windows.Forms.Button btnSobre;
+        private System.Windows.Forms.Timer timerSobre;
     }
 }
