@@ -9,6 +9,9 @@ namespace PokedexApp
     {
         private List<Pokemon> pokemones;
         private Database db = new Database();
+        
+        private List<Cartas> cartasObtenidas = new List<Cartas>();
+
 
         public PokedexManager()
         {
@@ -403,7 +406,62 @@ namespace PokedexApp
             }
             return lista;
         }
+            public DateTime ObtenerFechaUltimoSobre(int idUsuario)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "SELECT FechaUltimoSobre FROM Usuarios WHERE IdUsuario = @id";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", idUsuario);
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && DateTime.TryParse(result.ToString(), out DateTime fecha))
+                        return fecha;
+                }
+            }
+            return DateTime.MinValue;
+        }
+
+        public void ActualizarFechaSobre(int idUsuario, DateTime fecha)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "UPDATE Usuarios SET FechaUltimoSobre = @fecha WHERE IdUsuario = @id";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@fecha", fecha.ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("@id", idUsuario);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<Cartas> AbrirSobreDiario(int idUsuario)
+        {
+            List<Cartas> sobre = new List<Cartas>();
+            Random rnd = new Random();
+            var todas = AllDatoPokemon();
+
+            for (int i = 0; i < 3; i++)
+            {
+                int prob = rnd.Next(1, 101);
+                string rareza = (prob <= 70) ? "Comun" : (prob <= 95) ? "Rara" : "Legendaria";
+                var filtradas = todas.FindAll(c => c.Rareza == rareza);
+                if (filtradas.Count > 0)
+                {
+                    sobre.Add(filtradas[rnd.Next(filtradas.Count)]);
+                }
+            }
+            return sobre;
+        }
+
+       
     }
+            
+
+    
 }
 
 
