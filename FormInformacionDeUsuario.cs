@@ -8,16 +8,14 @@ namespace PokedexApp
 {
     public partial class FormInformacionDeUsuario : Form
     {
+        private PokedexManager pokedexManager = new PokedexManager();
         private Usuario usuario;
 
         private InfoUsuario info;
-        public FormInformacionDeUsuario()
-        {
-            InitializeComponent();
-        }
 
         public FormInformacionDeUsuario(Usuario usuario, InfoUsuario info)
         {
+            InitializeComponent();
             this.usuario = usuario;
             this.info = info;
             this.Load += FormInformacionDeUsuario_Load;
@@ -25,7 +23,7 @@ namespace PokedexApp
 
         public void FormInformacionDeUsuario_Load(object sender, EventArgs e)
         {
-
+            ActualizarDatoPartidas();
             InitializeComponent();
             lblNombre.Text = usuario.NombreUsuario;
             lblNivel.Text = $"Nivel: {info.Nivel}";
@@ -39,6 +37,31 @@ namespace PokedexApp
             var cartasUsuario = manager.ObtenerCartasUsuario(usuario.IdUsuario);
             lblCartas.Text = $"Cartas Obtenidas: {cartasUsuario.Count}";
 
+
+            DGVCartasUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DGVCartasUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            MostrarImagenesEnGrid();
+        }
+
+        private void ActualizarDatoPartidas()
+        {
+            // 1. Consultar BD directamente para tener los datos frescos
+            InfoUsuario infoActualizada = pokedexManager.ObtenerInfoUsuario(usuario.IdUsuario);
+
+            // 2. Actualizar etiquetas con los datos recién traídos de la BD
+            if (infoActualizada != null)
+            {
+                lblNombre.Text = usuario.NombreUsuario;
+                lblNivel.Text = $"Nivel: {infoActualizada.Nivel}";
+                lblGanadas.Text = $"Partidas Ganadas: {infoActualizada.BatallasGanadas}";
+                lblPerdidas.Text = $"Partidas Perdidas: {infoActualizada.BatallasPerdidas}";
+            }
+
+            // 3. Cargar cartas
+            DGVCartasUsuario.DataSource = pokedexManager.ObtenerCartasUsuario(usuario.IdUsuario);
+            var cartasUsuario = pokedexManager.ObtenerCartasUsuario(usuario.IdUsuario);
+            lblCartas.Text = $"Cartas Obtenidas: {cartasUsuario.Count}";
 
             DGVCartasUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVCartasUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;

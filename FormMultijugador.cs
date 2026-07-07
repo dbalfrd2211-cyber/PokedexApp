@@ -45,7 +45,7 @@ namespace PokedexApp
 
             if (equipo2 == null || equipo2.Count != 3) return;
 
-            FormBatalla arena = new FormBatalla(equipo1, equipo2, usuarioLogueado.NombreUsuario, usuario2.NombreUsuario);
+            FormBatalla arena = new FormBatalla(equipo1, equipo2, usuarioLogueado.NombreUsuario, usuario2.NombreUsuario, usuarioLogueado.IdUsuario, usuario2.IdUsuario);
 
             this.Hide();
             arena.ShowDialog();

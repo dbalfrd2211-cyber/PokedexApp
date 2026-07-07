@@ -11,6 +11,9 @@ namespace PokedexApp
 {
     public partial class FormBatalla : Form 
     {
+        private int idJugadorLogueado;
+        private int idJugadorRival;
+
         private List<CartaBatalla> miEquipo;
         private List<CartaBatalla> equipoRival;
 
@@ -34,7 +37,7 @@ namespace PokedexApp
 
         private Dictionary<int, Image> cacheImagenes = new Dictionary<int, Image>();
 
-        public FormBatalla(List<CartaBatalla> equipoAnfitrion, List<CartaBatalla> equipoRival, string nombreAnfitrion, string nombreRival)
+        public FormBatalla(List<CartaBatalla> equipoAnfitrion, List<CartaBatalla> equipoRival, string nombreAnfitrion, string nombreRival, int idAnfitrion, int idRival)
         {
             InitializeComponent();
 
@@ -43,6 +46,9 @@ namespace PokedexApp
 
             this.jugadorLogueado = nombreAnfitrion;
             this.jugadorRival = nombreRival;
+
+            this.idJugadorLogueado = idAnfitrion;
+            this.idJugadorRival = idRival;
 
             this.DoubleBuffered = true;
 
@@ -350,6 +356,10 @@ namespace PokedexApp
                 buscados++;
             }
 
+            PokedexManager manager = new PokedexManager();
+            manager.RegistrarResultadoBatalla(this.idJugadorLogueado, true);  // Gana
+            manager.RegistrarResultadoBatalla(this.idJugadorRival, false);
+
             MessageBox.Show("¡Felicidades, has derrotado a todos los Pokémon del rival!\n¡VICTORIA!", "Fin de la Batalla", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
@@ -402,6 +412,10 @@ namespace PokedexApp
                 }
                 buscados++;
             }
+
+            PokedexManager manager = new PokedexManager();
+            manager.RegistrarResultadoBatalla(this.idJugadorLogueado, false); // Pierde
+            manager.RegistrarResultadoBatalla(this.idJugadorRival, true);
 
             MessageBox.Show("Todos tus Pokémon se han debilitado...\n¡HAS PERDIDO!", "Fin de la Batalla", MessageBoxButtons.OK, MessageBoxIcon.Error);
             this.Close();

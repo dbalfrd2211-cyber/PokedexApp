@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace PokedexApp
 {
@@ -33,7 +34,6 @@ namespace PokedexApp
             }
         }
 
-        // Método 1: ObtenerUsuario
         public Usuario ObtenerUsuario(string nombreUsuario)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
@@ -59,27 +59,28 @@ namespace PokedexApp
             return null;
         }
 
-        // Método 2: ObtenerInfoUsuario
         public InfoUsuario ObtenerInfoUsuario(int idUsuario)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = "SELECT IdInfo, IdUsuario, Nivel, BatallasGanadas, BatallasPerdidas, NumeroCartas FROM InfoUsuario WHERE IdUsuario=@id";
+                string query = "SELECT Nivel, PartidasGanadas, PartidasPerdidas FROM Usuarios WHERE IdUsuario = @id";
+
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", idUsuario);
+
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             return new InfoUsuario(
-                                Convert.ToInt32(reader["IdInfo"]),
-                                Convert.ToInt32(reader["IdUsuario"]),
-                                Convert.ToInt32(reader["Nivel"]),
-                                Convert.ToInt32(reader["BatallasGanadas"]),
-                                Convert.ToInt32(reader["BatallasPerdidas"]),
-                                Convert.ToInt32(reader["NumeroCartas"])
+                                0,                                         
+                                idUsuario,                                 
+                                Convert.ToInt32(reader["Nivel"]),          
+                                Convert.ToInt32(reader["PartidasGanadas"]),
+                                Convert.ToInt32(reader["PartidasPerdidas"]),
+                                0                                          
                             );
                         }
                     }
@@ -87,6 +88,7 @@ namespace PokedexApp
             }
             return null;
         }
+
         public bool ExisteUsuario(string usuario)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
@@ -101,17 +103,23 @@ namespace PokedexApp
             }
         }
 
-        public bool RegistrarUsuario(string usuario, string contraseña, string confirmar)
+        public bool RegistrarUsuario(string usuario, string contraseña, string confirmar, bool esPublico = true)
         {
             if (contraseña != confirmar) return false;
+
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string query = "INSERT INTO Usuarios (NombreUsuario, Contrasena) VALUES (@usuario, @contrasena)";
+                string query = @"INSERT INTO Usuarios 
+                        (NombreUsuario, Contrasena, EsPublico, Nivel, Experiencia, PartidasGanadas, PartidasPerdidas) 
+                        VALUES (@usuario, @contrasena, @esPublico, 1, 0, 0, 0)";
+
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@usuario", usuario);
                     cmd.Parameters.AddWithValue("@contrasena", contraseña);
+                    cmd.Parameters.AddWithValue("@esPublico", esPublico ? 1 : 0);
+
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
@@ -220,6 +228,7 @@ namespace PokedexApp
             }
             return null;
         }
+
         public bool AgregarCartaColeccion(int idPokemon, int hp, string rareza, int numeroDeColeccion)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
@@ -235,6 +244,7 @@ namespace PokedexApp
             }
 
         }
+
         public List<Cartas> ObtenerCartasUsuario(int idUsuario)
         {
             List<Cartas> lista = new List<Cartas>();
@@ -280,6 +290,7 @@ namespace PokedexApp
             }
             return lista;
         }
+
         public bool CrearNuevaCarta(int idPokemon, int hp, string rareza, int numeroDeColeccion, string nombre, string tipo1, int pokedex, int idRegion, double altura, double peso, int hpBase)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
@@ -331,6 +342,7 @@ namespace PokedexApp
                 }
             }
         }
+        
         public bool EliminarCartaUsuario(int idUsuario, int idPokemon)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
@@ -345,6 +357,7 @@ namespace PokedexApp
                 }
             }
         }
+
         public bool EliminarCarta(int idPokemon)
         {
             using (var conn = new SQLiteConnection(db.cadenaConexion))
@@ -437,6 +450,96 @@ namespace PokedexApp
                 }
             }
         }
+
+        public void RegistrarResultadoBatalla(int idUsuario, bool gano)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string columna = gano ? "PartidasGanadas" : "PartidasPerdidas";
+
+                string query = $"UPDATE Usuarios SET {columna} = {columna} + 1 WHERE IdUsuario = @id";
+
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", idUsuario);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void ActualizarProgresoUsuario(SQLiteConnection conn, int idUsuario, bool fueVictoria)
+        {
+            int nivelActual = 1;
+            int expActual = 0;
+            int ganadas = 0;
+            int perdidas = 0;
+
+            // Consultar estado actual
+            string querySelect = "SELECT Nivel, Experiencia, PartidasGanadas, PartidasPerdidas FROM Usuarios WHERE IdUsuario = @id";
+            using (var cmdSelect = new SQLiteCommand(querySelect, conn))
+            {
+                cmdSelect.Parameters.AddWithValue("@id", idUsuario);
+                using (var reader = cmdSelect.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        nivelActual = Convert.ToInt32(reader["Nivel"]);
+                        expActual = Convert.ToInt32(reader["Experiencia"]);
+                        ganadas = Convert.ToInt32(reader["PartidasGanadas"]);
+                        perdidas = Convert.ToInt32(reader["PartidasPerdidas"]);
+                    }
+                }
+            }
+
+            // Calcular recompensas
+            if (fueVictoria)
+            {
+                ganadas++;
+                expActual += 50; // +50 XP por ganar
+            }
+            else
+            {
+                perdidas++;
+                expActual += 15; // +15 XP de consolación por perder
+            }
+
+            // Lógica de subida de nivel (XP necesaria = Nivel * 100)
+            int expNecesaria = nivelActual * 100;
+            bool subioDeNivel = false;
+
+            while (expActual >= expNecesaria)
+            {
+                expActual -= expNecesaria;
+                nivelActual++;
+                expNecesaria = nivelActual * 100;
+                subioDeNivel = true;
+            }
+
+            // Guardar en la Base de Datos
+            string queryUpdate = @"UPDATE Usuarios 
+                           SET Nivel = @nivel, Experiencia = @experiencia, 
+                               PartidasGanadas = @ganadas, PartidasPerdidas = @perdidas 
+                           WHERE IdUsuario = @id";
+
+            using (var cmdUpdate = new SQLiteCommand(queryUpdate, conn))
+            {
+                cmdUpdate.Parameters.AddWithValue("@nivel", nivelActual);
+                cmdUpdate.Parameters.AddWithValue("@experiencia", expActual);
+                cmdUpdate.Parameters.AddWithValue("@ganadas", ganadas);
+                cmdUpdate.Parameters.AddWithValue("@perdidas", perdidas);
+                cmdUpdate.Parameters.AddWithValue("@id", idUsuario);
+                cmdUpdate.ExecuteNonQuery();
+            }
+
+            // Avisar si subió de nivel
+            if (subioDeNivel)
+            {
+                MessageBox.Show($"¡El usuario con ID {idUsuario} ha subido al Nivel {nivelActual}! 🎉", "¡Subida de Nivel!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+    }
+}
 
         public List<Cartas> AbrirSobreDiario(int idUsuario)
         {
