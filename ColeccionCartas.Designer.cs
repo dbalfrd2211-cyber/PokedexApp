@@ -52,15 +52,15 @@
             this.btnEliminarCarta = new System.Windows.Forms.Button();
             this.picCarta = new System.Windows.Forms.PictureBox();
             this.picMapa = new System.Windows.Forms.PictureBox();
-            this.coleccionCartasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.picSobre = new System.Windows.Forms.PictureBox();
             this.btnSobre = new System.Windows.Forms.Button();
             this.timerSobre = new System.Windows.Forms.Timer(this.components);
+            this.coleccionCartasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coleccionCartasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSobre)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coleccionCartasBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // DGVListadoCartas
@@ -290,14 +290,10 @@
             this.picMapa.TabStop = false;
             this.picMapa.Click += new System.EventHandler(this.picMapa_Click);
             // 
-            // coleccionCartasBindingSource
-            // 
-            this.coleccionCartasBindingSource.DataSource = typeof(PokedexApp.ColeccionCartas);
-            // 
             // picSobre
             // 
             this.picSobre.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.picSobre.Location = new System.Drawing.Point(564, 430);
+            this.picSobre.Location = new System.Drawing.Point(564, 416);
             this.picSobre.Name = "picSobre";
             this.picSobre.Size = new System.Drawing.Size(204, 287);
             this.picSobre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -307,18 +303,29 @@
             // btnSobre
             // 
             this.btnSobre.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSobre.Location = new System.Drawing.Point(584, 660);
+            this.btnSobre.BackColor = System.Drawing.Color.Transparent;
+            this.btnSobre.BackgroundImage = global::PokedexApp.Properties.Resources.Boton3;
+            this.btnSobre.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSobre.FlatAppearance.BorderSize = 0;
+            this.btnSobre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSobre.Font = new System.Drawing.Font("Monotype Corsiva", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSobre.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSobre.Location = new System.Drawing.Point(578, 517);
             this.btnSobre.Name = "btnSobre";
-            this.btnSobre.Size = new System.Drawing.Size(170, 43);
+            this.btnSobre.Size = new System.Drawing.Size(190, 209);
             this.btnSobre.TabIndex = 28;
             this.btnSobre.Text = "Abrir Mi Sobre Diario";
-            this.btnSobre.UseVisualStyleBackColor = true;
+            this.btnSobre.UseVisualStyleBackColor = false;
             this.btnSobre.Click += new System.EventHandler(this.btnSobre_Click);
             // 
             // timerSobre
             // 
-            this.timerSobre.Interval = 1200;
+            this.timerSobre.Interval = 900;
             this.timerSobre.Tick += new System.EventHandler(this.timersobre_Tick);
+            // 
+            // coleccionCartasBindingSource
+            // 
+            this.coleccionCartasBindingSource.DataSource = typeof(PokedexApp.ColeccionCartas);
             // 
             // ColeccionCartas
             // 
@@ -356,8 +363,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMapa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coleccionCartasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSobre)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coleccionCartasBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

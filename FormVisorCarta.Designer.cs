@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVisorCarta));
             this.picZoomCarta = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picZoomCarta)).BeginInit();
             this.SuspendLayout();
@@ -35,6 +36,7 @@
             // picZoomCarta
             // 
             this.picZoomCarta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picZoomCarta.Image = ((System.Drawing.Image)(resources.GetObject("picZoomCarta.Image")));
             this.picZoomCarta.Location = new System.Drawing.Point(0, 0);
             this.picZoomCarta.Name = "picZoomCarta";
             this.picZoomCarta.Size = new System.Drawing.Size(800, 450);
