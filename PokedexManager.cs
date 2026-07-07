@@ -468,7 +468,7 @@ namespace PokedexApp
             }
         }
 
-        private void ActualizarProgresoUsuario(SQLiteConnection conn, int idUsuario, bool fueVictoria)
+        /*private void ActualizarProgresoUsuario(SQLiteConnection conn, int idUsuario, bool fueVictoria)
         {
             int nivelActual = 1;
             int expActual = 0;
@@ -538,9 +538,7 @@ namespace PokedexApp
                 MessageBox.Show($"¡El usuario con ID {idUsuario} ha subido al Nivel {nivelActual}! 🎉", "¡Subida de Nivel!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-    }
-}
-
+        */
         public List<Cartas> AbrirSobreDiario(int idUsuario)
         {
             List<Cartas> sobre = new List<Cartas>();
@@ -559,12 +557,6 @@ namespace PokedexApp
             }
             return sobre;
         }
-
-       
     }
-            
-
-    
 }
-
 
