@@ -396,7 +396,7 @@ namespace PokedexApp
             else
             {
                 timerSobre.Stop();
-                //picSobre.Visible = false;
+                picSobre.Visible = false;
                 MostrarCartasObtenidas();
             }
 
@@ -444,6 +444,7 @@ namespace PokedexApp
               
             
                 timerSobre.Start();
+                DGVListadoCartas.DataSource = manager.AllDatoPokemon();
             }
         }
     }

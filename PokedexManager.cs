@@ -132,10 +132,11 @@ namespace PokedexApp
             {
                 conn.Open();
                 string query = @"SELECT IdPokemon, HP, Rareza, NumeroColeccion, Nombre, DetallesAtaques 
-                                 FROM VistaCartasMaestra 
-                                 WHERE LOWER(Nombre) LIKE LOWER(@nombre)";
+                 FROM VistaCartasMaestra 
+                 WHERE TRIM(LOWER(Nombre)) LIKE LOWER(@nombre)";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
+                    string filtro = "%" + nombre.Trim() + "%";
                     cmd.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -419,37 +420,8 @@ namespace PokedexApp
             }
             return lista;
         }
-            public DateTime ObtenerFechaUltimoSobre(int idUsuario)
-        {
-            using (var conn = new SQLiteConnection(db.cadenaConexion))
-            {
-                conn.Open();
-                string query = "SELECT FechaUltimoSobre FROM Usuarios WHERE IdUsuario = @id";
-                using (var cmd = new SQLiteCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", idUsuario);
-                    object result = cmd.ExecuteScalar();
-                    if (result != null && DateTime.TryParse(result.ToString(), out DateTime fecha))
-                        return fecha;
-                }
-            }
-            return DateTime.MinValue;
-        }
-
-        public void ActualizarFechaSobre(int idUsuario, DateTime fecha)
-        {
-            using (var conn = new SQLiteConnection(db.cadenaConexion))
-            {
-                conn.Open();
-                string query = "UPDATE Usuarios SET FechaUltimoSobre = @fecha WHERE IdUsuario = @id";
-                using (var cmd = new SQLiteCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@fecha", fecha.ToString("yyyy-MM-dd"));
-                    cmd.Parameters.AddWithValue("@id", idUsuario);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+         
+      
 
         public void RegistrarResultadoBatalla(int idUsuario, bool gano)
         {
@@ -539,24 +511,84 @@ namespace PokedexApp
             }
         }
         */
+
+
         public List<Cartas> AbrirSobreDiario(int idUsuario)
         {
             List<Cartas> sobre = new List<Cartas>();
             Random rnd = new Random();
             var todas = AllDatoPokemon();
 
-            for (int i = 0; i < 3; i++)
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
-                int prob = rnd.Next(1, 101);
-                string rareza = (prob <= 70) ? "Comun" : (prob <= 95) ? "Rara" : "Legendaria";
-                var filtradas = todas.FindAll(c => c.Rareza == rareza);
-                if (filtradas.Count > 0)
+                conn.Open();
+               
+                using (var trans = conn.BeginTransaction())
                 {
-                    sobre.Add(filtradas[rnd.Next(filtradas.Count)]);
+                    try
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            int prob = rnd.Next(1, 101);
+                            string rareza = (prob <= 70) ? "Comun" : (prob <= 95) ? "Rara" : "Legendaria";
+                            var filtradas = todas.FindAll(c => c.Rareza == rareza);
+
+                            if (filtradas.Count > 0)
+                            {
+                                Cartas c = filtradas[rnd.Next(filtradas.Count)];
+                                sobre.Add(c);
+
+                            
+                                string queryInsert = "INSERT INTO ColeccionUsuario (IdUsuario, IdPokemon, Cantidad) VALUES (@idU, @idP, 1)";
+                                using (var cmdInsert = new SQLiteCommand(queryInsert, conn, trans))
+                                {
+                                    cmdInsert.Parameters.AddWithValue("@idU", idUsuario);
+                                    cmdInsert.Parameters.AddWithValue("@idP", c.IdPokemon);
+                                    cmdInsert.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        string queryUpdate = "UPDATE Usuarios SET FechaUltimoSobre = @fecha WHERE IdUsuario = @idU";
+                        using (var cmdUpdate = new SQLiteCommand(queryUpdate, conn, trans))
+                        {
+                            cmdUpdate.Parameters.AddWithValue("@fecha", DateTime.Now.ToString("yyyy-MM-dd"));
+                            cmdUpdate.Parameters.AddWithValue("@idU", idUsuario);
+                            cmdUpdate.ExecuteNonQuery();
+                        }
+
+                        trans.Commit(); 
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+                        System.Windows.Forms.MessageBox.Show("Error al guardar cartas: " + ex.Message);
+                    }
                 }
             }
             return sobre;
         }
+        public DateTime ObtenerFechaUltimoSobre(int idUsuario)
+        {
+            using (var conn = new SQLiteConnection(db.cadenaConexion))
+            {
+                conn.Open();
+                string query = "SELECT FechaUltimoSobre FROM Usuarios WHERE IdUsuario = @id";
+                using (var cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", idUsuario);
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && DateTime.TryParse(result.ToString(), out DateTime fecha))
+                        return fecha;
+                }
+            }
+            return DateTime.MinValue;
+        }
+
+
+
+
     }
 }
+
 
