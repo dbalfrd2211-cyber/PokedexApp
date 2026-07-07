@@ -8,7 +8,7 @@ using static System.Console;
 
 namespace PokedexApp
 {
-    public partial class FormBatalla : Form
+    public partial class FormBatalla : Form 
     {
         private Dictionary<Cartas, int> hpCombatePokemon = new Dictionary<Cartas, int>();
         private Dictionary<Cartas, int> modificadoresAtaque = new Dictionary<Cartas, int>();
@@ -132,18 +132,15 @@ namespace PokedexApp
 
         private void InicializarArreglosControles()
         {
-            // Imagenes de cartas
             slotsMisCartas = new PictureBox[] { picMiCarta1, picMiCarta2, picMiCarta3 };
             slotsRival = new PictureBox[] { picRCarta1, picRCarta2, picRCarta3 };
 
-            // Botones de ataque
             botonesMiAtaque = new Button[] { btnAtaque1, btnAtaque2, btnAtaque3, btnAtaque4 };
             botonesRivalAtaque = new Button[] { btnRAtaque1, btnRAtaque2, btnRAtaque3, btnRAtaque4 };
         }
 
         private void CargarMiniaturasEquipos()
         {
-            // Cargar imagenes del Jugador Logueado
             for (int i = 0; i < miEquipo.Count; i++)
             {
                 if (i >= slotsMisCartas.Length) break;
@@ -158,7 +155,6 @@ namespace PokedexApp
                 slotsMisCartas[i].Click += Slot_Click;
             }
 
-            // Cargar imagenes del Usuario2
             for (int i = 0; i < equipoRival.Count; i++)
             {
                 if (i >= slotsRival.Length) break;
@@ -177,13 +173,13 @@ namespace PokedexApp
         //Eventos
         private void Slot_Click(object sender, EventArgs e)
         {
-            if (atacando) return; // Bloquear si hay una animación en curso
+            if (atacando) return; 
 
             PictureBox slotClickeado = (PictureBox)sender;
             int nuevoIndice = (int)slotClickeado.Tag;
 
             Cartas pokemonSeleccionado = miEquipo[nuevoIndice];
-            // Validar que el Pokémon seleccionado no esté debilitado antes de cambiarlo
+
             if (hpCombatePokemon[pokemonSeleccionado] <= 0)
             {
                 MessageBox.Show($"¡{miEquipo[nuevoIndice].Nombre} no tiene energías para combatir!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -234,24 +230,24 @@ namespace PokedexApp
             int velocidad = 25;
             bool haciaAdelante = (bool)timerAnimacion.Tag;
 
-            if (haciaAdelante) // Ataque del Jugador 1 -> Rival
+            if (haciaAdelante) 
             {
                 picMiCarta.Left += velocidad;
                 if (picMiCarta.Right >= picCartaRival.Left)
                 {
                     timerAnimacion.Stop();
-                    picMiCarta.Location = posicionOriginalMiCarta; // Retornar de inmediato
+                    picMiCarta.Location = posicionOriginalMiCarta; 
                     AplicarDaño(ataquePendiente, esRivalAfirmado: true);
                     FinalizarTurno();
                 }
             }
-            else // Ataque del Rival -> Jugador 1
+            else 
             {
                 picCartaRival.Left -= velocidad;
                 if (picCartaRival.Left <= picMiCarta.Right)
                 {
                     timerAnimacion.Stop();
-                    picCartaRival.Location = posicionOriginalRival; // Retornar de inmediato
+                    picCartaRival.Location = posicionOriginalRival; 
                     AplicarDaño(ataquePendiente, esRivalAfirmado: false);
                     FinalizarTurno();
                 }
@@ -319,13 +315,11 @@ namespace PokedexApp
         private void PrepararEjecucionAtaque(Ataques ataque, string nombrePokemon, bool haciaAdelante)
         {
             atacando = true;
-            ConfigurarTurno(false); // Inhabilitar los botones de ambos durante la animación
+            ConfigurarTurno(false); 
 
             ataquePendiente = ataque;
             MostrarNarrador($"¡{nombrePokemon} usó {ataque.Nombre}!");
 
-            // Asignar dirección del movimiento al temporizador físico
-            // Si es verdadero se desplaza de Izquierda a Derecha, si es falso de Derecha a Izquierda
             timerAnimacion.Tag = haciaAdelante;
             timerAnimacion.Start();
         }
@@ -456,23 +450,22 @@ namespace PokedexApp
             int modAtaque = ObtenerModificador(modificadoresAtaque, usuario);
             if (modAtaque > 0)
             {
-                danioCalculado += modAtaque; // O la lógica de multiplicación/suma que tengas pensada
+                danioCalculado += modAtaque; 
             }
 
             if (tieneReflejo.ContainsKey(objetivo) && tieneReflejo[objetivo])
             {
                 if (ataque.Danio > 0)
                 {
-                    danioCalculado /= 2; // Reduce el impacto físico a la mitad
+                    danioCalculado /= 2; 
                 }
             }
 
             if (danioCalculado < 0) danioCalculado = 0;
-            if (ataque.Danio > 0 && danioCalculado == 0) danioCalculado = 1; // Al menos causa 1 de daño si el ataque genera golpe
+            if (ataque.Danio > 0 && danioCalculado == 0) danioCalculado = 1; 
 
             hpCombatePokemon[objetivo] -= danioCalculado;
 
-            // 2. Ejecutar el efecto asignado desde la base de datos
             if (ataque.IdEfecto > 0)
             {
                 AplicarEfectoAtaque(ataque.IdEfecto, usuario, objetivo);
@@ -480,7 +473,7 @@ namespace PokedexApp
 
             ActualizarBarrasVida();
 
-            // 3. Validar si el objetivo sobrevivió o cayó debilitado tras recibir daño + efectos
+
             if (hpCombatePokemon[objetivo] <= 0)
             {
                 hpCombatePokemon[objetivo] = 0;
@@ -496,7 +489,7 @@ namespace PokedexApp
 
         private void BuscarSiguientePokemonVivoRival()
         {
-            // Buscar cíclicamente la siguiente carta que tenga vida disponible
+
             int buscados = 0;
             while (buscados < equipoRival.Count)
             {
@@ -517,11 +510,11 @@ namespace PokedexApp
 
         private void FinalizarTurno()
         {
-            // Identificar quién acaba de terminar su turno para aplicarle los efectos de fin de turno
+
             Cartas pokemonActivo = miTurno ? miEquipo[indiceMi] : equipoRival[indiceRival];
             Cartas pokemonBanquillo = miTurno ? equipoRival[indiceRival] : miEquipo[indiceMi];
 
-            // EFECTO: CONTROL DE ESTADO DORMIDO
+            // EFECTO DORMIDO
             string estadoActual = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
 
             if (estadoActual == "Dormido")
@@ -548,7 +541,7 @@ namespace PokedexApp
                 }
             }
 
-            // EFECTO: DRENADORAS
+            // EFECTO DRENADORAS
             if (tieneDrenadoras.ContainsKey(pokemonActivo) && tieneDrenadoras[pokemonActivo] && hpCombatePokemon[pokemonActivo] > 0)
             {
                 int danioDrenadoras = (int)(pokemonActivo.Hp * 0.125M); // 1/8 de la vida máxima
@@ -561,7 +554,7 @@ namespace PokedexApp
                 ActualizarBarrasVida();
             }
 
-            // EFECTO: ENVENENAMIENTO
+            // EFECTO ENVENENAMIENTO
             string estadoFinTurno = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
 
             if (estadoFinTurno == "Envenenado" && hpCombatePokemon[pokemonActivo] > 0)
@@ -573,10 +566,9 @@ namespace PokedexApp
                 ActualizarBarrasVida();
             }
 
-            // EFECTO: REDUCCIÓN DE TURNOS DE REFLEJO
+            // EFECTO REDUCCIÓN DE TURNOS DE REFLEJO
             if (tieneReflejo.ContainsKey(pokemonActivo) && tieneReflejo[pokemonActivo])
             {
-                // Si el contador no existe, lo inicializamos en 5 por defecto
                 if (!turnosReflejo.ContainsKey(pokemonActivo))
                 {
                     turnosReflejo[pokemonActivo] = 5;
@@ -592,7 +584,7 @@ namespace PokedexApp
                 }
             }
 
-            // Validar si algún Pokémon se debilitó por efectos secundarios de fin de turno
+
             if (hpCombatePokemon[pokemonActivo] <= 0)
             {
                 hpCombatePokemon[pokemonActivo] = 0;
@@ -620,7 +612,6 @@ namespace PokedexApp
 
                 if (hpCombatePokemon[pokemonEvaluado] > 0)
                 {
-                    // Resaltar visualmente la nueva miniatura activa de tu equipo
                     foreach (var slot in slotsMisCartas) slot.BorderStyle = BorderStyle.None;
                     slotsMisCartas[indiceMi].BorderStyle = BorderStyle.Fixed3D;
 
@@ -687,27 +678,24 @@ namespace PokedexApp
             bool seActivaMio = habilitar && miTurno;
             bool seActivaRival = habilitar && !miTurno;
 
-            // Obtener el Pokémon que intenta actuar
             Cartas pokemonActivo = miTurno ? miEquipo[indiceMi] : equipoRival[indiceRival];
 
-            // Obtener el estado actual del diccionario de forma segura
+
             string estadoActualTurno = estadoPokemon.ContainsKey(pokemonActivo) ? estadoPokemon[pokemonActivo] : "Normal";
 
-            // Control de Estado: Dormido
             if (habilitar && estadoActualTurno == "Dormido")
             {
-                // Si no tiene turnos asignados en el diccionario, lo inicializamos en 2
+
                 if (!turnosDormido.ContainsKey(pokemonActivo))
                 {
                     turnosDormido[pokemonActivo] = 2;
                 }
 
-                // Restamos un turno en el diccionario
                 turnosDormido[pokemonActivo]--;
 
                 if (turnosDormido[pokemonActivo] <= 0)
                 {
-                    estadoPokemon[pokemonActivo] = "Normal"; // Cambia el estado a Normal en el diccionario
+                    estadoPokemon[pokemonActivo] = "Normal"; 
                     turnosDormido[pokemonActivo] = 0;
                     MostrarNarrador($"¡{pokemonActivo.Nombre} se ha despertado!");
                 }
@@ -720,11 +708,10 @@ namespace PokedexApp
                 }
             }
 
-            // Control de Estado: Paralizado (50% de probabilidad de no atacar)
             if (habilitar && estadoActualTurno == "Paralizado")
             {
                 Random rand = new Random();
-                if (rand.Next(0, 2) == 0) // 50% chance
+                if (rand.Next(0, 2) == 0)
                 {
                     MostrarNarrador($"¡{pokemonActivo.Nombre} está paralizado y no puede moverse!");
                     ConfigurarTurno(false);
@@ -733,7 +720,6 @@ namespace PokedexApp
                 }
             }
 
-            // Si no está impedido por estados, habilitar botones normalmente
             foreach (var btn in botonesMiAtaque) btn.Enabled = seActivaMio;
             foreach (var btn in botonesRivalAtaque) btn.Enabled = seActivaRival;
         }
@@ -948,8 +934,7 @@ namespace PokedexApp
                     MostrarNarrador($"¡La evasión de {usuario.Nombre} subió!");
                     break;
 
-                case 33: // SinEfecto
-                         // Caso intencionalmente vacío
+                case 33: // SinEfecto aun
                     break;
 
                 case 34: // Sustituto

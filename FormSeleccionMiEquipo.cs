@@ -149,9 +149,7 @@ namespace PokedexApp
 
                     txtDetalles.Text = "Equipo actual:\r\n" + string.Join("\r\n", _equipoTemporal.ConvertAll(c => c.Nombre));
                 }
-
             }
-
         }
     }
 }

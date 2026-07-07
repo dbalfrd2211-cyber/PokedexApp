@@ -5,6 +5,8 @@
         public int IdPokemonAtaque { get; set; }
         public int IdPokemon { get; set; }
         public int IdAtaque { get; set; }
+
+
         public PokemonAtaque(int idPokemonAtaque, int idPokemon, int idAtaque)
         {
             IdPokemonAtaque = idPokemonAtaque;
