@@ -152,5 +152,13 @@ namespace PokedexApp
                 }
             }
         }
+
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Sesion.IdUsuarioActual = 0;
+            FormLogin login = new FormLogin();
+            login.Show();
+            this.Hide();
+        }
     }
 }

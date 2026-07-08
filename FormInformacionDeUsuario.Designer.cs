@@ -40,6 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnCerrarSesion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVCartasUsuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -179,11 +180,22 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Partidas perdidas:";
             // 
+            // btnCerrarSesion
+            // 
+            this.btnCerrarSesion.Location = new System.Drawing.Point(621, 376);
+            this.btnCerrarSesion.Name = "btnCerrarSesion";
+            this.btnCerrarSesion.Size = new System.Drawing.Size(115, 23);
+            this.btnCerrarSesion.TabIndex = 11;
+            this.btnCerrarSesion.Text = "Cerrar sesion";
+            this.btnCerrarSesion.UseVisualStyleBackColor = true;
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
+            // 
             // FormInformacionDeUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -219,5 +231,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnCerrarSesion;
     }
 }

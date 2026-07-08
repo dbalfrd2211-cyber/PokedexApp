@@ -59,12 +59,17 @@
             this.label15 = new System.Windows.Forms.Label();
             this.cmbUnidadPeso = new System.Windows.Forms.ComboBox();
             this.cmbUnidadAltura = new System.Windows.Forms.ComboBox();
+            this.chkAtaques = new System.Windows.Forms.CheckedListBox();
+            this.picNuevaImagen = new System.Windows.Forms.PictureBox();
+            this.btnSubirImagen = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.picNuevaImagen)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 42);
+            this.label1.Location = new System.Drawing.Point(27, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 16);
             this.label1.TabIndex = 0;
@@ -73,7 +78,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 162);
+            this.label2.Location = new System.Drawing.Point(27, 131);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 16);
             this.label2.TabIndex = 1;
@@ -82,7 +87,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 318);
+            this.label3.Location = new System.Drawing.Point(27, 287);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 16);
             this.label3.TabIndex = 2;
@@ -91,7 +96,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(408, 44);
+            this.label4.Location = new System.Drawing.Point(31, 380);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(135, 16);
             this.label4.TabIndex = 3;
@@ -99,28 +104,28 @@
             // 
             // txtIdPokemon
             // 
-            this.txtIdPokemon.Location = new System.Drawing.Point(145, 36);
+            this.txtIdPokemon.Location = new System.Drawing.Point(143, 5);
             this.txtIdPokemon.Name = "txtIdPokemon";
             this.txtIdPokemon.Size = new System.Drawing.Size(174, 22);
             this.txtIdPokemon.TabIndex = 4;
             // 
             // txtHP
             // 
-            this.txtHP.Location = new System.Drawing.Point(145, 162);
+            this.txtHP.Location = new System.Drawing.Point(143, 131);
             this.txtHP.Name = "txtHP";
             this.txtHP.Size = new System.Drawing.Size(174, 22);
             this.txtHP.TabIndex = 5;
             // 
             // txtNumeroColeccion
             // 
-            this.txtNumeroColeccion.Location = new System.Drawing.Point(549, 44);
+            this.txtNumeroColeccion.Location = new System.Drawing.Point(172, 380);
             this.txtNumeroColeccion.Name = "txtNumeroColeccion";
             this.txtNumeroColeccion.Size = new System.Drawing.Size(174, 22);
             this.txtNumeroColeccion.TabIndex = 7;
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(268, 404);
+            this.btnGuardar.Location = new System.Drawing.Point(396, 394);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(94, 34);
             this.btnGuardar.TabIndex = 8;
@@ -131,7 +136,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(29, 114);
+            this.label5.Location = new System.Drawing.Point(27, 83);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 16);
             this.label5.TabIndex = 9;
@@ -139,14 +144,14 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(145, 111);
+            this.txtNombre.Location = new System.Drawing.Point(143, 80);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(174, 22);
             this.txtNombre.TabIndex = 10;
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(425, 404);
+            this.btnVolver.Location = new System.Drawing.Point(694, 391);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(94, 34);
             this.btnVolver.TabIndex = 13;
@@ -162,7 +167,7 @@
             "Comun",
             "Rara",
             "Legendaria"});
-            this.cmbRareza.Location = new System.Drawing.Point(145, 315);
+            this.cmbRareza.Location = new System.Drawing.Point(143, 284);
             this.cmbRareza.Name = "cmbRareza";
             this.cmbRareza.Size = new System.Drawing.Size(174, 24);
             this.cmbRareza.TabIndex = 14;
@@ -170,7 +175,7 @@
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(409, 102);
+            this.lblInfo.Location = new System.Drawing.Point(412, -7);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(0, 16);
             this.lblInfo.TabIndex = 15;
@@ -179,7 +184,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(142, 61);
+            this.label7.Location = new System.Drawing.Point(140, 30);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(220, 16);
             this.label7.TabIndex = 16;
@@ -189,7 +194,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(142, 187);
+            this.label8.Location = new System.Drawing.Point(140, 156);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(157, 16);
             this.label8.TabIndex = 17;
@@ -199,7 +204,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(546, 69);
+            this.label9.Location = new System.Drawing.Point(169, 405);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(188, 16);
             this.label9.TabIndex = 18;
@@ -226,14 +231,14 @@
             "Tierra",
             "Veneno",
             "Volador"});
-            this.cmbTipo1.Location = new System.Drawing.Point(145, 273);
+            this.cmbTipo1.Location = new System.Drawing.Point(143, 242);
             this.cmbTipo1.Name = "cmbTipo1";
             this.cmbTipo1.Size = new System.Drawing.Size(174, 24);
             this.cmbTipo1.TabIndex = 19;
             // 
             // txtPokedex
             // 
-            this.txtPokedex.Location = new System.Drawing.Point(145, 223);
+            this.txtPokedex.Location = new System.Drawing.Point(143, 192);
             this.txtPokedex.Name = "txtPokedex";
             this.txtPokedex.Size = new System.Drawing.Size(174, 22);
             this.txtPokedex.TabIndex = 20;
@@ -241,7 +246,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(29, 223);
+            this.label10.Location = new System.Drawing.Point(27, 192);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(61, 16);
             this.label10.TabIndex = 21;
@@ -250,7 +255,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(29, 273);
+            this.label11.Location = new System.Drawing.Point(27, 242);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 16);
             this.label11.TabIndex = 22;
@@ -259,7 +264,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(29, 371);
+            this.label12.Location = new System.Drawing.Point(27, 340);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(51, 16);
             this.label12.TabIndex = 23;
@@ -278,7 +283,7 @@
             "Alola",
             "Galar",
             "Paldea"});
-            this.cmbRegion.Location = new System.Drawing.Point(145, 368);
+            this.cmbRegion.Location = new System.Drawing.Point(143, 337);
             this.cmbRegion.Name = "cmbRegion";
             this.cmbRegion.Size = new System.Drawing.Size(174, 24);
             this.cmbRegion.TabIndex = 24;
@@ -286,7 +291,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(408, 118);
+            this.label6.Location = new System.Drawing.Point(411, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 16);
             this.label6.TabIndex = 25;
@@ -295,7 +300,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(409, 168);
+            this.label13.Location = new System.Drawing.Point(412, 59);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(39, 16);
             this.label13.TabIndex = 26;
@@ -304,7 +309,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(408, 223);
+            this.label14.Location = new System.Drawing.Point(411, 114);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(60, 16);
             this.label14.TabIndex = 27;
@@ -312,21 +317,21 @@
             // 
             // txtAltura
             // 
-            this.txtAltura.Location = new System.Drawing.Point(549, 118);
+            this.txtAltura.Location = new System.Drawing.Point(552, 9);
             this.txtAltura.Name = "txtAltura";
             this.txtAltura.Size = new System.Drawing.Size(174, 22);
             this.txtAltura.TabIndex = 28;
             // 
             // txtPeso
             // 
-            this.txtPeso.Location = new System.Drawing.Point(549, 168);
+            this.txtPeso.Location = new System.Drawing.Point(552, 59);
             this.txtPeso.Name = "txtPeso";
             this.txtPeso.Size = new System.Drawing.Size(174, 22);
             this.txtPeso.TabIndex = 29;
             // 
             // txtHPbase
             // 
-            this.txtHPbase.Location = new System.Drawing.Point(549, 217);
+            this.txtHPbase.Location = new System.Drawing.Point(552, 108);
             this.txtHPbase.Name = "txtHPbase";
             this.txtHPbase.Size = new System.Drawing.Size(174, 22);
             this.txtHPbase.TabIndex = 30;
@@ -335,7 +340,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(142, 248);
+            this.label15.Location = new System.Drawing.Point(140, 217);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(189, 16);
             this.label15.TabIndex = 31;
@@ -347,7 +352,7 @@
             this.cmbUnidadPeso.Items.AddRange(new object[] {
             "Kg",
             "g"});
-            this.cmbUnidadPeso.Location = new System.Drawing.Point(730, 165);
+            this.cmbUnidadPeso.Location = new System.Drawing.Point(733, 56);
             this.cmbUnidadPeso.Name = "cmbUnidadPeso";
             this.cmbUnidadPeso.Size = new System.Drawing.Size(42, 24);
             this.cmbUnidadPeso.TabIndex = 32;
@@ -358,16 +363,57 @@
             this.cmbUnidadAltura.Items.AddRange(new object[] {
             "cm",
             "m"});
-            this.cmbUnidadAltura.Location = new System.Drawing.Point(730, 118);
+            this.cmbUnidadAltura.Location = new System.Drawing.Point(733, 9);
             this.cmbUnidadAltura.Name = "cmbUnidadAltura";
             this.cmbUnidadAltura.Size = new System.Drawing.Size(42, 24);
             this.cmbUnidadAltura.TabIndex = 33;
+            // 
+            // chkAtaques
+            // 
+            this.chkAtaques.FormattingEnabled = true;
+            this.chkAtaques.Location = new System.Drawing.Point(552, 144);
+            this.chkAtaques.Name = "chkAtaques";
+            this.chkAtaques.Size = new System.Drawing.Size(223, 89);
+            this.chkAtaques.TabIndex = 34;
+            this.chkAtaques.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkAtaques_ItemCheck);
+            // 
+            // picNuevaImagen
+            // 
+            this.picNuevaImagen.Location = new System.Drawing.Point(552, 239);
+            this.picNuevaImagen.Name = "picNuevaImagen";
+            this.picNuevaImagen.Size = new System.Drawing.Size(148, 146);
+            this.picNuevaImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picNuevaImagen.TabIndex = 35;
+            this.picNuevaImagen.TabStop = false;
+            // 
+            // btnSubirImagen
+            // 
+            this.btnSubirImagen.Location = new System.Drawing.Point(415, 310);
+            this.btnSubirImagen.Name = "btnSubirImagen";
+            this.btnSubirImagen.Size = new System.Drawing.Size(131, 23);
+            this.btnSubirImagen.TabIndex = 36;
+            this.btnSubirImagen.Text = "Cargar carta";
+            this.btnSubirImagen.UseVisualStyleBackColor = true;
+            this.btnSubirImagen.Click += new System.EventHandler(this.btnSubirImagen_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(411, 177);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(60, 16);
+            this.label16.TabIndex = 37;
+            this.label16.Text = "Ataques ";
             // 
             // FormNuevaCarta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.btnSubirImagen);
+            this.Controls.Add(this.picNuevaImagen);
+            this.Controls.Add(this.chkAtaques);
             this.Controls.Add(this.cmbUnidadAltura);
             this.Controls.Add(this.cmbUnidadPeso);
             this.Controls.Add(this.label15);
@@ -402,6 +448,7 @@
             this.Name = "FormNuevaCarta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormNuevaCarta";
+            ((System.ComponentModel.ISupportInitialize)(this.picNuevaImagen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,5 +487,9 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cmbUnidadPeso;
         private System.Windows.Forms.ComboBox cmbUnidadAltura;
+        private System.Windows.Forms.CheckedListBox chkAtaques;
+        private System.Windows.Forms.PictureBox picNuevaImagen;
+        private System.Windows.Forms.Button btnSubirImagen;
+        private System.Windows.Forms.Label label16;
     }
 }
