@@ -451,5 +451,51 @@ namespace PokedexApp
                 DGVListadoCartas.DataSource = manager.AllDatoPokemon();
             }
         }
+
+        private void DGVListadoCartas_SelectionChanged(object sender, EventArgs e)
+        {
+            if (estaBuscando) return;
+            if (DGVListadoCartas.SelectedRows.Count == 0) return;
+
+            var fila = DGVListadoCartas.SelectedRows[0];
+
+            if (fila.DataBoundItem is Cartas c)
+            {
+                if (picCarta.Image != null)
+                {
+                    picCarta.Image.Dispose();
+                    picCarta.Image = null;
+                }
+
+                string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
+                string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+
+                if (File.Exists(ruta))
+                {
+                    picCarta.Image = Image.FromFile(ruta);
+                }
+
+                VistaCartasMaestra detalle = manager.ObtenerDetallesCarta(c.IdPokemon);
+                if (detalle != null)
+                {
+                    txtDetallesPokemon.Text =
+                        $"[ POKÉMON: #{detalle.Pokedex} - {detalle.Nombre.ToUpper()} ]" + Environment.NewLine +
+                        $"Tipo: {detalle.Tipo1} / {detalle.Tipo2} | Región: {detalle.Region}" + Environment.NewLine +
+                        $"Altura: {detalle.Altura}m | Peso: {detalle.Peso}kg | HP Base: {detalle.HPBase}" + Environment.NewLine +
+                        $"--------------------------------------------------" + Environment.NewLine +
+                        $"[ DATOS DE LA CARTA ]" + Environment.NewLine +
+                        $"Puntos de Vida (HP Carta): {detalle.HPCarta} | Rareza: {detalle.Rareza}" + Environment.NewLine +
+                        $"--------------------------------------------------" + Environment.NewLine +
+                        $"[ ATAQUES Y EFECTOS ]" + Environment.NewLine +
+                        $" - {detalle.DetallesAtaques.Replace(" | ", Environment.NewLine + " - ")}";
+
+                    regionActual = detalle.Region;
+                    if (!mapaAmpliado) ResaltarRegion(regionActual);
+
+                    btnAñadirAColeccion.Enabled = true;
+                    btnEliminarCarta.Enabled = (c.IdPokemon > 151);
+                }
+            }
+        }
     }
 }
