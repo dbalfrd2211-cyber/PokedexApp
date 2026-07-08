@@ -403,6 +403,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "IntercambioCartas";
             this.Text = "IntercambioCartas";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.IntercambioCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU2)).EndInit();

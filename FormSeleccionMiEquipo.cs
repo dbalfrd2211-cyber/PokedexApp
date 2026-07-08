@@ -154,7 +154,24 @@ namespace PokedexApp
             if (DGVListMisCartas.SelectedRows.Count > 0)
             {
                 var cartaBase = (Cartas)DGVListMisCartas.SelectedRows[0].DataBoundItem;
+                var infoUsuario = manager.ObtenerInfoUsuario(this.idUsuarioAMostrar);
+                int nivelUsuario = infoUsuario != null ? infoUsuario.Nivel : 1;
 
+                string rarezaCarta = cartaBase.Rareza;
+
+                if (nivelUsuario == 1 && rarezaCarta != "Comun")
+                {
+                    MessageBox.Show($"¡Carta bloqueada! Al ser Nivel 1, únicamente puedes seleccionar cartas de rareza 'Comun'.\n\nEsta carta es '{rarezaCarta}'.",
+                                    "Nivel Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else if (nivelUsuario == 2 && rarezaCarta == "Legendaria")
+                {
+                    MessageBox.Show("¡Carta bloqueada! Las cartas 'Legendarias' requieren que alcances el Nivel 3.\n\nActualmente eres Nivel 2 (puedes usar Comunes y Raras).",
+                                    "Nivel Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; 
+                }
+   
                 cartaBase.Ataques = manager.ObtenerAtaquesDePokemon(cartaBase.IdPokemon);
 
                 CartaBatalla cartaBatalla = new CartaBatalla(cartaBase);
@@ -167,7 +184,6 @@ namespace PokedexApp
 
                     lblContador.Text = $"Cartas seleccionadas: {_equipoTemporal.Count}/3";
                     btnConfirmar.Enabled = (_equipoTemporal.Count == 3);
-
                 }
             }
         }
