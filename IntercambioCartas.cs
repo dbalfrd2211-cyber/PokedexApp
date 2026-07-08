@@ -240,6 +240,29 @@ namespace PokedexApp
                             }
                         }
 
+                        // Historial transacciones
+                        int maxIntercambios = Math.Max(cartasinteru1.Count, cartasinteru2.Count);
+
+                        for (int i = 0; i < maxIntercambios; i++)
+                        {
+                            object idPokemon1 = (i < cartasinteru1.Count) ? (object)cartasinteru1[i].IdPokemon : DBNull.Value;
+                            object idPokemon2 = (i < cartasinteru2.Count) ? (object)cartasinteru2[i].IdPokemon : DBNull.Value;
+
+                            string queryHistorial = @"
+                                INSERT INTO Transacciones (IdUsuarioEmisor, IdUsuarioReceptor, IdPokemonEntregado1, IdPokemonEntregado2) 
+                                VALUES (@emisor, @receptor, @p1, @p2)";
+
+                            using (var cmd = new System.Data.SQLite.SQLiteCommand(queryHistorial, conn, transaccion))
+                            {
+                                cmd.Parameters.AddWithValue("@emisor", usuarioLogueado.IdUsuario);
+                                cmd.Parameters.AddWithValue("@receptor", usuario2.IdUsuario);
+                                cmd.Parameters.AddWithValue("@p1", idPokemon1);
+                                cmd.Parameters.AddWithValue("@p2", idPokemon2);
+
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
                         transaccion.Commit();
                     }
                     catch

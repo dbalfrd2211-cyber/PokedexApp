@@ -458,18 +458,9 @@ namespace PokedexApp
             using (var conn = new SQLiteConnection(db.cadenaConexion))
             {
                 conn.Open();
-                string columna = gano ? "PartidasGanadas" : "PartidasPerdidas";
-
-                string query = $"UPDATE Usuarios SET {columna} = {columna} + 1 WHERE IdUsuario = @id";
-
-                using (var cmd = new SQLiteCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", idUsuario);
-                    cmd.ExecuteNonQuery();
-                }
+                ActualizarProgresoUsuario(conn, idUsuario, gano);
             }
         }
-
         /*private void ActualizarProgresoUsuario(SQLiteConnection conn, int idUsuario, bool fueVictoria)
         {
             int nivelActual = 1;
@@ -542,7 +533,80 @@ namespace PokedexApp
         }
         */
 
+        private void ActualizarProgresoUsuario(System.Data.SQLite.SQLiteConnection conn, int idUsuario, bool fueVictoria)
+        {
+            int nivelActual = 1;
+            int expActual = 0;
+            int ganadas = 0;
+            int perdidas = 0;
 
+            string querySelect = "SELECT Nivel, Experiencia, PartidasGanadas, PartidasPerdidas FROM Usuarios WHERE IdUsuario = @id";
+            using (var cmdSelect = new System.Data.SQLite.SQLiteCommand(querySelect, conn))
+            {
+                cmdSelect.Parameters.AddWithValue("@id", idUsuario);
+                using (var reader = cmdSelect.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        nivelActual = reader["Nivel"] != DBNull.Value ? Convert.ToInt32(reader["Nivel"]) : 1;
+                        expActual = reader["Experiencia"] != DBNull.Value ? Convert.ToInt32(reader["Experiencia"]) : 0;
+                        ganadas = reader["PartidasGanadas"] != DBNull.Value ? Convert.ToInt32(reader["PartidasGanadas"]) : 0;
+                        perdidas = reader["PartidasPerdidas"] != DBNull.Value ? Convert.ToInt32(reader["PartidasPerdidas"]) : 0;
+                    }
+                }
+            }
+
+            int nuevaExp = expActual;
+
+            if (fueVictoria)
+            {
+                ganadas++;
+                nuevaExp += 5; 
+            }
+            else
+            {
+                perdidas++;
+            }
+
+            int nuevoNivelCalculado = (nuevaExp / 20) + 1;
+            if (nuevoNivelCalculado > 3) nuevoNivelCalculado = 3;
+
+            bool subioDeNivel = false;
+            if (nuevoNivelCalculado > nivelActual)
+            {
+                nivelActual = nuevoNivelCalculado;
+                subioDeNivel = true;
+            }
+
+            Console.WriteLine($"=== BD DEBUG: User {idUsuario} | Exp Antigua: {expActual} | Exp Nueva: {nuevaExp} | Ganadas: {ganadas} | Perdidas: {perdidas} ===");
+
+            string queryUpdate = @"UPDATE Usuarios 
+                           SET Nivel = @nivel, Experiencia = @experiencia, 
+                               PartidasGanadas = @ganadas, PartidasPerdidas = @perdidas 
+                           WHERE IdUsuario = @id";
+
+            using (var cmdUpdate = new System.Data.SQLite.SQLiteCommand(queryUpdate, conn))
+            {
+                cmdUpdate.Parameters.AddWithValue("@nivel", nivelActual);
+                cmdUpdate.Parameters.AddWithValue("@experiencia", nuevaExp);
+                cmdUpdate.Parameters.AddWithValue("@ganadas", ganadas);
+                cmdUpdate.Parameters.AddWithValue("@perdidas", perdidas);
+                cmdUpdate.Parameters.AddWithValue("@id", idUsuario);
+
+                int filasAfectadas = cmdUpdate.ExecuteNonQuery();
+                Console.WriteLine($"=== BD UPDATE: Filas afectadas: {filasAfectadas} ===");
+            }
+
+            if (subioDeNivel)
+            {
+                string beneficios = "";
+                if (nivelActual == 2) beneficios = "¡Ahora puedes usar cartas Comunes y Raras en batalla! ⚔️";
+                if (nivelActual == 3) beneficios = "¡Has alcanzado el rango máximo! Ya puedes usar cartas Comunes, Raras y Legendarias. 🔥";
+
+                MessageBox.Show($"¡Felicidades! Has subido al Nivel {nivelActual} 🎉\n\n{beneficios}",
+                                "¡Subida de Nivel!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
         public List<Cartas> AbrirSobreDiario(int idUsuario)
         {
             List<Cartas> sobre = new List<Cartas>();

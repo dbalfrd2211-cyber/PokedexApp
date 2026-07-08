@@ -70,7 +70,8 @@
             // 
             // DGVAgregarU1
             // 
-            this.DGVAgregarU1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DGVAgregarU1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVAgregarU1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVAgregarU1.Location = new System.Drawing.Point(0, 23);
@@ -118,7 +119,8 @@
             // 
             // DGVAgregarU2
             // 
-            this.DGVAgregarU2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DGVAgregarU2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVAgregarU2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVAgregarU2.Location = new System.Drawing.Point(0, 23);
@@ -133,7 +135,8 @@
             // 
             // DGVIntercambiarU1
             // 
-            this.DGVIntercambiarU1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DGVIntercambiarU1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVIntercambiarU1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVIntercambiarU1.Location = new System.Drawing.Point(6, 23);
@@ -148,7 +151,8 @@
             // 
             // DGVIntercambiarU2
             // 
-            this.DGVIntercambiarU2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DGVIntercambiarU2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVIntercambiarU2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVIntercambiarU2.Location = new System.Drawing.Point(4, 23);
@@ -197,6 +201,7 @@
             // 
             // btnAgregarU1
             // 
+            this.btnAgregarU1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAgregarU1.Location = new System.Drawing.Point(0, 185);
             this.btnAgregarU1.Name = "btnAgregarU1";
             this.btnAgregarU1.Size = new System.Drawing.Size(214, 40);
@@ -207,6 +212,7 @@
             // 
             // btnAgregarU2
             // 
+            this.btnAgregarU2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAgregarU2.Location = new System.Drawing.Point(0, 188);
             this.btnAgregarU2.Name = "btnAgregarU2";
             this.btnAgregarU2.Size = new System.Drawing.Size(214, 40);
@@ -217,6 +223,7 @@
             // 
             // btnRetirarU1
             // 
+            this.btnRetirarU1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRetirarU1.Location = new System.Drawing.Point(0, 191);
             this.btnRetirarU1.Name = "btnRetirarU1";
             this.btnRetirarU1.Size = new System.Drawing.Size(214, 40);
@@ -227,6 +234,7 @@
             // 
             // btnRetirarU2
             // 
+            this.btnRetirarU2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRetirarU2.Location = new System.Drawing.Point(0, 194);
             this.btnRetirarU2.Name = "btnRetirarU2";
             this.btnRetirarU2.Size = new System.Drawing.Size(214, 40);
@@ -395,6 +403,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "IntercambioCartas";
             this.Text = "IntercambioCartas";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.IntercambioCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAgregarU2)).EndInit();
