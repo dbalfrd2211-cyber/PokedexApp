@@ -41,63 +41,63 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.label1.Location = new System.Drawing.Point(53, 48);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(127, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 26);
+            this.label1.Size = new System.Drawing.Size(93, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.label2.Location = new System.Drawing.Point(53, 101);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(101, 102);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 26);
+            this.label2.Size = new System.Drawing.Size(131, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Contraseña:";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.label3.Location = new System.Drawing.Point(53, 157);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(84, 148);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(114, 26);
+            this.label3.Size = new System.Drawing.Size(167, 55);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Confirmar:";
+            this.label3.Text = "Confirmar contraseña:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(216, 42);
+            this.txtUsuario.Location = new System.Drawing.Point(257, 50);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(299, 22);
+            this.txtUsuario.Size = new System.Drawing.Size(220, 22);
             this.txtUsuario.TabIndex = 3;
             // 
             // txtContraseña
             // 
-            this.txtContraseña.Location = new System.Drawing.Point(216, 98);
+            this.txtContraseña.Location = new System.Drawing.Point(257, 106);
             this.txtContraseña.MaxLength = 6;
             this.txtContraseña.Name = "txtContraseña";
-            this.txtContraseña.Size = new System.Drawing.Size(299, 22);
+            this.txtContraseña.Size = new System.Drawing.Size(220, 22);
             this.txtContraseña.TabIndex = 4;
             // 
             // txtConfirmar
             // 
-            this.txtConfirmar.Location = new System.Drawing.Point(216, 151);
+            this.txtConfirmar.Location = new System.Drawing.Point(258, 177);
             this.txtConfirmar.MaxLength = 6;
             this.txtConfirmar.Name = "txtConfirmar";
-            this.txtConfirmar.Size = new System.Drawing.Size(299, 22);
+            this.txtConfirmar.Size = new System.Drawing.Size(220, 22);
             this.txtConfirmar.TabIndex = 5;
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnRegistrar.BackColor = System.Drawing.Color.White;
             this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btnRegistrar.Location = new System.Drawing.Point(118, 289);
+            this.btnRegistrar.Location = new System.Drawing.Point(81, 236);
             this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(139, 71);
+            this.btnRegistrar.Size = new System.Drawing.Size(165, 56);
             this.btnRegistrar.TabIndex = 6;
             this.btnRegistrar.Text = "Registrar";
             this.btnRegistrar.UseVisualStyleBackColor = false;
@@ -105,11 +105,11 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.BackColor = System.Drawing.SystemColors.Info;
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btnCancelar.Location = new System.Drawing.Point(308, 289);
+            this.btnCancelar.Location = new System.Drawing.Point(316, 236);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(153, 71);
+            this.btnCancelar.Size = new System.Drawing.Size(165, 56);
             this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
@@ -128,7 +128,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormRegistro";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormRegistrocs";
             this.ResumeLayout(false);
             this.PerformLayout();

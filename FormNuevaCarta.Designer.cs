@@ -120,9 +120,9 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(290, 404);
+            this.btnGuardar.Location = new System.Drawing.Point(268, 404);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.Size = new System.Drawing.Size(94, 34);
             this.btnGuardar.TabIndex = 8;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
@@ -146,9 +146,9 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(476, 404);
+            this.btnVolver.Location = new System.Drawing.Point(425, 404);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.Size = new System.Drawing.Size(94, 34);
             this.btnVolver.TabIndex = 13;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -400,6 +400,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormNuevaCarta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormNuevaCarta";
             this.ResumeLayout(false);
             this.PerformLayout();

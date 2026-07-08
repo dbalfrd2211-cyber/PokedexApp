@@ -34,7 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDetallesPokemon = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtBuscarPokemon = new System.Windows.Forms.TextBox();
             this.btnAñadirAColeccion = new System.Windows.Forms.Button();
@@ -82,49 +81,38 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 43);
+            this.label1.Location = new System.Drawing.Point(28, 49);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 16);
+            this.label1.Size = new System.Drawing.Size(113, 16);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Buscar Pokemon";
+            this.label1.Text = "Buscar Pokemon:";
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 423);
+            this.label2.Location = new System.Drawing.Point(28, 458);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 16);
+            this.label2.Size = new System.Drawing.Size(193, 16);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Detalles del Pokemon\r\n";
+            this.label2.Text = "Detalles del Pokemon:";
             // 
             // txtDetallesPokemon
             // 
-            this.txtDetallesPokemon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDetallesPokemon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDetallesPokemon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 442);
+            this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 477);
             this.txtDetallesPokemon.Multiline = true;
             this.txtDetallesPokemon.Name = "txtDetallesPokemon";
             this.txtDetallesPokemon.ReadOnly = true;
             this.txtDetallesPokemon.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDetallesPokemon.Size = new System.Drawing.Size(454, 160);
+            this.txtDetallesPokemon.Size = new System.Drawing.Size(527, 160);
             this.txtDetallesPokemon.TabIndex = 3;
             this.txtDetallesPokemon.TextChanged += new System.EventHandler(this.txtDetallesPokemon_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 687);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 16);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Total:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(28, 83);
+            this.label4.Location = new System.Drawing.Point(28, 100);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(334, 16);
             this.label4.TabIndex = 8;
@@ -134,7 +122,7 @@
             // 
             this.txtBuscarPokemon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscarPokemon.Location = new System.Drawing.Point(144, 43);
+            this.txtBuscarPokemon.Location = new System.Drawing.Point(157, 43);
             this.txtBuscarPokemon.Name = "txtBuscarPokemon";
             this.txtBuscarPokemon.Size = new System.Drawing.Size(549, 22);
             this.txtBuscarPokemon.TabIndex = 9;
@@ -142,8 +130,7 @@
             // 
             // btnAñadirAColeccion
             // 
-            this.btnAñadirAColeccion.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnAñadirAColeccion.Location = new System.Drawing.Point(31, 617);
+            this.btnAñadirAColeccion.Location = new System.Drawing.Point(31, 652);
             this.btnAñadirAColeccion.Name = "btnAñadirAColeccion";
             this.btnAñadirAColeccion.Size = new System.Drawing.Size(126, 56);
             this.btnAñadirAColeccion.TabIndex = 10;
@@ -153,10 +140,9 @@
             // 
             // btnCrearNuevaCarta
             // 
-            this.btnCrearNuevaCarta.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(175, 624);
+            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(224, 652);
             this.btnCrearNuevaCarta.Name = "btnCrearNuevaCarta";
-            this.btnCrearNuevaCarta.Size = new System.Drawing.Size(170, 43);
+            this.btnCrearNuevaCarta.Size = new System.Drawing.Size(126, 56);
             this.btnCrearNuevaCarta.TabIndex = 11;
             this.btnCrearNuevaCarta.Text = "Crear Nueva Carta";
             this.btnCrearNuevaCarta.UseVisualStyleBackColor = true;
@@ -164,10 +150,10 @@
             // 
             // btnVolverCC
             // 
-            this.btnVolverCC.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnVolverCC.Location = new System.Drawing.Point(1253, 738);
+            this.btnVolverCC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVolverCC.Location = new System.Drawing.Point(584, 748);
             this.btnVolverCC.Name = "btnVolverCC";
-            this.btnVolverCC.Size = new System.Drawing.Size(206, 55);
+            this.btnVolverCC.Size = new System.Drawing.Size(170, 55);
             this.btnVolverCC.TabIndex = 13;
             this.btnVolverCC.Text = "Volver al menu principal";
             this.btnVolverCC.UseVisualStyleBackColor = true;
@@ -175,7 +161,8 @@
             // 
             // btnKanto
             // 
-            this.btnKanto.Location = new System.Drawing.Point(865, 208);
+            this.btnKanto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnKanto.Location = new System.Drawing.Point(885, 269);
             this.btnKanto.Name = "btnKanto";
             this.btnKanto.Size = new System.Drawing.Size(72, 23);
             this.btnKanto.TabIndex = 16;
@@ -184,7 +171,8 @@
             // 
             // btnSinnoh
             // 
-            this.btnSinnoh.Location = new System.Drawing.Point(1169, 128);
+            this.btnSinnoh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSinnoh.Location = new System.Drawing.Point(1189, 189);
             this.btnSinnoh.Name = "btnSinnoh";
             this.btnSinnoh.Size = new System.Drawing.Size(60, 23);
             this.btnSinnoh.TabIndex = 17;
@@ -193,7 +181,8 @@
             // 
             // btnJohto
             // 
-            this.btnJohto.Location = new System.Drawing.Point(1021, 128);
+            this.btnJohto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnJohto.Location = new System.Drawing.Point(1041, 189);
             this.btnJohto.Name = "btnJohto";
             this.btnJohto.Size = new System.Drawing.Size(53, 23);
             this.btnJohto.TabIndex = 18;
@@ -202,7 +191,8 @@
             // 
             // btnHoenn
             // 
-            this.btnHoenn.Location = new System.Drawing.Point(1064, 313);
+            this.btnHoenn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHoenn.Location = new System.Drawing.Point(1084, 374);
             this.btnHoenn.Name = "btnHoenn";
             this.btnHoenn.Size = new System.Drawing.Size(56, 23);
             this.btnHoenn.TabIndex = 19;
@@ -212,7 +202,8 @@
             // 
             // btnKalos
             // 
-            this.btnKalos.Location = new System.Drawing.Point(1275, 332);
+            this.btnKalos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnKalos.Location = new System.Drawing.Point(1295, 393);
             this.btnKalos.Name = "btnKalos";
             this.btnKalos.Size = new System.Drawing.Size(61, 23);
             this.btnKalos.TabIndex = 20;
@@ -221,7 +212,8 @@
             // 
             // btnAlola
             // 
-            this.btnAlola.Location = new System.Drawing.Point(932, 495);
+            this.btnAlola.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAlola.Location = new System.Drawing.Point(952, 556);
             this.btnAlola.Name = "btnAlola";
             this.btnAlola.Size = new System.Drawing.Size(57, 23);
             this.btnAlola.TabIndex = 21;
@@ -230,7 +222,8 @@
             // 
             // btnGalar
             // 
-            this.btnGalar.Location = new System.Drawing.Point(1118, 505);
+            this.btnGalar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGalar.Location = new System.Drawing.Point(1138, 566);
             this.btnGalar.Name = "btnGalar";
             this.btnGalar.Size = new System.Drawing.Size(56, 23);
             this.btnGalar.TabIndex = 22;
@@ -239,7 +232,8 @@
             // 
             // btnPaldea
             // 
-            this.btnPaldea.Location = new System.Drawing.Point(1297, 526);
+            this.btnPaldea.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPaldea.Location = new System.Drawing.Point(1317, 587);
             this.btnPaldea.Name = "btnPaldea";
             this.btnPaldea.Size = new System.Drawing.Size(61, 23);
             this.btnPaldea.TabIndex = 23;
@@ -248,7 +242,8 @@
             // 
             // btnUnova
             // 
-            this.btnUnova.Location = new System.Drawing.Point(1323, 172);
+            this.btnUnova.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUnova.Location = new System.Drawing.Point(1343, 233);
             this.btnUnova.Name = "btnUnova";
             this.btnUnova.Size = new System.Drawing.Size(56, 23);
             this.btnUnova.TabIndex = 24;
@@ -257,10 +252,9 @@
             // 
             // btnEliminarCarta
             // 
-            this.btnEliminarCarta.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnEliminarCarta.Location = new System.Drawing.Point(362, 624);
+            this.btnEliminarCarta.Location = new System.Drawing.Point(411, 652);
             this.btnEliminarCarta.Name = "btnEliminarCarta";
-            this.btnEliminarCarta.Size = new System.Drawing.Size(145, 43);
+            this.btnEliminarCarta.Size = new System.Drawing.Size(126, 56);
             this.btnEliminarCarta.TabIndex = 25;
             this.btnEliminarCarta.Text = "Eliminar Carta";
             this.btnEliminarCarta.UseVisualStyleBackColor = true;
@@ -268,8 +262,8 @@
             // 
             // picCarta
             // 
-            this.picCarta.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.picCarta.Location = new System.Drawing.Point(564, 119);
+            this.picCarta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picCarta.Location = new System.Drawing.Point(584, 119);
             this.picCarta.Name = "picCarta";
             this.picCarta.Size = new System.Drawing.Size(204, 273);
             this.picCarta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -279,10 +273,10 @@
             // 
             // picMapa
             // 
-            this.picMapa.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.picMapa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picMapa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picMapa.Image = ((System.Drawing.Image)(resources.GetObject("picMapa.Image")));
-            this.picMapa.Location = new System.Drawing.Point(789, 58);
+            this.picMapa.Location = new System.Drawing.Point(809, 119);
             this.picMapa.Name = "picMapa";
             this.picMapa.Size = new System.Drawing.Size(650, 593);
             this.picMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -351,7 +345,6 @@
             this.Controls.Add(this.btnAñadirAColeccion);
             this.Controls.Add(this.txtBuscarPokemon);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtDetallesPokemon);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -359,6 +352,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ColeccionCartas";
             this.Text = "ColeccionCartas";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ColeccionCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoCartas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta)).EndInit();
@@ -376,7 +370,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDetallesPokemon;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtBuscarPokemon;
         private System.Windows.Forms.Button btnAñadirAColeccion;

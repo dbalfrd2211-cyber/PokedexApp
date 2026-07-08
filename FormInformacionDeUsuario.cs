@@ -40,9 +40,9 @@ namespace PokedexApp
             if (infoActualizada != null)
             {
                 lblNombre.Text = usuario.NombreUsuario;
-                lblNivel.Text = $"Nivel: {infoActualizada.Nivel}";
-                lblGanadas.Text = $"Partidas Ganadas: {infoActualizada.BatallasGanadas}";
-                lblPerdidas.Text = $"Partidas Perdidas: {infoActualizada.BatallasPerdidas}";
+                lblNivel.Text = $"{infoActualizada.Nivel}";
+                lblGanadas.Text = $"{infoActualizada.BatallasGanadas}";
+                lblPerdidas.Text = $"{infoActualizada.BatallasPerdidas}";
             }
 
             var cartasUsuario = pokedexManager.ObtenerCartasUsuario(usuario.IdUsuario);
