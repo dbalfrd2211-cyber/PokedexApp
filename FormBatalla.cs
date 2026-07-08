@@ -52,7 +52,6 @@ namespace PokedexApp
 
             this.DoubleBuffered = true;
 
-            // Asignar posiciones iniciales de diseño
             posicionOriginalMiCarta = picMiCarta.Location;
             posicionOriginalRival = picCartaRival.Location;
 
@@ -224,6 +223,15 @@ namespace PokedexApp
             ataquePendiente = ataque;
             MostrarNarrador($"¡{nombrePokemon} usó {ataque.Nombre}!");
 
+            if (haciaAdelante)
+            {
+                posicionOriginalMiCarta = picMiCarta.Location;
+            }
+            else
+            {
+                posicionOriginalRival = picCartaRival.Location;
+            }
+
             timerAnimacion.Tag = haciaAdelante;
             timerAnimacion.Start();
         }
@@ -367,8 +375,37 @@ namespace PokedexApp
         private void FinalizarTurno()
         {
             CartaBatalla pokemonActivo = miTurno ? miEquipo[indiceMi] : equipoRival[indiceRival];
+            CartaBatalla pokemonOponente = miTurno ? equipoRival[indiceRival] : miEquipo[indiceMi];
 
-            // Control de Estado: Dormido
+            if (pokemonActivo.HpActual > 0 && pokemonActivo.TieneDrenadoras)
+            {
+                int cantidadDrenada = (int)(pokemonActivo.Hp * 0.125);
+                if (cantidadDrenada <= 0) cantidadDrenada = 1;
+
+                pokemonActivo.HpActual = Math.Max(0, pokemonActivo.HpActual - cantidadDrenada);
+
+                if (pokemonOponente.HpActual > 0)
+                {
+                    pokemonOponente.HpActual = Math.Min(pokemonOponente.Hp, pokemonOponente.HpActual + cantidadDrenada);
+                }
+
+                MostrarNarrador($"¡Las drenadoras succionan PS de {pokemonActivo.Nombre}!");
+                ActualizarBarrasVida();
+
+                if (pokemonActivo.HpActual <= 0)
+                {
+                    MessageBox.Show($"¡{pokemonActivo.Nombre} se ha debilitado por las drenadoras!", "Combate", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    if (miTurno)
+                        BuscarSiguientePokemonVivoMio();
+                    else
+                        BuscarSiguientePokemonVivoRival();
+
+                    return; 
+                }
+            }
+
+
             if (pokemonActivo.Estado == "Dormido")
             {
                 pokemonActivo.TurnosDormido--;
@@ -383,7 +420,6 @@ namespace PokedexApp
                 {
                     MostrarNarrador($"¡{pokemonActivo.Nombre} está profundamente dormido y pierde el turno!");
 
-                    // Cambiamos de turno sin permitir atacar
                     miTurno = !miTurno;
                     ActualizarIndicadoresTurno();
                     FinalizarTurno();
@@ -391,7 +427,6 @@ namespace PokedexApp
                 }
             }
 
-            // Flujo normal: Intercambiar turnos y liberar candado de ataque
             atacando = false;
             miTurno = !miTurno;
 
@@ -630,6 +665,18 @@ namespace PokedexApp
                 case 20: // Confundir
                     objetivo.Estado = "Confundido";
                     MostrarNarrador($"¡¡{objetivo.Nombre} empezó a sentirse confundido!");
+                    break;
+
+                case 21: // Drenadoras (Efecto Inicial)
+                    if (!objetivo.TieneDrenadoras)
+                    {
+                        objetivo.TieneDrenadoras = true;
+                        MostrarNarrador($"¡{objetivo.Nombre} ha sido infectado con Drenadoras!");
+                    }
+                    else
+                    {
+                        MostrarNarrador($"¡{objetivo.Nombre} ya tenía Drenadoras!");
+                    }
                     break;
 
                 case 28: // ReiniciarEstadisticas

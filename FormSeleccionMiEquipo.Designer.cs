@@ -48,9 +48,9 @@
             // 
             // btnConfirmar
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(479, 431);
+            this.btnConfirmar.Location = new System.Drawing.Point(609, 348);
             this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(75, 23);
+            this.btnConfirmar.Size = new System.Drawing.Size(169, 44);
             this.btnConfirmar.TabIndex = 0;
             this.btnConfirmar.Text = "Confirmar";
             this.btnConfirmar.UseVisualStyleBackColor = true;
@@ -82,20 +82,22 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(479, 389);
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnCancelar.Location = new System.Drawing.Point(609, 410);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(169, 44);
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 30);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(31, 29);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(294, 16);
+            this.label2.Size = new System.Drawing.Size(367, 20);
             this.label2.TabIndex = 5;
             this.label2.Text = "Selecciona tus 3 cartas pokemon para la batalla";
             // 
@@ -106,14 +108,14 @@
             this.txtDetalles.Name = "txtDetalles";
             this.txtDetalles.ReadOnly = true;
             this.txtDetalles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDetalles.Size = new System.Drawing.Size(413, 119);
+            this.txtDetalles.Size = new System.Drawing.Size(549, 119);
             this.txtDetalles.TabIndex = 6;
             // 
             // btnRemover
             // 
             this.btnRemover.Location = new System.Drawing.Point(156, 297);
             this.btnRemover.Name = "btnRemover";
-            this.btnRemover.Size = new System.Drawing.Size(75, 32);
+            this.btnRemover.Size = new System.Drawing.Size(94, 32);
             this.btnRemover.TabIndex = 7;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
@@ -131,9 +133,9 @@
             // 
             // picCarta
             // 
-            this.picCarta.Location = new System.Drawing.Point(613, 94);
+            this.picCarta.Location = new System.Drawing.Point(609, 67);
             this.picCarta.Name = "picCarta";
-            this.picCarta.Size = new System.Drawing.Size(146, 173);
+            this.picCarta.Size = new System.Drawing.Size(169, 215);
             this.picCarta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCarta.TabIndex = 9;
             this.picCarta.TabStop = false;
@@ -161,6 +163,7 @@
             this.Controls.Add(this.DGVListMisCartas);
             this.Controls.Add(this.btnConfirmar);
             this.Name = "FormSeleccionMiEquipo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormSeleccionMiEquipo";
             this.Load += new System.EventHandler(this.FormSeleccionEquipoCartas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListMisCartas)).EndInit();

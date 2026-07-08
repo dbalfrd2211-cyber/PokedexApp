@@ -286,7 +286,7 @@
             // 
             // picSobre
             // 
-            this.picSobre.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.picSobre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picSobre.Location = new System.Drawing.Point(583, 421);
             this.picSobre.Name = "picSobre";
             this.picSobre.Size = new System.Drawing.Size(204, 287);
@@ -296,7 +296,7 @@
             // 
             // btnSobre
             // 
-            this.btnSobre.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnSobre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSobre.BackColor = System.Drawing.Color.Transparent;
             this.btnSobre.BackgroundImage = global::PokedexApp.Properties.Resources.Boton3;
             this.btnSobre.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
