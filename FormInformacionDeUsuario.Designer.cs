@@ -40,6 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnHistorialIntercambio = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVCartasUsuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -179,6 +180,17 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Partidas perdidas:";
             // 
+            // btnHistorialIntercambio
+            // 
+            this.btnHistorialIntercambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHistorialIntercambio.Location = new System.Drawing.Point(508, 365);
+            this.btnHistorialIntercambio.Name = "btnHistorialIntercambio";
+            this.btnHistorialIntercambio.Size = new System.Drawing.Size(267, 34);
+            this.btnHistorialIntercambio.TabIndex = 9;
+            this.btnHistorialIntercambio.Text = "Historial De Intercambios";
+            this.btnHistorialIntercambio.UseVisualStyleBackColor = true;
+            this.btnHistorialIntercambio.Click += new System.EventHandler(this.btnHistorialIntercambio_Click);
+            // 
             // FormInformacionDeUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -188,6 +200,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnHistorialIntercambio);
             this.Controls.Add(this.btnEliminarCartaUsuario);
             this.Controls.Add(this.DGVCartasUsuario);
             this.Controls.Add(this.lblCartas);
@@ -219,5 +232,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnHistorialIntercambio;
     }
 }

@@ -80,6 +80,12 @@
     <Compile Include="Database.cs" />
     <Compile Include="Efectos.cs" />
     <Compile Include="EstadisticasPokemon.cs" />
+    <Compile Include="FormHistorialIntercambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHistorialIntercambios.Designer.cs">
+      <DependentUpon>FormHistorialIntercambios.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormInformacionDeUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormBatalla.resx">
       <DependentUpon>FormBatalla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHistorialIntercambios.resx">
+      <DependentUpon>FormHistorialIntercambios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInformacionDeUsuario.resx">
       <DependentUpon>FormInformacionDeUsuario.cs</DependentUpon>

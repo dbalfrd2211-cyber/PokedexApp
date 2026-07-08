@@ -18,6 +18,7 @@ namespace PokedexApp
             this.usuario = usuario;
             this.info = info;
             this.Load += FormInformacionDeUsuario_Load;
+
         }
 
         public void FormInformacionDeUsuario_Load(object sender, EventArgs e)
@@ -51,6 +52,11 @@ namespace PokedexApp
 
             DGVCartasUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVCartasUsuario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            if (DGVCartasUsuario.Columns["DetallesAtaque"] != null)
+            {
+                DGVCartasUsuario.Columns["DetallesAtaque"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            }
 
             MostrarImagenesEnGrid();
         }
@@ -151,6 +157,12 @@ namespace PokedexApp
                     }
                 }
             }
+        }
+
+        private void btnHistorialIntercambio_Click(object sender, EventArgs e)
+        {
+            FormHistorialIntercambios frmHistorial = new FormHistorialIntercambios(usuario);
+            frmHistorial.ShowDialog();
         }
     }
 }
