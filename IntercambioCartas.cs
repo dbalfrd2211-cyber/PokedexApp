@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace PokedexApp
 {
@@ -19,13 +21,18 @@ namespace PokedexApp
             InitializeComponent();
             this.usuarioLogueado = usuarioLogueado;
             this.usuario2 = usuario2;
+            this.FormClosing += IntercambioCartas_FormClosing;
         }
 
         private void IntercambioCartas_Load(object sender, EventArgs e)
         {
             txtUserInter1.Text = $"Anfitrión: {Sesion.NombreUsuarioActual}";
-            DGVAgregarU1.DataSource = manager.ObtenerCartasUsuario(usuarioLogueado.IdUsuario);
+            ActualizarTodoElContenido();
+        }
 
+        private void ActualizarTodoElContenido()
+        {
+            DGVAgregarU1.DataSource = manager.ObtenerCartasUsuario(usuarioLogueado.IdUsuario);
             if (usuario2 != null)
             {
                 lblUsuario2.Text = $"Usuario 2: {usuario2.NombreUsuario}";
@@ -34,12 +41,64 @@ namespace PokedexApp
 
             DGVIntercambiarU1.DataSource = cartasinteru1;
             DGVIntercambiarU2.DataSource = cartasinteru2;
+
+            ConfigurarYMostrarImagenes(DGVAgregarU1);
+            ConfigurarYMostrarImagenes(DGVIntercambiarU1);
+            if (usuario2 != null)
+            {
+                ConfigurarYMostrarImagenes(DGVAgregarU2);
+                ConfigurarYMostrarImagenes(DGVIntercambiarU2);
+            }
+        }
+
+        private void ConfigurarYMostrarImagenes(DataGridView dgv)
+        {
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            if (dgv.Columns["Imagen"] != null)
+            {
+                dgv.Columns["Imagen"].Visible = false;
+            }
+
+            if (dgv.Columns["ColumnaFoto"] == null)
+            {
+                DataGridViewImageColumn colFoto = new DataGridViewImageColumn();
+                colFoto.Name = "ColumnaFoto";
+                colFoto.HeaderText = "Carta";
+                colFoto.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                dgv.Columns.Add(colFoto);
+            }
+
+            foreach (DataGridViewRow fila in dgv.Rows)
+            {
+                if (fila.IsNewRow) continue;
+                if (fila.DataBoundItem is Cartas c)
+                {
+                    string nombreArchivo = c.IdPokemon.ToString() + ".jpeg";
+                    string ruta = Path.Combine(Application.StartupPath, "Imagenes", nombreArchivo);
+
+                    if (File.Exists(ruta))
+                    {
+                        fila.Cells["ColumnaFoto"].Value = Image.FromFile(ruta);
+                    }
+                    else
+                    {
+                        string rutaDefault = Path.Combine(Application.StartupPath, "Imagenes", "default.jpeg");
+                        if (File.Exists(rutaDefault))
+                            fila.Cells["ColumnaFoto"].Value = Image.FromFile(rutaDefault);
+                    }
+                }
+            }
         }
 
         private void ActualizarDataGridsIntercambio()
         {
-            DGVIntercambiarU1.ResetBindings();
-            DGVIntercambiarU2.ResetBindings();
+            cartasinteru1.ResetBindings();
+            cartasinteru2.ResetBindings();
+
+            ConfigurarYMostrarImagenes(DGVIntercambiarU1);
+            ConfigurarYMostrarImagenes(DGVIntercambiarU2);
         }
 
 
@@ -53,7 +112,6 @@ namespace PokedexApp
                 {
                     cartasinteru1.Add(cartaSeleccionada);
                     ActualizarDataGridsIntercambio();
-
                 }
             }
         }
@@ -67,7 +125,6 @@ namespace PokedexApp
                 {
                     cartasinteru2.Add(cartaSeleccionada);
                     ActualizarDataGridsIntercambio();
-
                 }
             }
         }
@@ -125,19 +182,13 @@ namespace PokedexApp
                     cartasinteru1.Clear();
                     cartasinteru2.Clear();
 
-                    DGVAgregarU1.DataSource = manager.ObtenerCartasUsuario(usuarioLogueado.IdUsuario);
-                    DGVAgregarU2.DataSource = manager.ObtenerCartasUsuario(usuario2.IdUsuario);
-
-                    ActualizarDataGridsIntercambio();
+                    ActualizarTodoElContenido();
                 }
-
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al realizar el intercambio" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al realizar el intercambio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-
         }
 
         private void RealizarIntercambioDeCartas()
@@ -152,7 +203,6 @@ namespace PokedexApp
                         // para usuario 1
                         foreach (var carta in cartasinteru1)
                         {
-
                             string deleteQuery = "DELETE FROM ColeccionUsuario WHERE IdUsuario = @u1 AND IdPokemon = @idp";
                             using (var cmd = new System.Data.SQLite.SQLiteCommand(deleteQuery, conn, transaccion))
                             {
@@ -173,7 +223,6 @@ namespace PokedexApp
                         // para usuario 2
                         foreach (var carta in cartasinteru2)
                         {
-
                             string deleteQuery = "DELETE FROM ColeccionUsuario WHERE IdUsuario = @u2 AND IdPokemon = @idp";
                             using (var cmd = new System.Data.SQLite.SQLiteCommand(deleteQuery, conn, transaccion))
                             {
@@ -193,7 +242,6 @@ namespace PokedexApp
 
                         transaccion.Commit();
                     }
-
                     catch
                     {
                         transaccion.Rollback();
@@ -206,6 +254,24 @@ namespace PokedexApp
         private void btnRegresarVM_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void IntercambioCartas_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Action<DataGridView> liberarGrid = (dgv) => {
+                foreach (DataGridViewRow fila in dgv.Rows)
+                {
+                    if (dgv.Columns["ColumnaFoto"] != null && fila.Cells["ColumnaFoto"].Value is Image img)
+                    {
+                        img.Dispose();
+                    }
+                }
+            };
+
+            liberarGrid(DGVAgregarU1);
+            liberarGrid(DGVIntercambiarU1);
+            liberarGrid(DGVAgregarU2);
+            liberarGrid(DGVIntercambiarU2);
         }
     }
 }
