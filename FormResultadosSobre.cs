@@ -14,6 +14,12 @@ namespace PokedexApp
     public partial class FormResultadosSobre : Form
     {
         private List<Cartas> cartasRecibidas;
+
+        //los de aqui para mi giro
+        private List<PictureBox> listaPics;
+        private Timer timerGiro = new Timer();
+        private int pasosGiro = 0;
+       
         public FormResultadosSobre(List<Cartas> cartas)
         {
             InitializeComponent();
@@ -51,7 +57,56 @@ namespace PokedexApp
 
         private void FormResultadosSobre_Load(object sender, EventArgs e)
         {
+            listaPics = new List<PictureBox> { picCarta1, picCarta2, picCarta3 };
 
+            timerGiro.Interval = 30;
+            timerGiro.Tick += timerGirar_Tick;
+
+            
+            foreach (var pic in listaPics)
+            {
+                pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                string rutaReverso = Path.Combine(Application.StartupPath, "Imagenes", "reverso.png");
+                if (File.Exists(rutaReverso)) pic.Image = Image.FromFile(rutaReverso);
+            }
+
+            timerGiro.Start();
+        
+
+        }
+
+        private void timerGirar_Tick(object sender, EventArgs e)
+        {
+            pasosGiro++;
+
+            foreach (var pic in listaPics)
+            {
+                
+                if (pasosGiro <= 10)
+                {
+                   
+                    pic.Width -= 10;
+                    pic.Left += 5; 
+                }
+                else if (pasosGiro == 11)
+                {
+
+                    int index = listaPics.IndexOf(pic);
+                    pic.Image = CargarImagenCarta(cartasRecibidas[index]);
+                    pic.Width = 10;
+                }
+                else if (pasosGiro <= 20)
+                {
+
+                    pic.Width += 10;
+                    pic.Left -= 5;
+                }
+            }
+
+            if (pasosGiro >= 20)
+            {
+                timerGiro.Stop();
+            }
         }
 
         private void btnContinuarReclamar_Click(object sender, EventArgs e)

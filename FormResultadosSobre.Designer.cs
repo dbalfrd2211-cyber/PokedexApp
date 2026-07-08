@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.picCarta3 = new System.Windows.Forms.PictureBox();
             this.picCarta2 = new System.Windows.Forms.PictureBox();
             this.picCarta1 = new System.Windows.Forms.PictureBox();
+            this.timerGirar = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.btnContinuarReclamar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picCarta3)).BeginInit();
@@ -70,6 +73,11 @@
             this.picCarta1.TabIndex = 0;
             this.picCarta1.TabStop = false;
             this.picCarta1.Click += new System.EventHandler(this.picCarta3_Click);
+            // 
+            // timerGirar
+            // 
+            this.timerGirar.Interval = 900;
+            this.timerGirar.Tick += new System.EventHandler(this.timerGirar_Tick);
             // 
             // btnContinuarReclamar
             // 
@@ -119,6 +127,8 @@
         private System.Windows.Forms.PictureBox picCarta1;
         private System.Windows.Forms.PictureBox picCarta2;
         private System.Windows.Forms.PictureBox picCarta3;
+        private System.Windows.Forms.Timer timerGirar;
+        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button btnContinuarReclamar;
         private System.Windows.Forms.Label label1;
     }
