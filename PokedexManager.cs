@@ -628,7 +628,7 @@ namespace PokedexApp
                     {
                         for (int i = 0; i < 3; i++)
                         {
-                            int prob = rnd.Next(1, 101);
+                            int prob = rnd.Next(1, 151);
                             string rareza = (prob <= 70) ? "Comun" : (prob <= 95) ? "Rara" : "Legendaria";
                             var filtradas = todas.FindAll(c => c.Rareza == rareza);
 

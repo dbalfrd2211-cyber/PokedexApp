@@ -238,8 +238,7 @@ namespace PokedexApp
                 switch (regionActual.Trim().ToLower())
                 {
                     case "kanto":
-                        // Empujamos a -30 para esconder el borde gris izquierdo
-                        // Y en -380 para centrarla perfectamente en vertical
+                     
                         picMapa.Location = new Point(-30, -370);
                         break;
 
