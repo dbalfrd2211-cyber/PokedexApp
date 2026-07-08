@@ -77,6 +77,7 @@
             this.DGVListadoCartas.Size = new System.Drawing.Size(527, 273);
             this.DGVListadoCartas.TabIndex = 0;
             this.DGVListadoCartas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoCartas_CellContentClick);
+            this.DGVListadoCartas.SelectionChanged += new System.EventHandler(this.DGVListadoCartas_SelectionChanged);
             // 
             // label1
             // 
@@ -298,7 +299,7 @@
             // 
             this.btnSobre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSobre.BackColor = System.Drawing.Color.Transparent;
-            this.btnSobre.BackgroundImage = global::PokedexApp.Properties.Resources.Boton3;
+            this.btnSobre.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSobre.BackgroundImage")));
             this.btnSobre.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSobre.FlatAppearance.BorderSize = 0;
             this.btnSobre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

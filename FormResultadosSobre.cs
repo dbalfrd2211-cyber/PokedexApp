@@ -16,6 +16,8 @@ namespace PokedexApp
         private List<Cartas> cartasRecibidas;
 
         //los de aqui para mi giro
+        private int anchoOriginal = 0;
+        private List<int> posicionesIzquierdasOriginales = new List<int>();
         private List<PictureBox> listaPics;
         private Timer timerGiro = new Timer();
         private int pasosGiro = 0;
@@ -59,6 +61,9 @@ namespace PokedexApp
         {
             listaPics = new List<PictureBox> { picCarta1, picCarta2, picCarta3 };
 
+            if (listaPics.Count > 0) anchoOriginal = listaPics[0].Width;
+            foreach (var pic in listaPics) posicionesIzquierdasOriginales.Add(pic.Left);
+
             timerGiro.Interval = 30;
             timerGiro.Tick += timerGirar_Tick;
 
@@ -97,7 +102,6 @@ namespace PokedexApp
                 }
                 else if (pasosGiro <= 20)
                 {
-
                     pic.Width += 10;
                     pic.Left -= 5;
                 }
@@ -106,6 +110,12 @@ namespace PokedexApp
             if (pasosGiro >= 20)
             {
                 timerGiro.Stop();
+
+                for (int i = 0; i < listaPics.Count; i++)
+                {
+                    listaPics[i].Width = anchoOriginal;
+                    listaPics[i].Left = posicionesIzquierdasOriginales[i];
+                }
             }
         }
 

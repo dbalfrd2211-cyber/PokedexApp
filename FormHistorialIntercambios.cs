@@ -24,10 +24,10 @@ namespace PokedexApp
 
         private void FormHistorialIntercambios_Load(object sender, EventArgs e)
         {
-            CargarHistorial();
+            CargarHistorial(DTPHistorial.Value);
         }
 
-        private void CargarHistorial()
+        private void CargarHistorial(DateTime fechaFiltro)
         {
             DataTable dtHistorial = new DataTable();
 
@@ -36,21 +36,24 @@ namespace PokedexApp
                 conn.Open();
 
                 string query = @"
-                    SELECT 
-                        T.Fecha,
-                        U1.NombreUsuario AS Emisor,
-                        U2.NombreUsuario AS Receptor,
-                        T.IdPokemonEntregado1,
-                        T.IdPokemonEntregado2
-                    FROM Transacciones T
-                    JOIN Usuarios U1 ON T.IdUsuarioEmisor = U1.IdUsuario
-                    JOIN Usuarios U2 ON T.IdUsuarioReceptor = U2.IdUsuario
-                    WHERE T.IdUsuarioEmisor = @id OR T.IdUsuarioReceptor = @id
-                    ORDER BY T.Fecha DESC";
+            SELECT 
+                T.Fecha,
+                U1.NombreUsuario AS Emisor,
+                U2.NombreUsuario AS Receptor,
+                T.IdPokemonEntregado1,
+                T.IdPokemonEntregado2
+            FROM Transacciones T
+            JOIN Usuarios U1 ON T.IdUsuarioEmisor = U1.IdUsuario
+            JOIN Usuarios U2 ON T.IdUsuarioReceptor = U2.IdUsuario
+            WHERE (T.IdUsuarioEmisor = @id OR T.IdUsuarioReceptor = @id)
+              AND DATE(T.Fecha) = DATE(@fecha)
+            ORDER BY T.Fecha DESC";
 
                 using (var cmd = new System.Data.SQLite.SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", usuarioLogueado.IdUsuario);
+                    cmd.Parameters.AddWithValue("@fecha", fechaFiltro.ToString("yyyy-MM-dd"));
+
                     using (var da = new System.Data.SQLite.SQLiteDataAdapter(cmd))
                     {
                         da.Fill(dtHistorial);
@@ -117,6 +120,11 @@ namespace PokedexApp
                     }
                 }
             }
+        }
+
+        private void DTPHistorial_ValueChanged(object sender, EventArgs e)
+        {
+            CargarHistorial(DTPHistorial.Value);
         }
     }
 }
