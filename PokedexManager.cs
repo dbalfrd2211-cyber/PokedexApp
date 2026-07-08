@@ -132,26 +132,31 @@ namespace PokedexApp
             {
                 conn.Open();
                 string query = @"SELECT IdPokemon, HP, Rareza, NumeroColeccion, Nombre, DetallesAtaques 
-                 FROM VistaCartasMaestra 
-                 WHERE TRIM(LOWER(Nombre)) LIKE LOWER(@nombre)";
+                         FROM VistaCartasMaestra 
+                         WHERE TRIM(LOWER(Nombre)) LIKE LOWER(@nombre)";
+
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
-                    string filtro = "%" + nombre.Trim() + "%";
-                    cmd.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
+                    cmd.Parameters.AddWithValue("@nombre", "%" + nombre.Trim() + "%");
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            lista.Add(new Cartas(
-                                0,
+                            int numColeccion = Convert.ToInt32(reader["NumeroColeccion"]);
+
+                            Cartas carta = new Cartas(
+                                numColeccion,                        
                                 Convert.ToInt32(reader["IdPokemon"]),
-                                Convert.ToInt32(reader["HP"]),
-                                reader["Rareza"].ToString(),
-                                Convert.ToInt32(reader["NumeroColeccion"]),
-                                reader["Nombre"].ToString(),
-                                reader["DetallesAtaques"]?.ToString() ?? "Sin ataques",
-                                "default.png"
-                            ));
+                                Convert.ToInt32(reader["HP"]),       
+                                reader["Rareza"].ToString(),         
+                                numColeccion,                        
+                                reader["Nombre"].ToString(),         
+                                reader["DetallesAtaques"]?.ToString() ?? "Sin ataques", 
+                                "default.png"                       
+                            );
+                            carta.Id = numColeccion;
+
+                            lista.Add(carta);
                         }
                     }
                 }
