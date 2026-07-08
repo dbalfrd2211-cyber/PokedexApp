@@ -106,8 +106,12 @@ namespace PokedexApp
             txtDetallesPokemon.ReadOnly = true;
 
             DGVListadoCartas.DataSource = manager.AllDatoPokemon();
-            DGVListadoCartas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            if (DGVListadoCartas.Columns["Imagen"] != null)
+            {
+                DGVListadoCartas.Columns["Imagen"].Visible = false;
+            }
+            DGVListadoCartas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DGVListadoCartas.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             DGVListadoCartas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 

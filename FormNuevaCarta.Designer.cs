@@ -96,7 +96,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 380);
+            this.label4.Location = new System.Drawing.Point(27, 380);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(135, 16);
             this.label4.TabIndex = 3;
@@ -104,14 +104,14 @@
             // 
             // txtIdPokemon
             // 
-            this.txtIdPokemon.Location = new System.Drawing.Point(143, 5);
+            this.txtIdPokemon.Location = new System.Drawing.Point(173, 12);
             this.txtIdPokemon.Name = "txtIdPokemon";
             this.txtIdPokemon.Size = new System.Drawing.Size(174, 22);
             this.txtIdPokemon.TabIndex = 4;
             // 
             // txtHP
             // 
-            this.txtHP.Location = new System.Drawing.Point(143, 131);
+            this.txtHP.Location = new System.Drawing.Point(173, 131);
             this.txtHP.Name = "txtHP";
             this.txtHP.Size = new System.Drawing.Size(174, 22);
             this.txtHP.TabIndex = 5;
@@ -125,7 +125,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(396, 394);
+            this.btnGuardar.Location = new System.Drawing.Point(263, 456);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(94, 34);
             this.btnGuardar.TabIndex = 8;
@@ -144,14 +144,14 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(143, 80);
+            this.txtNombre.Location = new System.Drawing.Point(173, 83);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(174, 22);
             this.txtNombre.TabIndex = 10;
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(694, 391);
+            this.btnVolver.Location = new System.Drawing.Point(415, 456);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(94, 34);
             this.btnVolver.TabIndex = 13;
@@ -167,7 +167,7 @@
             "Comun",
             "Rara",
             "Legendaria"});
-            this.cmbRareza.Location = new System.Drawing.Point(143, 284);
+            this.cmbRareza.Location = new System.Drawing.Point(173, 284);
             this.cmbRareza.Name = "cmbRareza";
             this.cmbRareza.Size = new System.Drawing.Size(174, 24);
             this.cmbRareza.TabIndex = 14;
@@ -184,7 +184,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(140, 30);
+            this.label7.Location = new System.Drawing.Point(156, 37);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(220, 16);
             this.label7.TabIndex = 16;
@@ -194,7 +194,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(140, 156);
+            this.label8.Location = new System.Drawing.Point(170, 156);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(157, 16);
             this.label8.TabIndex = 17;
@@ -231,14 +231,14 @@
             "Tierra",
             "Veneno",
             "Volador"});
-            this.cmbTipo1.Location = new System.Drawing.Point(143, 242);
+            this.cmbTipo1.Location = new System.Drawing.Point(173, 242);
             this.cmbTipo1.Name = "cmbTipo1";
             this.cmbTipo1.Size = new System.Drawing.Size(174, 24);
             this.cmbTipo1.TabIndex = 19;
             // 
             // txtPokedex
             // 
-            this.txtPokedex.Location = new System.Drawing.Point(143, 192);
+            this.txtPokedex.Location = new System.Drawing.Point(173, 192);
             this.txtPokedex.Name = "txtPokedex";
             this.txtPokedex.Size = new System.Drawing.Size(174, 22);
             this.txtPokedex.TabIndex = 20;
@@ -283,7 +283,7 @@
             "Alola",
             "Galar",
             "Paldea"});
-            this.cmbRegion.Location = new System.Drawing.Point(143, 337);
+            this.cmbRegion.Location = new System.Drawing.Point(173, 337);
             this.cmbRegion.Name = "cmbRegion";
             this.cmbRegion.Size = new System.Drawing.Size(174, 24);
             this.cmbRegion.TabIndex = 24;
@@ -340,7 +340,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(140, 217);
+            this.label15.Location = new System.Drawing.Point(170, 217);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(189, 16);
             this.label15.TabIndex = 31;
@@ -371,7 +371,7 @@
             // chkAtaques
             // 
             this.chkAtaques.FormattingEnabled = true;
-            this.chkAtaques.Location = new System.Drawing.Point(552, 144);
+            this.chkAtaques.Location = new System.Drawing.Point(552, 169);
             this.chkAtaques.Name = "chkAtaques";
             this.chkAtaques.Size = new System.Drawing.Size(223, 89);
             this.chkAtaques.TabIndex = 34;
@@ -379,16 +379,16 @@
             // 
             // picNuevaImagen
             // 
-            this.picNuevaImagen.Location = new System.Drawing.Point(552, 239);
+            this.picNuevaImagen.Location = new System.Drawing.Point(648, 284);
             this.picNuevaImagen.Name = "picNuevaImagen";
-            this.picNuevaImagen.Size = new System.Drawing.Size(148, 146);
+            this.picNuevaImagen.Size = new System.Drawing.Size(127, 143);
             this.picNuevaImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picNuevaImagen.TabIndex = 35;
             this.picNuevaImagen.TabStop = false;
             // 
             // btnSubirImagen
             // 
-            this.btnSubirImagen.Location = new System.Drawing.Point(415, 310);
+            this.btnSubirImagen.Location = new System.Drawing.Point(414, 284);
             this.btnSubirImagen.Name = "btnSubirImagen";
             this.btnSubirImagen.Size = new System.Drawing.Size(131, 23);
             this.btnSubirImagen.TabIndex = 36;
@@ -399,7 +399,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(411, 177);
+            this.label16.Location = new System.Drawing.Point(412, 169);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(60, 16);
             this.label16.TabIndex = 37;
@@ -409,7 +409,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(803, 502);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.btnSubirImagen);
             this.Controls.Add(this.picNuevaImagen);
