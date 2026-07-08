@@ -89,7 +89,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(28, 458);
+            this.label2.Location = new System.Drawing.Point(28, 459);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(193, 16);
             this.label2.TabIndex = 2;
@@ -100,7 +100,7 @@
             this.txtDetallesPokemon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDetallesPokemon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 477);
+            this.txtDetallesPokemon.Location = new System.Drawing.Point(31, 478);
             this.txtDetallesPokemon.Multiline = true;
             this.txtDetallesPokemon.Name = "txtDetallesPokemon";
             this.txtDetallesPokemon.ReadOnly = true;
@@ -130,7 +130,7 @@
             // 
             // btnAñadirAColeccion
             // 
-            this.btnAñadirAColeccion.Location = new System.Drawing.Point(31, 652);
+            this.btnAñadirAColeccion.Location = new System.Drawing.Point(31, 653);
             this.btnAñadirAColeccion.Name = "btnAñadirAColeccion";
             this.btnAñadirAColeccion.Size = new System.Drawing.Size(126, 56);
             this.btnAñadirAColeccion.TabIndex = 10;
@@ -140,7 +140,7 @@
             // 
             // btnCrearNuevaCarta
             // 
-            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(224, 652);
+            this.btnCrearNuevaCarta.Location = new System.Drawing.Point(224, 653);
             this.btnCrearNuevaCarta.Name = "btnCrearNuevaCarta";
             this.btnCrearNuevaCarta.Size = new System.Drawing.Size(126, 56);
             this.btnCrearNuevaCarta.TabIndex = 11;
@@ -252,7 +252,7 @@
             // 
             // btnEliminarCarta
             // 
-            this.btnEliminarCarta.Location = new System.Drawing.Point(411, 652);
+            this.btnEliminarCarta.Location = new System.Drawing.Point(411, 653);
             this.btnEliminarCarta.Name = "btnEliminarCarta";
             this.btnEliminarCarta.Size = new System.Drawing.Size(126, 56);
             this.btnEliminarCarta.TabIndex = 25;
@@ -287,7 +287,7 @@
             // picSobre
             // 
             this.picSobre.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.picSobre.Location = new System.Drawing.Point(564, 416);
+            this.picSobre.Location = new System.Drawing.Point(583, 421);
             this.picSobre.Name = "picSobre";
             this.picSobre.Size = new System.Drawing.Size(204, 287);
             this.picSobre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -296,17 +296,17 @@
             // 
             // btnSobre
             // 
-            this.btnSobre.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSobre.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnSobre.BackColor = System.Drawing.Color.Transparent;
             this.btnSobre.BackgroundImage = global::PokedexApp.Properties.Resources.Boton3;
             this.btnSobre.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSobre.FlatAppearance.BorderSize = 0;
             this.btnSobre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSobre.Font = new System.Drawing.Font("Monotype Corsiva", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSobre.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSobre.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSobre.Location = new System.Drawing.Point(578, 517);
+            this.btnSobre.Location = new System.Drawing.Point(590, 469);
             this.btnSobre.Name = "btnSobre";
-            this.btnSobre.Size = new System.Drawing.Size(190, 209);
+            this.btnSobre.Size = new System.Drawing.Size(190, 170);
             this.btnSobre.TabIndex = 28;
             this.btnSobre.Text = "Abrir Mi Sobre Diario";
             this.btnSobre.UseVisualStyleBackColor = false;
