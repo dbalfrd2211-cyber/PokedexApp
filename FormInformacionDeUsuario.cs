@@ -154,7 +154,7 @@ namespace PokedexApp
                     else
                     {
                         MessageBox.Show("Error al eliminar la carta.");
-                    }
+                    }                                                                                                                            
                 }
             }
         }
